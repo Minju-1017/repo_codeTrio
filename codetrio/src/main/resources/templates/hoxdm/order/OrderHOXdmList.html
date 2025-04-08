@@ -43,10 +43,10 @@
 								<span class="nav-link-text">주문관리</span>
 							</div>
 						</a>
-						<div id="navCategoriesService" class="collapse" data-bs-parent="#sideNavbar">
+						<div id="navCategoriesService" class="collapse show" data-bs-parent="#sideNavbar">
 							<ul class="nav flex-column">
 								<li class="nav-item">
-									<a class="nav-link" href="/hoxdm/order/OrderHOXdmList">유저 주문관리</a>
+									<a class="nav-link active" href="/hoxdm/order/OrderHOXdmList">유저 주문관리</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="#">거래처 주문관리</a>
@@ -71,13 +71,13 @@
 								<span class="nav-link-text">시스템관리</span>
 							</div>
 						</a>
-						<div id="navCategoriesOrders" class="collapse show" data-bs-parent="#sideNavbar">
+						<div id="navCategoriesOrders" class="collapse " data-bs-parent="#sideNavbar">
 							<ul class="nav flex-column">
 								<li class="nav-item">
 									<a class="nav-link" href="/hoxdm/code/CodeHOXdmList">코드관리</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link active" href="/hoxdm/codegroup/CodeGroupHOXdmList">코드그룹관리</a>
+									<a class="nav-link " href="/hoxdm/codegroup/CodeGroupHOXdmList">코드그룹관리</a>
 								</li>
 							</ul>
 						</div>
@@ -127,10 +127,10 @@
 								<span class="nav-link-text">주문관리</span>
 							</div>
 						</a>
-						<div id="navCategoriesService" class="collapse" data-bs-parent="#sideNavbar">
+						<div id="navCategoriesService" class="collapse show" data-bs-parent="#sideNavbar">
 							<ul class="nav flex-column">
 								<li class="nav-item">
-									<a class="nav-link" href="/hoxdm/order/OrderHOXdmList">유저 주문관리</a>
+									<a class="nav-link active" href="/hoxdm/order/OrderHOXdmList">유저 주문관리</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="#">거래처 주문관리</a>
@@ -177,7 +177,7 @@
 			
 			<input type="hidden" name="currPage" th:value="${vo.currPage}" default="1"/>
 			<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-			<input type="hidden" name="cgSeq">
+			<input type="hidden" name="oSeq">
 			
 			<div class="container">
 				<div class="row mb-8">
@@ -200,27 +200,27 @@
 												<option value="0" th:selected="${vo.shDelNy == 0}">N</option>            
 											</select>
 										</div>
-										<div class="col-lg-2 col-12">
-											<select class="form-select"id="shOptionDate" name="shOptionDate">
-												<option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
-												<option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
-												<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
-											</select>
-										</div>
-										<div class="col-lg-2 col-12">
-											<input type="text" class="form-control" id="shDateStart"  name="shDateStart"
-												placeholder="시작일" autocomplete="off" readonly>
-										</div>
-										<div class="col-lg-2 col-12">
-											<input type="text" class="form-control" id="shDateEnd" name="shDateEnd"
-												placeholder="종료일" autocomplete="off" readonly>
-										</div>
-										<div class="col-lg-4 col-12"></div>
+<!-- 										<div class="col-lg-2 col-12"> -->
+<!-- 											<select class="form-select"id="shOptionDate" name="shOptionDate"> -->
+<!-- 												<option value="" th:selected="${vo.shOptionDate == null}">날짜</option> -->
+<!-- 												<option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option> -->
+<!-- 												<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option> -->
+<!-- 											</select> -->
+<!-- 										</div> -->
+<!-- 										<div class="col-lg-2 col-12"> -->
+<!-- 											<input type="text" class="form-control" id="shDateStart"  name="shDateStart" -->
+<!-- 												placeholder="시작일" autocomplete="off" readonly> -->
+<!-- 										</div> -->
+<!-- 										<div class="col-lg-2 col-12"> -->
+<!-- 											<input type="text" class="form-control" id="shDateEnd" name="shDateEnd" -->
+<!-- 												placeholder="종료일" autocomplete="off" readonly> -->
+<!-- 										</div> -->
+<!-- 										<div class="col-lg-4 col-12"></div> -->
 										<div class="col-lg-2 col-12">
 											<select class="form-select" id="shOption" name="shOption">
 												<option value="" th:selected="${vo.shOption == null}">검색구분</option>
-												<option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
-												<option value="2" th:selected="${vo.shOption == 2}">코드그룹 이름</option>
+												<option value="1" th:selected="${vo.shOption == 1}">주문상태</option>
+												<option value="2" th:selected="${vo.shOption == 2}">수취인</option>
 											</select>
 										</div>
 										<div class="col-lg-2 col-12">
@@ -231,7 +231,7 @@
 										<div class="col-lg-6 col-12">
 											<div class="d-flex flex-column flex-md-row gap-2">
 												<button type="submit" id="btnSearch" class="btn btn-primary"><i class="bi bi-search"></i></button>
-												<a href="/hoxdm/codegroup/CodeGroupHOXdmList" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i></a>
+												<a href="/hoxdm/order/OrderHOXdmList" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i></a>
 											</div>
 										</div>
 									</div>
@@ -260,34 +260,36 @@
 													</div>
 												</th>
 												<th>#</th>
-												<th>코드그룹 코드</th>
-												<th>코드그룹 이름</th>
-												<th>갯수</th>
+												<th>order seq</th>
+												<th>주문상태</th>
 												<th>등록일</th>
-												<th>수정일</th>
+												<th>수취인</th>
+												<th>수취인 번호</th>
+												<th>수취인 주소</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:if="${#lists.isEmpty(codeGroupList)}">
-												<td class="text-center" colspan="7">
+											<tr th:if="${#lists.isEmpty(orderList)}">
+												<td class="text-center" colspan="8">
 													데이터가 없습니다.
 												</td>
 											</tr> 
-											<tr th:if="${!#lists.isEmpty(codeGroupList)}" th:each="list : ${codeGroupList}">
+											<tr th:if="${!#lists.isEmpty(orderList)}" th:each="list : ${orderList}">
 												<td>
 													<div class="form-check">
-														<input class="form-check-input" type="checkbox" name="check" th:value="${list?.cgSeq}">
+														<input class="form-check-input" type="checkbox" name="check" th:value="${list?.oSeq}">
 													</div>
 												</td>
 												<td th:text="${vo.totalRows - ((vo.currPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-												<td th:text="${list?.cgSeq}"></td>
+												<td th:text="${list?.oSeq}"></td>
 												<td>			
-													<a href="javascript:void(0);" th:text="${list?.cgName}"
-														th:attr="onclick=|goForm('${list.cgSeq}')|"></a>
+													<a href="javascript:void(0);" th:text="${@codeService.selectOneCachedCode(list?.oStateCd)}"
+														th:attr="onclick=|goForm('${list.oSeq}')|"></a>
 												</td>
-												<td th:text="${list?.cCount}"></td>
-												<td th:text="${list?.cgRegDate}"></td>
-												<td th:text="${list?.cgMofDate}"></td>
+												<td th:text="${list?.oDate}"></td>
+												<td th:text="${list?.oReceiver}"></td>
+												<td th:text="${list?.oReceiverTel}"></td>
+												<td th:text="${list?.oReceiverAddr}"></td>
 											</tr>
 										</tbody>
 									</table>
@@ -340,15 +342,14 @@
 
 <!-- 변수 정의 / 공통 함수 -->
 <script type="text/javascript">
-	let seq = document.querySelector("input[name=cgSeq]");
+	let seq = document.querySelector("input[name=oSeq]");
 
 	// URL
 	let fom = document.querySelector("form[name=formList]");
-	let goUrlXdmList = "/hoxdm/codegroup/CodeGroupHOXdmList";
-	let goUrlXdmForm = "/hoxdm/codegroup/CodeGroupHOXdmForm";
-	let goUrlXdmListUeleProc = "/hoxdm/codegroup/CodeGroupListHOXdmUeleProc";
-	let goUrlXdmListDeleProc = "/hoxdm/codegroup/CodeGroupListHOXdmDeleProc";
-
+	let goUrlXdmList = "/hoxdm/order/OrderHOXdmList";
+	let goUrlXdmForm = "/hoxdm/order/OrderHOXdmForm";
+// 	let goUrlXdmListUeleProc = "/hoxdm/codegroup/CodeGroupListHOXdmUeleProc";
+// 	let goUrlXdmListDeleProc = "/hoxdm/codegroup/CodeGroupListHOXdmDeleProc";
 	
 	function submit(goUrl) {
 		fom.action = goUrl;
@@ -360,7 +361,7 @@
 <script type="text/javascript">
 	// 데이터 추가
 	document.getElementById("btnForm").onclick = function () {
-	    goForm(0);
+	    goForm();
 	}
 	
 	// 데이터 추가/수정

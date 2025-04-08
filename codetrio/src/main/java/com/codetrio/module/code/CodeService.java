@@ -54,6 +54,17 @@ public class CodeService {
 		}
 		return codeName;
 	}
+	
+	public static String selectOneCachedCodeInt(int cSeq) throws Exception {
+		String codeName = "";
+		
+		for(CodeDto code : CodeDto.cachedCodeArrayList) {
+			if (code.getcSeq().equals(String.valueOf(cSeq))) {
+				codeName = code.getcName();
+			}
+		}
+		return codeName;
+	}
 	//-->
 	
 	public int selectOneCount(CodeVo vo) {

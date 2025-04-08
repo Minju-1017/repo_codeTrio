@@ -17,8 +17,8 @@ public class OrderController {
 	@Autowired //인터페이스
 	OrderService service;
 	
-	@RequestMapping(value = "OrderHOXdmList")
-	public String OrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
+	@RequestMapping(value = "UserOrderHOXdmList")
+	public String UserOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
 		vo.setParamsPaging(service.selectOneCount(vo));
 		
@@ -26,11 +26,11 @@ public class OrderController {
 			model.addAttribute("orderList", service.selectList(vo));
 		}
 		
-		return path + "OrderHOXdmList"; 
+		return path + "UserOrderHOXdmList"; 
 		}
 	
-	@RequestMapping(value = "OrderHOXdmForm")
-	public String OrderHOXdmForm(@ModelAttribute("vo") OrderVo vo,
+	@RequestMapping(value = "UserOrderHOXdmForm")
+	public String UserOrderHOXdmForm(@ModelAttribute("vo") OrderVo vo,
 			Model model, OrderDto orderDto) throws Exception {
 		
 		if (vo.getoSeq().equals("0") || vo.getoSeq().equals("")) {
@@ -39,15 +39,15 @@ public class OrderController {
 		
 			model.addAttribute("orderItem", service.selectOne(orderDto));
 		}
-		return path + "OrderHOXdmForm";
+		return path + "UserOrderHOXdmForm";
 	}
 	
-	@RequestMapping(value = "OrderHOXdmUpdt")
-	public String OrderHOXdmUpdt(OrderDto orderDto) {
+	@RequestMapping(value = "UserOrderHOXdmUpdt")
+	public String UserOrderHOXdmUpdt(OrderDto orderDto) {
 		
 		service.update(orderDto);	
 
-		return "redirect:OrderHOXdmList";
+		return "redirect:UserOrderHOXdmList";
 	}
 
 }

@@ -6,12 +6,12 @@ import org.springframework.stereotype.Component;
 public class Constants {
 	
 	// Url Path
-	public static String ABBREVIATION_HO_XDM = "HO";	// 본사(Head Office)
-	public static String ABBREVIATION_WH_XDM = "WH";	// 창고(Warehouse)
+	public static String ABBREVIATION_HO_XDM = "hoxdm";	// 본사(Head Office)
+	public static String ABBREVIATION_WH_XDM = "whxdm";	// 창고(Warehouse)
 	
 	// Login Form URL
 	public static String URL_LOGIN_FORM_HO_XDM = "/hoxdm/member/MemberHOXdmSignIn";
-	public static String URL_LOGIN_FORM_WH_XDM = "/whusr/member/MemberWHXdmSignIn";
+	public static String URL_LOGIN_FORM_WH_XDM = "/whxdm/member/MemberWHXdmSignIn";
 	
 	// Login User Seq
 	public static String SESSION_SEQ_NAME_HO_XDM = "sessSeqHOXdm";

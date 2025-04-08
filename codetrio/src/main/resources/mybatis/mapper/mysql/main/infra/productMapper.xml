@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.codetrio.module.product.ProductDao">
+
+	<resultMap type="com.codetrio.module.product.ProductDto"
+		id="resultMapObj"></resultMap>
+	<sql id="selectCommon">
+		from product as a
+		where 1=1
+		<if test="shDelNy != null and !shDelNy.equals('')">AND a.pDelNy = #{shDelNy}</if>
+		<choose>
+			<when
+				test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 1
+					and shDateStart != null and !shDateStart.equals('')
+					and shDateEnd != null and !shDateEnd.equals('')">
+				AND a.pRegDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+			</when>
+			<when
+				test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 2
+					and shDateStart != null and !shDateStart.equals('')
+					and shDateEnd != null and !shDateEnd.equals('')">
+				AND a.pMofDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+			</when>
+		</choose>
+		<choose>
+			<when test="shOption == 1">AND a.pSeq = #{shValue}</when>
+			<when test="shOption == 2">AND a.pName LIKE CONCAT('%',#{shValue},'%')</when>
+			<when test="shOption == 3">AND a.pStock = #{shValue}</when>
+		</choose>
+		ORDER BY a.pSeq DESC
+	</sql>
+	<select id="selectCount" resultType="Integer">
+		select count(*)
+		<include refid="selectCommon"></include>
+	</select>
+
+	<select id="productList" resultMap="resultMapObj">
+		select
+		a.pSeq,
+		a.pCateCd,
+		a.pName,
+		a.pPrice,
+		a.pOption,
+		a.pStock,
+		a.pRegDate,
+		a.pMofDate,
+		a.vender_vSeq,
+		a.pDelNy
+		<include refid="selectCommon"></include>
+	</select>
+</mapper>

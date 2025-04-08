@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @Configuration
-@MapperScan(basePackages = "com.codeTrio.*"							//#-->	*dao 찾는 영역
+@MapperScan(basePackages = "com.codetrio.*"							//#-->	*dao 찾는 영역
         ,sqlSessionFactoryRef = "sqlSessionFactoryMysqlMain")		//#-->
 @EnableTransactionManagement
 

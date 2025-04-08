@@ -17,6 +17,7 @@ public class OrderController {
 	@Autowired //인터페이스
 	OrderService service;
 	
+	//유저
 	@RequestMapping(value = "UserOrderHOXdmList")
 	public String UserOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
@@ -49,5 +50,18 @@ public class OrderController {
 
 		return "redirect:UserOrderHOXdmList";
 	}
+	
+	//거래처
+	@RequestMapping(value = "ClientOrderHOXdmList")
+	public String ClientOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
+		
+		vo.setParamsPaging(service.selectOneCount(vo));
+		
+		if (vo.getTotalRows() > 0) {
+			model.addAttribute("orderList", service.selectList(vo));
+		}
+		
+		return path + "ClientOrderHOXdmList"; 
+		}
 
 }

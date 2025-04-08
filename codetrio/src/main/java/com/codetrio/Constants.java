@@ -21,6 +21,6 @@ public class Constants {
 	public static int SESSION_MINUTE = 60 * 30; // 30분
 	
 	// Order에서 사용하는 코드 그룹
-	public final static int MEMBER_CODE_GROUP_SEQ_ORDER_STATE = 1; // oStateCd
+	public final static int ORDERS_CODE_GROUP_SEQ_ORDER_STATE = 1; // oStateCd
 
 }

@@ -86,7 +86,7 @@ public class CodeController {
 	public String codeHOXdmUpdt(CodeDto codeDto) {
 		service.update(codeDto);	
 
-		return "redirect:CodeXdmList";
+		return "redirect:CodeHOXdmList";
 	}
 	
 	/**

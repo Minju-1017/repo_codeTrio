@@ -216,20 +216,22 @@
 												placeholder="종료일" autocomplete="off" readonly>
 										</div>
 										<div class="col-lg-6 col-12"></div>
+										
+										
+										<div class="col-lg-2 col-12">
+										<select class="form-select" name="oStateCd" id="oStateCd">
+											<option value="" th:selected="${vo.oStateCd == null}">주문상태</option>
+											<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERS_CODE_GROUP_SEQ_ORDER_STATE)}"
+												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
+												th:selected="${#strings.equals(codeList.cSeq, vo.oStateCd)}"></option>
+										</select>
+										</div>
 										<div class="col-lg-2 col-12">
 											<select class="form-select" id="shOption" name="shOption">
 												<option value="" th:selected="${vo.shOption == null}">검색구분</option>
 												<option value="1" th:selected="${vo.shOption == 1}">주문번호</option>
 												<option value="2" th:selected="${vo.shOption == 2}">수취인</option>
 											</select>
-										</div>
-										
-										<div class="col-lg-2 col-12">
-										<select class="form-select" name="oStateCd" id="oStateCd">
-											<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERS_CODE_GROUP_SEQ_ORDER_STATE)}"
-												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
-												th:selected="${#strings.equals(codeList.cSeq, vo.oStateCd)}"></option>
-										</select>
 										</div>
 										<div class="col-lg-2 col-12">
 											<input type="text" class="form-control" id="shValue" name="shValue" 

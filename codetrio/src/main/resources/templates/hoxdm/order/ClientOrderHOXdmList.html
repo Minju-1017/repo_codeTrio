@@ -290,11 +290,9 @@
 												</td>
 												<td th:text="${vo.totalRows - ((vo.currPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
 												<td th:text="${list?.oSeq}"></td>
-												<td ></td>
-												<td>			
-													<a href="javascript:void(0);" th:text="${@codeService.selectOneCachedCode(list?.oStateCd)}"
-														th:attr="onclick=|goForm('${list.oSeq}')|"></a>
-												</td>
+<!-- 											거래처에 캐싱 해야함 -->
+												<td ><a href="javascript:void(0);" th:attr="onclick=|goForm('${list.oSeq}')|"></a> </td>
+												<td th:text="${@codeService.selectOneCachedCode(list?.oStateCd)}"></td>
 												<td th:text="${list?.oDate}"></td>
 											</tr>
 										</tbody>

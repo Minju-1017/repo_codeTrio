@@ -3,7 +3,7 @@ package com.codetrio.module.order;
 public class OrderDto {
 	
 	private String oSeq;
-	private int oStateCd;
+	private String oStateCd;
 	private String oDate;
 	private String oReceiver;
 	private String oReceiverTel;
@@ -17,10 +17,10 @@ public class OrderDto {
 	public void setoSeq(String oSeq) {
 		this.oSeq = oSeq;
 	}
-	public int getoStateCd() {
+	public String getoStateCd() {
 		return oStateCd;
 	}
-	public void setoStateCd(int oStateCd) {
+	public void setoStateCd(String oStateCd) {
 		this.oStateCd = oStateCd;
 	}
 	public String getoDate() {

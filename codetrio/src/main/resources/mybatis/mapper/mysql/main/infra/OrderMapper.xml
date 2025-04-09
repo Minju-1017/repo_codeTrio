@@ -7,6 +7,8 @@
 	<sql id="selectCommon">
 		FROM 
 			orders a
+			left join ordersProduct b 
+			on a.oSeq = b.orders_oSeq
 		WHERE 1=1		
 			<choose>
 				<when test="shOptionDate != null and !shOptionDate.equals('')
@@ -30,7 +32,10 @@
 	    a.oReceiver,
 	    a.oReceiverTel,
 	    a.oReceiverAddr,
-	    a.user_uSeq
+	    a.user_uSeq,
+	    b.opSeq,
+	    b.product_pSeq,
+	    b.bpAmount
 	</sql>
 	
 	<select id="selectList" resultMap="resultMapObj">
@@ -39,6 +44,7 @@
 		<include refid="selectCommon"/>
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
+	
 	
 	<select id="selectOneCount" resultType="Integer">
 		SELECT COUNT(*)
@@ -58,7 +64,10 @@
 			<include refid="selectCommonColumn"/>
 		FROM 
 			orders a
+			left join ordersProduct b 
+			on a.oSeq = b.orders_oSeq
 		WHERE 1=1
 		AND a.oSeq=#{oSeq}
 	</select>
+	
 </mapper>

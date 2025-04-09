@@ -30,6 +30,14 @@
 						</a>
 					</li>
 					<li class="nav-item">
+						<a class="nav-link" href="/hoxdm/vender/VenderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
+								<span class="nav-link-text">거래처관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
 						<a
 							class="nav-link collapsed "
 							href="#"
@@ -91,7 +99,7 @@
 		<div class="navbar-vertical">
 			<div class="px-4 py-5 d-flex justify-content-between align-items-center">
 				<a href="/hoxdm/index" class="navbar-brand">
-					<img src="/assets/xdm/template/FreshCart-1.4.0/images/logo/logo.png" alt="" width="180px" />
+					<img src="/assets/xdm/template/FreshCart-1.4.0/images/logo/logo.png" alt=""  />
 				</a>
 				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 			</div>
@@ -110,6 +118,14 @@
 							<div class="d-flex align-items-center">
 								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
 								<span class="nav-link-text">상품관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/hoxdm/vender/VenderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
+								<span class="nav-link-text">거래처관리</span>
 							</div>
 						</a>
 					</li>
@@ -270,7 +286,7 @@
 													</div>
 												</th>
 												<th>#</th>
-												<th>order seq</th>
+												<th>주문번호</th>
 												<th>거래처이름</th>
 												<th>주문상태</th>
 												<th>등록일</th>
@@ -292,7 +308,7 @@
 												<td th:text="${list?.oSeq}"></td>
 <!-- 											거래처에 캐싱 해야함 -->
 												<td ><a href="javascript:void(0);" th:attr="onclick=|goForm('${list.oSeq}')|"></a> </td>
-												<td th:text="${@codeService.selectOneCachedCode(list?.oStateCd)}"></td>
+												<td><a href="javascript:void(0);" th:attr="onclick=|goForm('${list.oSeq}')|" th:text="${@codeService.selectOneCachedCode(list?.oStateCd)}"></a></td>
 												<td th:text="${list?.oDate}"></td>
 											</tr>
 										</tbody>

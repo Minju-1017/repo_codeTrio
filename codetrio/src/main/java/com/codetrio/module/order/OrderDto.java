@@ -1,5 +1,6 @@
 package com.codetrio.module.order;
 
+
 public class OrderDto {
 	
 	private String oSeq;
@@ -10,7 +11,28 @@ public class OrderDto {
 	private String oReceiverAddr;
 	private String user_uSeq;
 	
+	private String opSeq;
+	private String product_pSeq;
+	private int bpAmount ;
 	
+	public String getOpSeq() {
+		return opSeq;
+	}
+	public void setOpSeq(String opSeq) {
+		this.opSeq = opSeq;
+	}
+	public String getProduct_pSeq() {
+		return product_pSeq;
+	}
+	public void setProduct_pSeq(String product_pSeq) {
+		this.product_pSeq = product_pSeq;
+	}
+	public int getBpAmount() {
+		return bpAmount;
+	}
+	public void setBpAmount(int bpAmount) {
+		this.bpAmount = bpAmount;
+	}
 	public String getoSeq() {
 		return oSeq;
 	}
@@ -53,5 +75,5 @@ public class OrderDto {
 	public void setUser_uSeq(String user_uSeq) {
 		this.user_uSeq = user_uSeq;
 	}
-
+	
 }

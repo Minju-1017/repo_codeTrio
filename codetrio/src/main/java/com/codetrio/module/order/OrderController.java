@@ -1,12 +1,12 @@
 package com.codetrio.module.order;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.codetrio.module.codegroup.CodeGroupDto;
 
 @Controller
 @RequestMapping(value="/hoxdm/order/")
@@ -63,5 +63,24 @@ public class OrderController {
 		
 		return path + "ClientOrderHOXdmList"; 
 		}
+	
+	@RequestMapping(value = "ClientOrderHOXdmForm")
+	public String ClientOrderHOXdmForm(@ModelAttribute("vo") OrderVo vo,
+			Model model, OrderDto orderDto) throws Exception {
+		
+		if (vo.getoSeq().equals("0") || vo.getoSeq().equals("")) {
+			// insert mode
+		} else {
+		
+			model.addAttribute("orderItem", service.selectOne(orderDto));
+		}
+		return path + "ClientOrderHOXdmForm";
+	}
 
+	@RequestMapping(value = "ClientOrderHOXdmInst")
+	public String ClientOrderHOXdmInst(OrderDto orderDto) {
+		
+		service.insert(orderDto);
+		return path + "ClientOrderHOXdmInst";
+	}
 }

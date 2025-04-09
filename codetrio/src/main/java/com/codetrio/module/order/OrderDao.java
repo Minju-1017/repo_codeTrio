@@ -13,5 +13,6 @@ public interface OrderDao {
 	public int selectOneCount(OrderVo vo);
 	public OrderDto selectOne(OrderDto orderDto);
 	public int update(OrderDto orderDto);
+	public int insert(OrderDto orderDto);
 
 }

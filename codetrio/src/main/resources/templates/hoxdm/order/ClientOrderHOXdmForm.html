@@ -56,10 +56,10 @@
 						<div id="navCategoriesService" class="collapse show" data-bs-parent="#sideNavbar">
 							<ul class="nav flex-column">
 								<li class="nav-item">
-									<a class="nav-link active" href="/hoxdm/order/OrderHOXdmList">유저 주문관리</a>
+									<a class="nav-link " href="/hoxdm/order/UserOrderHOXdmList">유저 주문관리</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="/hoxdm/order/ClientOrderHOXdmList">거래처 주문관리</a>
+									<a class="nav-link active" href="/hoxdm/order/ClientOrderHOXdmList">거래처 주문관리</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="#">창고 주문관리</a>
@@ -149,10 +149,10 @@
 						<div id="navCategoriesService" class="collapse show" data-bs-parent="#sideNavbar">
 							<ul class="nav flex-column">
 								<li class="nav-item">
-									<a class="nav-link active" href="/hoxdm/order/OrderHOXdmList">유저 주문관리</a>
+									<a class="nav-link " href="/hoxdm/order/UserOrderHOXdmList">유저 주문관리</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="/hoxdm/order/ClientOrderHOXdmList">거래처 주문관리</a>
+									<a class="nav-link active" href="/hoxdm/order/ClientOrderHOXdmList">거래처 주문관리</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="#">창고 주문관리</a>
@@ -252,7 +252,7 @@
 									<div class="col-lg-8 col-12"></div>
 									<div class="col-lg-6 col-12">
 										<div class="d-flex flex-column flex-md-row gap-2">
-											<a href="/hoxdm/order/OrderHOXdmList" class="btn btn-outline-secondary"><i class="bi bi-list-ul"></i></a>
+											<a href="/hoxdm/order/ClientOrderHOXdmList" class="btn btn-outline-secondary"><i class="bi bi-list-ul"></i></a>
 										</div>
 									</div>
 									<div class="col-lg-6 col-12" style="text-align: right;">
@@ -274,61 +274,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12 text-center">
-					<!-- card -->
-					<div class="card h-100 card-lg">
-						<!-- card body -->
-						<div class="card-body p-0">
-							<!-- table -->
-							<div class="table-responsive">
-								<table class="table table-centered table-hover text-nowrap table-borderless mb-0 table-with-checkbox">
-									<thead class="bg-light">
-										<tr>
-											<th>
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" id="checkAll" name="checkAll">
-												</div>
-											</th>
-											<th>#</th>
-											<th>주문번호</th>
-											<th>주문상태</th>
-											<th>등록일</th>
-											<th>수취인</th>
-											<th>수취인 번호</th>
-											<th>수취인 주소</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:if="${#lists.isEmpty(orderList)}">
-											<td class="text-center" colspan="8">
-												데이터가 없습니다.
-											</td>
-										</tr> 
-										<tr th:if="${!#lists.isEmpty(orderList)}" th:each="list : ${orderList}">
-											<td>
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" name="check" th:value="${list?.oSeq}">
-												</div>
-											</td>
-											<td th:text="${vo.totalRows - ((vo.currPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-											<td th:text="${orderitem?.oSeq}"></td>
-											<td	th:text="${@codeService.selectOneCachedCode(list?.oStateCd)}"></td>
-											<td th:text="${orderitem?.oDate}"></td>
-											<td th:text="${orderitem?.oReceiver}"></td>
-											<td th:text="${list?.oReceiverTel}"></td>
-											<td th:text="${list?.oReceiverAddr}"></td>
-										</tr>
-									</tbody>
-								</table>
-						   	</div>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 	</main>
-</div>
+      </div>
     	
     	<div th:replace="~{/hoxdm/include/footer :: footer}"></div> <!-- 중복되는 footer 처리 -->
 
@@ -339,10 +287,10 @@
 	
 	// URL
 	let fom = document.querySelector("form[name=form]");
-// 	let goUrlXdmInst = "/hoxdm/codegroup/CodeGroupHOXdmInst";
-	let goUrlXdmUpdt = "/hoxdm/order/UserOrderHOXdmUpdt";
-// 	let goUrlXdmUele = "/hoxdm/codegroup/CodeGroupHOXdmUele";
-// 	let goUrlXdmDele = "/hoxdm/codegroup/CodeGroupHOXdmDele";
+	let goUrlXdmInst = "/hoxdm/codegroup/ClientOrderHOXdmInst";
+	let goUrlXdmUpdt = "/hoxdm/order/ClientOrderHOXdmUpdt";
+// 	let goUrlXdmUele = "/hoxdm/codegroup/ClientOrderHOXdmUele";
+// 	let goUrlXdmDele = "/hoxdm/codegroup/ClientOrderHOXdmDele";
 
 	// Input
 	let cgName = document.getElementById("cgName");

@@ -163,6 +163,8 @@
 					if (response.rt == "success") {
 						location.href = "/hoxdm/index";
 					} else {  
+						resetValidation(uId);
+						resetValidation(uPwd);
 						showModalAlert("확인", "일치하는 회원이 존재하지 않습니다!");
 					}
 				}

@@ -19,9 +19,18 @@ public class OrderService {
 		return dao.selectOneCount(vo);
 		
 	}
-	public OrderDto selectOne(OrderDto orderDto) {
+	public List<OrderDto> selectOne(OrderDto orderDto) {
 		return dao.selectOne(orderDto);
 	}
+	
+	public List<OrderDto> selectTwo(OrderVo vo) {
+		return dao.selectTwo(vo);
+	}
+	
+	public List<OrderDto> selectThree(OrderVo vo) {
+		return dao.selectThree(vo);
+	}
+	
 	
 	public int update(OrderDto orderDto) {
 		return dao.update(orderDto);

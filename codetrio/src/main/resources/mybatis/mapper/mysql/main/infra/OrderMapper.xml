@@ -7,8 +7,9 @@
 	<sql id="selectCommon">
 		FROM 
 			orders a
-			left join ordersProduct b 
-			on a.oSeq = b.orders_oSeq
+			left join ordersProduct b on a.oSeq = b.orders_oSeq
+			left join product c on 		 b.product_pSeq = c.pSeq
+			left join vender d on		 c.vender_vSeq = d.vSeq
 		WHERE 1=1		
 			<choose>
 				<when test="shOptionDate != null and !shOptionDate.equals('')
@@ -22,7 +23,7 @@
 	            <when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
 	            <when test="shOption == 2">AND a.oReceiver LIKE CONCAT('%',#{shValue},'%')</when>
 	        </choose>
-		ORDER BY a.oSeq DESC
+		
 	</sql>
 	
 	<sql id="selectCommonColumn">
@@ -35,13 +36,21 @@
 	    a.user_uSeq,
 	    b.opSeq,
 	    b.product_pSeq,
-	    b.bpAmount
+	    b.bpAmount,
+	    c.pSeq,
+	    c.pName,
+	    c.pPrice,
+	    c.pOption,
+	    c.vender_vSeq,
+	    d.vName
+	    
 	</sql>
 	
 	<select id="selectList" resultMap="resultMapObj">
 		SELECT
 			<include refid="selectCommonColumn"/>
 		<include refid="selectCommon"/>
+		ORDER BY a.oSeq DESC
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
 	
@@ -49,6 +58,7 @@
 	<select id="selectOneCount" resultType="Integer">
 		SELECT COUNT(*)
 		<include refid="selectCommon"/>
+		ORDER BY a.oSeq DESC
 	</select>
 	
 	<update id="update">
@@ -64,10 +74,29 @@
 			<include refid="selectCommonColumn"/>
 		FROM 
 			orders a
-			left join ordersProduct b 
-			on a.oSeq = b.orders_oSeq
+			left join ordersProduct b on a.oSeq = b.orders_oSeq
+			left join product c on 		 b.product_pSeq = c.pSeq
+			left join vender d on		 c.vender_vSeq = d.vSeq
 		WHERE 1=1
 		AND a.oSeq=#{oSeq}
+	</select>
+	
+	<select id="selectTwo" resultMap="resultMapObj">
+	 	SELECT
+	 		<include refid="selectCommonColumn"/>
+	 		<include refid="selectCommon"/>
+	 		AND (oStateCd = 2 or oStateCd = 3)
+	 		ORDER BY a.oSeq DESC
+	 	
+	</select>
+	
+	<select id="selectThree" resultMap="resultMapObj">
+	 	SELECT
+	 		<include refid="selectCommonColumn"/>
+	 		<include refid="selectCommon"/>
+	 		AND (oStateCd >= 2 and 5 >= oStateCd )
+	 		ORDER BY a.oSeq DESC
+	 	
 	</select>
 	
 </mapper>

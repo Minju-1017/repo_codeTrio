@@ -56,13 +56,13 @@
 						<div id="navCategoriesService" class="collapse show" data-bs-parent="#sideNavbar">
 							<ul class="nav flex-column">
 								<li class="nav-item">
-									<a class="nav-link active" href="/hoxdm/order/OrderHOXdmList">유저 주문관리</a>
+									<a class="nav-link active" href="/hoxdm/order/UserOrderHOXdmList">유저 주문관리</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="/hoxdm/order/ClientOrderHOXdmList">거래처 주문관리</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="#">창고 주문관리</a>
+									<a class="nav-link" href="/hoxdm/order/WarehouseOrderHOXdmList">창고 주문관리</a>
 								</li>
 							</ul>
 						</div>
@@ -149,13 +149,13 @@
 						<div id="navCategoriesService" class="collapse show" data-bs-parent="#sideNavbar">
 							<ul class="nav flex-column">
 								<li class="nav-item">
-									<a class="nav-link active" href="/hoxdm/order/OrderHOXdmList">유저 주문관리</a>
+									<a class="nav-link active" href="/hoxdm/order/UserOrderHOXdmList">유저 주문관리</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="/hoxdm/order/ClientOrderHOXdmList">거래처 주문관리</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="#">창고 주문관리</a>
+									<a class="nav-link" href="/hoxdm/order/WarehouseOrderHOXdmList">창고 주문관리</a>
 								</li>
 							</ul>
 						</div>
@@ -197,7 +197,7 @@
 			<div class="row mb-8">
 				<div class="col-md-12">
 					<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4">
-						<h2>Code Group</h2>
+						<h2>유저</h2>
 					</div>
 				</div>
 			</div>
@@ -285,18 +285,12 @@
 								<table class="table table-centered table-hover text-nowrap table-borderless mb-0 table-with-checkbox">
 									<thead class="bg-light">
 										<tr>
-											<th>
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" id="checkAll" name="checkAll">
-												</div>
-											</th>
-											<th>#</th>
-											<th>주문번호</th>
-											<th>주문상태</th>
-											<th>등록일</th>
-											<th>수취인</th>
-											<th>수취인 번호</th>
-											<th>수취인 주소</th>
+											<th>상품번호</th>
+											<th>상품명</th>
+											<th>상품옵션</th>
+											<th>상품가격</th>
+											<th>수량</th>
+											<th>회사</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -306,18 +300,12 @@
 											</td>
 										</tr> 
 										<tr th:if="${!#lists.isEmpty(orderList)}" th:each="list : ${orderList}">
-											<td>
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" name="check" th:value="${list?.oSeq}">
-												</div>
-											</td>
-											<td th:text="${vo.totalRows - ((vo.currPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-											<td th:text="${orderitem?.oSeq}"></td>
-											<td	th:text="${@codeService.selectOneCachedCode(list?.oStateCd)}"></td>
-											<td th:text="${orderitem?.oDate}"></td>
-											<td th:text="${orderitem?.oReceiver}"></td>
-											<td th:text="${list?.oReceiverTel}"></td>
-											<td th:text="${list?.oReceiverAddr}"></td>
+											<td th:text="${list?.pSeq}"></td>
+											<td	th:text="${list?.pName}"></td>
+											<td th:text="${list?.pOption}"></td>
+											<td th:text="${list?.pPrice}"></td>
+											<td th:text="${list?.bpAmount}"></td>
+											<td th:text="${list?.vName}"></td>
 										</tr>
 									</tbody>
 								</table>

@@ -11,7 +11,9 @@ public interface OrderDao {
 	
 	public List<OrderDto> selectList(OrderVo vo);
 	public int selectOneCount(OrderVo vo);
-	public OrderDto selectOne(OrderDto orderDto);
+	public List<OrderDto> selectOne(OrderDto orderDto);
+	public List<OrderDto> selectTwo(OrderVo vo);
+	public List<OrderDto> selectThree(OrderVo vo);
 	public int update(OrderDto orderDto);
 	public int insert(OrderDto orderDto);
 

@@ -199,7 +199,7 @@
 				<div class="row mb-8">
 					<div class="col-md-12">
 						<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4">
-							<h2>유저 주문관리</h2>
+							<h2>창고 주문관리</h2>
 						</div>
 					</div>
 				</div>
@@ -280,13 +280,9 @@
 									<table class="table table-centered table-hover text-nowrap table-borderless mb-0 table-with-checkbox">
 										<thead class="bg-light">
 											<tr>
-												<th>
-													<div class="form-check">
-														<input class="form-check-input" type="checkbox" id="checkAll" name="checkAll">
-													</div>
-												</th>
 												<th>#</th>
 												<th>주문번호</th>
+												<th>거래처이름</th>
 												<th>주문상태</th>
 												<th>등록일</th>
 											</tr>
@@ -298,21 +294,12 @@
 												</td>
 											</tr> 
 											<tr th:if="${!#lists.isEmpty(orderList)}" th:each="list : ${orderList}">
-												<td>
-													<div class="form-check">
-														<input class="form-check-input" type="checkbox" name="check" th:value="${list?.oSeq}">
-													</div>
-												</td>
 												<td th:text="${vo.totalRows - ((vo.currPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
 												<td th:text="${list?.oSeq}"></td>
-												<td>			
-													<a href="javascript:void(0);" th:text="${@codeService.selectOneCachedCode(list?.oStateCd)}"
-														th:attr="onclick=|goForm('${list.oSeq}')|"></a>
-												</td>
+<!-- 											거래처에 캐싱 해야함 -->
+												<td th:text="${list?.vName}"></td>
+												<td th:text="${@codeService.selectOneCachedCode(list?.oStateCd)}"></td>
 												<td th:text="${list?.oDate}"></td>
-												<td th:text="${list?.oReceiver}"></td>
-												<td th:text="${list?.oReceiverTel}"></td>
-												<td th:text="${list?.oReceiverAddr}"></td>
 											</tr>
 										</tbody>
 									</table>
@@ -341,17 +328,6 @@
 									</ul>
 								</nav>
 								<div></div>
-							</div>
-							<div class="d-md-flex justify-content-between align-items-center px-6 py-6">
-								<div class="d-flex flex-column flex-md-row gap-2">
-									<a href="#" class="btn btn-danger" id="uelete"><i class="bi bi-trash3"></i></a>
-									<a href="#" class="btn btn-danger" id="delete"><i class="bi bi-x-lg"></i></a>
-								</div>
-								<div class="d-flex flex-column flex-md-row gap-2">
-									<a href="#" class="btn btn-primary" id="excel"><i class="bi bi-table"></i></a>
-									<a href="#" class="btn btn-info" id="modify">U</a>
-									<button type="button" id="btnForm" class="btn btn-info"><i class="bi bi-plus-lg"></i></button>
-								</div>
 							</div>
 						 </div>
 					</div>

@@ -15,6 +15,56 @@ public class OrderDto {
 	private String product_pSeq;
 	private int bpAmount ;
 	
+	private String pSeq;
+	private String pName;
+	private double pPrice;
+	private String pOption;
+	private String vender_vSeq;
+	
+	private String vName;
+	
+	public String getpSeq() {
+		return pSeq;
+	}
+	public void setpSeq(String pSeq) {
+		this.pSeq = pSeq;
+	}
+	public String getVender_vSeq() {
+		return vender_vSeq;
+	}
+	public void setVender_vSeq(String vender_vSeq) {
+		this.vender_vSeq = vender_vSeq;
+	}
+	public String getpName() {
+		return pName;
+	}
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+	public double getpPrice() {
+		return pPrice;
+	}
+	public void setpPrice(double pPrice) {
+		this.pPrice = pPrice;
+	}
+	public String getpOption() {
+		return pOption;
+	}
+	public void setpOption(String pOption) {
+		this.pOption = pOption;
+	}
+	public String getVeder_vSeq() {
+		return vender_vSeq;
+	}
+	public void setVeder_vSeq(String veder_vSeq) {
+		this.vender_vSeq = veder_vSeq;
+	}
+	public String getvName() {
+		return vName;
+	}
+	public void setvName(String vName) {
+		this.vName = vName;
+	}
 	public String getOpSeq() {
 		return opSeq;
 	}

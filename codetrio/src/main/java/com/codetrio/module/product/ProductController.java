@@ -36,7 +36,9 @@ public class ProductController {
 		memberDto.setuSeq(String.valueOf(httpSession.getAttribute("sessSeqHOXdm")));
 		if(productDto.getpSeq().equals("0")  || productDto.getpSeq().equals("")) {
 			model.addAttribute("vList",productService.venderList(productDto));
+			model.addAttribute("codeList",productService.codeList(productDto));
 		}else {
+			model.addAttribute("codeList",productService.codeList(productDto));
 			model.addAttribute("item",productService.productOne(productDto));
 			model.addAttribute("vList",productService.venderList(productDto));
 		}
@@ -49,7 +51,8 @@ public class ProductController {
 		
 			model.addAttribute("item",productService.productOne(productDto));
 			model.addAttribute("vList",productService.venderList(productDto));
-		
+			model.addAttribute("codeList",productService.codeList(productDto));
+
 		return "whxdm/product/productWHXdmForm";
 	}
 	@RequestMapping(value = "/productHOXdmInst")

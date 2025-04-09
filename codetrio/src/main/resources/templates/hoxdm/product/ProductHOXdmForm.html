@@ -312,6 +312,18 @@
 										</select>
 										</div>
 									<div class="col-lg-4 col-12">
+										<label for="pCateCd" class="form-label">
+											카테고리
+											<span class="text-danger">*</span>
+										</label>
+										<select id="pCateCd" name="pCateCd" th:value="${item?.pCateCd}" class="form-select">
+										<option value="">항목을 선택해주세요</option>
+										<option th:each="clist:${codeList}" th:text="${clist.cName}" th:value="${clist.cSeq}"
+										th:selected="${clist?.cSeq == item?.pCateCd}"></option>
+										
+										</select>
+										</div>
+									<div class="col-lg-4 col-12">
 										<label for="pName" class="form-label">
 											상품 이름
 											<span class="text-danger">*</span>
@@ -372,6 +384,9 @@
 
 <!-- 변수 정의 / 공통 함수 -->
 <script type="text/javascript">
+	document.getElementById("pCateCd").onchange = function(){
+		console.log(document.getElementById("pCateCd").value);
+	}
 	// Seq
 	let seq = document.querySelector("input[name=pSeq]");
 	

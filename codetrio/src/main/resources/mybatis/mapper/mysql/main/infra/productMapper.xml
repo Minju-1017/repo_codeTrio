@@ -8,6 +8,7 @@
 	<sql id="selectCommon">
 		from product as a
 		left join vender as b on a.vender_vSeq = b.vSeq
+		left join code as c on a.pCateCd = c.cSeq
 		where 1=1
 		<if test="shDelNy != null and !shDelNy.equals('')">AND a.pDelNy = #{shDelNy}</if>
 		<choose>
@@ -30,6 +31,7 @@
 			<when test="shOption == 1">AND a.pSeq = #{shValue}</when>
 			<when test="shOption == 2">AND a.pName LIKE CONCAT('%',#{shValue},'%')</when>
 			<when test="shOption == 3">AND a.pStock = #{shValue}</when>
+			<when test="shOption == 4">AND c.cName LIKE CONCAT('%',#{shValue},'%')</when>
 		</choose>
 		ORDER BY a.pSeq DESC
 	</sql>
@@ -59,8 +61,11 @@
 		a.vender_vSeq,
 		b.vName,
 		b.vSeq,
+		c.cSeq,
+		c.cName,
 		a.pDelNy
 		<include refid="selectCommon"></include>
+		limit #{startRnumForMysql},#{rowNumToShow}
 	</select>
 	<select id="productOne" resultMap="resultMapObj">
 		select
@@ -74,16 +79,28 @@
 		a.pMofDate,
 		a.vender_vSeq,
 		b.vName,
+		c.cSeq,
+		c.cName,
 		a.pDelNy
 		from product as a
 		left join vender as b on a.vender_vSeq = b.vSeq
+		left join code as c on a.pCateCd = c.cSeq
 		where 1=1 and
 		a.pSeq = #{pSeq}
+	</select>
+	<select id="codeList" resultMap="resultMapObj">
+	select
+	a.cSeq,
+	a.cName
+	from code as a
+	where 1=1 and
+	a.codegroup_cgSeq = 6
 	</select>
 	<insert id="productInsert">
 	insert into product
 	(
 	pName,
+	pCateCd,
 	pPrice,
 	pOption,
 	pStock,
@@ -92,6 +109,7 @@
 	)values
 	(
 	#{pName},
+	#{pCateCd},
 	#{pPrice},
 	#{pOption},
 	#{pStock},
@@ -103,6 +121,7 @@
 		update product
 		set
 		pName = #{pName},
+		pCateCd = #{pCateCd},
 		pPrice = #{pPrice},
 		pOption = #{pOption},
 		pStock = #{pStock},

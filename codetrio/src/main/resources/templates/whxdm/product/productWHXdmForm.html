@@ -280,7 +280,7 @@
 									<input type="hidden" name="pPrice" th:value="${item?.pPrice}">
 									<input type="hidden" name="pOption" th:value="${item?.pOption}">
 									<input type="hidden" name="vender_vSeq" th:value="${item?.vender_vSeq}">
-									
+									<input type="hidden" name="pCateCd" th:value="${item?.pCateCd}">
 									<div class="col-lg-4 col-12">
 										<label for="pSeq" class="form-label">
 											상품 번호
@@ -298,6 +298,18 @@
 										<option value="">항목을 선택해주세요</option>
 										<option th:each="list:${vList}" th:text="${list.vName}" th:value="${list.vSeq}"
 										th:selected="${list?.vSeq == item?.vender_vSeq}" ></option>
+										
+										</select>
+										</div>
+										<div class="col-lg-4 col-12">
+										<label for="pCateCd" class="form-label">
+											카테고리
+											<span class="text-danger">*</span>
+										</label>
+										<select id="pCateCd" name="pCateCd" th:value="${item?.pCateCd}" class="form-select" disabled>
+										<option value="">항목을 선택해주세요</option>
+										<option th:each="clist:${codeList}" th:text="${clist.cName}" th:value="${clist.cSeq}"
+										th:selected="${clist?.cSeq == item?.pCateCd}"></option>
 										
 										</select>
 										</div>

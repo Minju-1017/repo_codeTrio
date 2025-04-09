@@ -13,4 +13,5 @@ public interface ProductDao {
 	public int productUpdate(ProductDto productDto);
 	public int productInsert(ProductDto productDto);
 	public int productUelete(ProductDto productDto);
+	public List<ProductDto> codeList(ProductDto productDto);
 }

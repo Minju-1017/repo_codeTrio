@@ -104,6 +104,7 @@
 												<option value="1" th:selected="${vo.shOption == 1}">상품 번호</option>
 												<option value="2" th:selected="${vo.shOption == 2}">상품 이름</option>
 												<option value="3" th:selected="${vo.shOption == 3}">재고 수량</option>
+												<option value="4" th:selected="${vo.shOption == 4}">상품 카테고리</option>
 											</select>
 										</div>
 										<div class="col-lg-2 col-12">
@@ -141,6 +142,7 @@
 												</th>
 												<th>#</th>
 												<th>seq</th>
+												<th>카테고리</th>
 												<th>거래처</th>
 												<th>상품 이름</th>
 												<th>상품 옵션</th>
@@ -157,12 +159,13 @@
 											</tr> 
 											<tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
 												<td>
-<!-- 													<div class="form-check"> -->
-<!-- 														<input class="form-check-input" th:attr="data-seq='${list.pSeq}'" type="checkbox" name="check" th:value="${list?.pSeq}"> -->
-<!-- 													</div> -->
+													<div class="form-check">
+														<input class="form-check-input" th:attr="data-seq=${list.pSeq}" type="checkbox" name="check" th:value="${list?.pSeq}">
+													</div>
 												</td>
 												<td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
 												<td th:text="${list?.pSeq}"></td>
+												<td th:text="${list?.cName}"></td>
 												<td th:text="${list?.vName}"></td>
 												<td>			
 													<a href="javascript:void(0);" th:text="${list?.pName}"

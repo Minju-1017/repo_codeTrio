@@ -5,7 +5,7 @@ import java.util.List;
 public class ProductDto {
 		private String pSeq;
 		private String vSeq;
-		private int pCateCd;
+		private String pCateCd;
 		private String pName;
 		private String pPrice;
 		private String pOption;
@@ -14,11 +14,25 @@ public class ProductDto {
 		private String pMofDate;
 		private String Vender_vSeq;
 		private String vName;
+		private String cName;
+		private String cSeq;
 		private int pDelNy;
 		private List<String> seqList;
 		
 		
 		
+		public String getcName() {
+			return cName;
+		}
+		public void setcName(String cName) {
+			this.cName = cName;
+		}
+		public String getcSeq() {
+			return cSeq;
+		}
+		public void setcSeq(String cSeq) {
+			this.cSeq = cSeq;
+		}
 		public List<String> getSeqList() {
 			return seqList;
 		}
@@ -43,10 +57,10 @@ public class ProductDto {
 		public void setpSeq(String pSeq) {
 			this.pSeq = pSeq;
 		}
-		public int getpCateCd() {
+		public String getpCateCd() {
 			return pCateCd;
 		}
-		public void setpCateCd(int pCateCd) {
+		public void setpCateCd(String pCateCd) {
 			this.pCateCd = pCateCd;
 		}
 		public String getpName() {

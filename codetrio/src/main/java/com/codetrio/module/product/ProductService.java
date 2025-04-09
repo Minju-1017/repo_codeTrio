@@ -31,4 +31,7 @@ public class ProductService {
 		public int productUelete(ProductDto productDto) {
 			return productDao.productUelete(productDto);
 		}
+		public List<ProductDto> codeList(ProductDto productDto){
+			return productDao.codeList(productDto);
+		}
 }

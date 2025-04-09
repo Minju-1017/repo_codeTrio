@@ -7,6 +7,7 @@
 		id="resultMapObj"></resultMap>
 	<sql id="selectCommon">
 		from product as a
+		left join vender as b on a.vender_vSeq = b.vSeq
 		where 1=1
 		<if test="shDelNy != null and !shDelNy.equals('')">AND a.pDelNy = #{shDelNy}</if>
 		<choose>
@@ -36,7 +37,13 @@
 		select count(*)
 		<include refid="selectCommon"></include>
 	</select>
-
+	<select id="venderList" resultMap="resultMapObj">
+		select
+		a.vName
+		from vender as a
+		where 1=1 
+	</select>
+	
 	<select id="productList" resultMap="resultMapObj">
 		select
 		a.pSeq,
@@ -48,7 +55,39 @@
 		a.pRegDate,
 		a.pMofDate,
 		a.vender_vSeq,
+		b.vName,
+		b.vSeq,
 		a.pDelNy
 		<include refid="selectCommon"></include>
 	</select>
+	<select id="productOne" resultMap="resultMapObj">
+		select
+		a.pSeq,
+		a.pCateCd,
+		a.pName,
+		a.pPrice,
+		a.pOption,
+		a.pStock,
+		a.pRegDate,
+		a.pMofDate,
+		a.vender_vSeq,
+		b.vName,
+		a.pDelNy
+		from product as a
+		left join vender as b on a.vender_vSeq = b.vSeq
+		where 1=1 and
+		a.pSeq = #{pSeq}
+	</select>
+	<update id="productUpdate" >
+		update product
+		set
+		pName = #{pName},
+		pPrice = #{pPrice},
+		pOption = #{pOption},
+		pStock = #{pStock},
+		pMofDate = now(),
+		vander_vSeq = #{vender_vSeq}
+		where 1=1 
+		and pSeq = #{pSeq}
+	</update>
 </mapper>

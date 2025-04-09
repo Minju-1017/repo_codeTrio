@@ -10,8 +10,17 @@ public class ProductDto {
 		private String pRegDate;
 		private String pMofDate;
 		private String Vender_vSeq;
+		private String vName;
 		private int pDelNy;
 		
+		
+		
+		public String getvName() {
+			return vName;
+		}
+		public void setvName(String vName) {
+			this.vName = vName;
+		}
 		public String getpSeq() {
 			return pSeq;
 		}

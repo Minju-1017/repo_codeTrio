@@ -30,4 +30,26 @@ public class ProductController {
 		model.addAttribute("list",productService.productList(vo));
 		return "hoxdm/product/productHOXdmList";
 	}
+	@RequestMapping(value = "/productHOXdmForm")
+	public String productHOXdmForm(ProductDto productDto, Model model,HttpSession httpSession,MemberDto memberDto) {
+		memberDto.setuSeq(String.valueOf(httpSession.getAttribute("sessSeqHOXdm")));
+		if(productDto.getpSeq().equals("0")  || productDto.getpSeq().equals("")) {
+			
+		}else {
+			model.addAttribute("item",productService.productOne(productDto));
+		}
+		
+		return "hoxdm/product/productHOXdmForm";
+	}
+	@RequestMapping(value = "/productWHXdmForm")
+	public String productWHXdmForm(ProductDto productDto, Model model,HttpSession httpSession,MemberDto memberDto) {
+		memberDto.setuSeq(String.valueOf(httpSession.getAttribute("sessSeqWHXdm")));
+		if(productDto.getpSeq().equals("0")  || productDto.getpSeq().equals("")) {
+			
+		}else {
+			model.addAttribute("item",productService.productOne(productDto));
+		}
+		
+		return "whxdm/product/productWHXdmForm";
+	}
 }

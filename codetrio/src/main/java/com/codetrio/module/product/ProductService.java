@@ -16,4 +16,10 @@ public class ProductService {
 		public List<ProductDto> productList(ProductVo vo){
 			return productDao.productList(vo);
 		}
+		public ProductDto productOne(ProductDto productDto) {
+			return productDao.productOne(productDto);
+		}
+		public List<ProductDto> venderList(){
+			return productDao.venderList();
+		}
 }

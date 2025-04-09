@@ -30,6 +30,14 @@
 						</a>
 					</li>
 					<li class="nav-item">
+						<a class="nav-link" href="/hoxdm/vender/VenderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
+								<span class="nav-link-text">거래처관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
 						<a
 							class="nav-link collapsed "
 							href="#"
@@ -91,7 +99,7 @@
 		<div class="navbar-vertical">
 			<div class="px-4 py-5 d-flex justify-content-between align-items-center">
 				<a href="/hoxdm/index" class="navbar-brand">
-					<img src="/assets/usr/template/FreshCart-1.4.0/images/logo/logo.png" alt="" width="180px" />
+					<img src="/assets/usr/template/FreshCart-1.4.0/images/logo/logo.png" alt=""  />
 				</a>
 				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 			</div>
@@ -110,6 +118,14 @@
 							<div class="d-flex align-items-center">
 								<span class="nav-link-icon"><i class="bi bi-people"></i></span>
 								<span class="nav-link-text">상품관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/hoxdm/vender/VenderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
+								<span class="nav-link-text">거래처관리</span>
 							</div>
 						</a>
 					</li>
@@ -362,7 +378,9 @@
 	// 데이터 추가/수정
 	goForm = function (keyValue) {
 	    seq.value = keyValue;
-	    submit(goUrlXdmForm);
+	    console.log(seq.value);
+	    fom.action="/productHOXdmForm";
+	    fom.submit();
 	}
 </script>
 

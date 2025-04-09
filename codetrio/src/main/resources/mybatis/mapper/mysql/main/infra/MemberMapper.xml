@@ -48,11 +48,11 @@
 	<select id="selectSignInMember" resultMap="resultMapObj">
 		SELECT
 			<include refid="selectCommonColumn"/>
+			,a.uPwd
 		FROM 
 			user a
 		WHERE 1=1
 			AND BINARY(a.uId)=#{uId}
-			AND BINARY(a.uPwd)=#{uPwd}
 	</select>
 	
 </mapper>

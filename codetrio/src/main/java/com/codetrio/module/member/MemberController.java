@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -78,6 +79,26 @@ public class MemberController {
 		httpSession.setAttribute("sessNameWHXdm", null);
 	}
 	
+	/**
+	 * 암호화
+	 * @param str
+	 * @param length
+	 * @return
+	 */
+	public String encodeBcrypt(String str, int length) {
+		return new BCryptPasswordEncoder(length).encode(str);
+	}
+	
+	/**
+	 * 암호화된 문자열 체크
+	 * @param str
+	 * @param length
+	 * @return
+	 */
+	public boolean matchesBcrypt(String inputStr, String str, int length) {
+		return new BCryptPasswordEncoder(length).matches(inputStr, str);
+	}
+	
 	////////////////////////////////////////////////////////////////
 	
 	/**
@@ -105,8 +126,12 @@ public class MemberController {
 		if (mDto == null) { 
 			returnMap.put("rt", "fail");
 		} else {
-			hoxdmSignIn(httpSession, mDto);
-			returnMap.put("rt", "success");
+			if (matchesBcrypt(memberDto.getuPwd(), mDto.getuPwd(), 10)) {
+				hoxdmSignIn(httpSession, mDto);
+				returnMap.put("rt", "success");
+			} else {
+				returnMap.put("rt", "fail");
+			}
 		}
 		
 		return returnMap;
@@ -155,8 +180,12 @@ public class MemberController {
 		if (mDto == null) { 
 			returnMap.put("rt", "fail");
 		} else {
-			whxdmSignIn(httpSession, mDto);
-			returnMap.put("rt", "success");
+			if (matchesBcrypt(memberDto.getuPwd(), mDto.getuPwd(), 10)) {
+				whxdmSignIn(httpSession, mDto);
+				returnMap.put("rt", "success");
+			} else {
+				returnMap.put("rt", "fail");
+			}
 		}
 		
 		return returnMap;

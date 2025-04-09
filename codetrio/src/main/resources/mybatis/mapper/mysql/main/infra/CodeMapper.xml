@@ -50,8 +50,7 @@
 	</sql>
 	<!-- End -->
 
-	<select id="selectListCachedCodeArrayList"
-		resultMap="resultMapObj">
+	<select id="selectListCachedCodeArrayList" resultMap="resultMapObj">
 		SELECT
 		cSeq,
 		cName,

@@ -30,7 +30,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/hoxdm/vender/VenderHOXdmList">
+						<a class="nav-link active" href="/hoxdm/vender/VenderHOXdmList">
 							<div class="d-flex align-items-center">
 								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
 								<span class="nav-link-text">거래처관리</span>
@@ -79,10 +79,10 @@
 								<span class="nav-link-text">시스템관리</span>
 							</div>
 						</a>
-						<div id="navCategoriesOrders" class="collapse show" data-bs-parent="#sideNavbar">
+						<div id="navCategoriesOrders" class="collapse" data-bs-parent="#sideNavbar">
 							<ul class="nav flex-column">
 								<li class="nav-item">
-									<a class="nav-link active" href="/hoxdm/code/CodeHOXdmList">코드관리</a>
+									<a class="nav-link" href="/hoxdm/code/CodeHOXdmList">코드관리</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="/hoxdm/codegroup/CodeGroupHOXdmList">코드그룹관리</a>
@@ -122,7 +122,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/hoxdm/vender/VenderHOXdmList">
+						<a class="nav-link active" href="/hoxdm/vender/VenderHOXdmList">
 							<div class="d-flex align-items-center">
 								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
 								<span class="nav-link-text">거래처관리</span>
@@ -171,10 +171,10 @@
 								<span class="nav-link-text">시스템관리</span>
 							</div>
 						</a>
-						<div id="navCategoriesOrders" class="collapse show" data-bs-parent="#sideNavbar">
+						<div id="navCategoriesOrders" class="collapse" data-bs-parent="#sideNavbar">
 							<ul class="nav flex-column">
 								<li class="nav-item">
-									<a class="nav-link active" href="/hoxdm/code/CodeHOXdmList">코드관리</a>
+									<a class="nav-link" href="/hoxdm/code/CodeHOXdmList">코드관리</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="/hoxdm/codegroup/CodeGroupHOXdmList">코드그룹관리</a>
@@ -187,18 +187,19 @@
 		</div>
 	</nav>
 
+    <!-- main wrapper -->
 	<main class="main-content-wrapper">
 		<form name="formList" id="formList" method="post" autocomplete="off">
-		
+			
 			<input type="hidden" name="currPage" th:value="${vo.currPage}" default="1"/>
 			<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-			<input type="hidden" name="cSeq">
+			<input type="hidden" name="vSeq">
 			
 			<div class="container">
 				<div class="row mb-8">
 					<div class="col-md-12">
 						<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4">
-							<h2>Code</h2>
+							<h2>거래처 관리</h2>
 						</div>
 					</div>
 				</div>
@@ -209,35 +210,10 @@
 								<div class="d-flex flex-column gap-4">
 									<div class="row g-3">
 										<div class="col-lg-2 col-12">
-											<select class="form-select" id="shDelNy" name="shDelNy">
-												<option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
-												<option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
-												<option value="0" th:selected="${vo.shDelNy == 0}">N</option>            
-											</select>
-										</div>
-										<div class="col-lg-2 col-12">
-											<select class="form-select"id="shOptionDate" name="shOptionDate">
-												<option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
-												<option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
-												<option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
-											</select>
-										</div>
-										<div class="col-lg-2 col-12">
-											<input type="text" class="form-control" id="shDateStart" name="shDateStart" 
-												placeholder="시작일" autocomplete="off" readonly>
-										</div>
-										<div class="col-lg-2 col-12">
-											<input type="text" class="form-control" id="shDateEnd" name="shDateEnd"
-												placeholder="종료일" autocomplete="off" readonly>
-										</div>
-										<div class="col-lg-4 col-12"></div>
-										<div class="col-lg-2 col-12">
 											<select class="form-select" id="shOption" name="shOption">
 												<option value="" th:selected="${vo.shOption == null}">검색구분</option>
-												<option value="1" th:selected="${vo.shOption == 1}">코드그룹 코드</option>
-												<option value="2" th:selected="${vo.shOption == 2}">코드그룹 이름</option>
-												<option value="3" th:selected="${vo.shOption == 3}">코드</option>
-												<option value="4" th:selected="${vo.shOption == 4}">코드 이름</option>
+												<option value="1" th:selected="${vo.shOption == 1}">거래처 코드</option>
+												<option value="2" th:selected="${vo.shOption == 2}">거래처 이름</option>
 											</select>
 										</div>
 										<div class="col-lg-2 col-12">
@@ -248,7 +224,7 @@
 										<div class="col-lg-6 col-12">
 											<div class="d-flex flex-column flex-md-row gap-2">
 												<button type="submit" id="btnSearch" class="btn btn-primary"><i class="bi bi-search"></i></button>
-												<a href="/hoxdm/code/CodeHOXdmList" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i></a>
+												<a href="/hoxdm/vender/VenderHOXdmList" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i></a>
 											</div>
 										</div>
 									</div>
@@ -259,11 +235,14 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 text-center">
+						<!-- card -->
 						<div class="card h-100 card-lg">
 						
 							<div th:replace="~{/hoxdm/include/totalAndRowNum :: totalAndRowNum}"></div> <!-- 중복되는 totalAndRowNum 처리 -->
-
+							
+							<!-- card body -->
 							<div class="card-body p-0">
+								<!-- table -->
 								<div class="table-responsive">
 									<table class="table table-centered table-hover text-nowrap table-borderless mb-0 table-with-checkbox">
 										<thead class="bg-light">
@@ -274,36 +253,28 @@
 													</div>
 												</th>
 												<th>#</th>
-												<th>코드그룹<br>코드</th>
-												<th>코드그룹<br>이름</th>
-												<th>코드</th>
-												<th>코드 이름</th>
-												<th>등록일</th>
-												<th>수정일</th>
+												<th>거래처 코드</th>
+												<th>거래처 이름</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:if="${#lists.isEmpty(codeList)}">
-												<td class="text-center" colspan="8">
+											<tr th:if="${#lists.isEmpty(venderList)}">
+												<td class="text-center" colspan="4">
 													데이터가 없습니다.
 												</td>
 											</tr> 
-											<tr th:if="${!#lists.isEmpty(codeList)}" th:each="list : ${codeList}">
+											<tr th:if="${!#lists.isEmpty(venderList)}" th:each="list : ${venderList}">
 												<td>
 													<div class="form-check">
-														<input class="form-check-input" type="checkbox" name="check" th:value="${list?.cSeq}">
+														<input class="form-check-input" type="checkbox" name="check" th:value="${list?.vSeq}">
 													</div>
 												</td>
 												<td th:text="${vo.totalRows - ((vo.currPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-												<td th:text="${list?.codeGroup_cgSeq}"></td>
-												<td th:text="${list?.cgName}"></td>
-												<td th:text="${list?.cSeq}"></td>
+												<td th:text="${list?.vSeq}"></td>
 												<td>			
-													<a href="javascript:void(0);" th:text="${list?.cName}"
-														th:attr="onclick=|goForm('${list.cSeq}')|"></a>
+													<a href="javascript:void(0);" th:text="${list?.vName}"
+														th:attr="onclick=|goForm('${list.vSeq}')|"></a>
 												</td>
-												<td th:text="${list?.cRegDate}"></td>
-												<td th:text="${list?.cMofDate}"></td>
 											</tr>
 										</tbody>
 									</table>
@@ -335,7 +306,6 @@
 							</div>
 							<div class="d-md-flex justify-content-between align-items-center px-6 py-6">
 								<div class="d-flex flex-column flex-md-row gap-2">
-									<a href="#" class="btn btn-danger" id="uelete"><i class="bi bi-trash3"></i></a>
 									<a href="#" class="btn btn-danger" id="delete"><i class="bi bi-x-lg"></i></a>
 								</div>
 								<div class="d-flex flex-column flex-md-row gap-2">
@@ -350,22 +320,20 @@
 			</div>
 		</form>
 	</main>
-</div>
-    	
-<div th:replace="~{/hoxdm/include/footer :: footer}"></div> <!-- 중복되는 footer 처리 -->
-    	
+      </div>
+      
+    	<div th:replace="~{/hoxdm/include/footer :: footer}"></div> <!-- 중복되는 footer 처리 -->
+
 <!-- 변수 정의 / 공통 함수 -->
 <script type="text/javascript">
- 	let seq = document.querySelector("input[name=cSeq]");
-    	
-    // URL
+	let seq = document.querySelector("input[name=vSeq]");
+
+	// URL
 	let fom = document.querySelector("form[name=formList]");
-	let goUrlXdmList = "/hoxdm/code/CodeHOXdmList";
-	let goUrlXdmForm = "/hoxdm/code/CodeHOXdmForm";
-	let goUrlXdmUele = "/hoxdm/code/CodeHOXdmUele";
-	let goUrlXdmDele = "/hoxdm/code/CodeHOXdmDele";
-	let goUrlXdmListUeleProc = "/hoxdm/code/CodeListHOXdmUeleProc";
-	let goUrlXdmListDeleProc = "/hoxdm/code/CodeListHOXdmDeleProc";
+	let goUrlXdmList = "/hoxdm/vender/VenderHOXdmList";
+	let goUrlXdmForm = "/hoxdm/vender/VenderHOXdmForm";
+	let goUrlXdmListDeleProc = "/hoxdm/vender/VenderListHOXdmDeleProc";
+
 	
 	function submit(goUrl) {
 		fom.action = goUrl;
@@ -389,7 +357,6 @@
 
 <!-- Search / Paging -->
 <script type="text/javascript">
-	// 페이지 이동
 	function goList(currPage) {
 		document.querySelector("input[name=currPage]").value = currPage;
 		submit(goUrlXdmList);
@@ -401,36 +368,28 @@
 	}
 	
 	document.getElementById("btnSearch").onclick = function () {
-		submit(goUrlXdmList);
+     	submit(goUrlXdmList);
 	};
 </script>
 
-<!-- Table Check Box 처리 (Uelete/Delete/Update)-->
+<!-- Table Check Box 처리 (Delete/Update)-->
 <script type="text/javascript">
 	document.getElementById("checkAll").onclick = function() {
 		allCheck("check", this.checked);
 	}
 	
 	document.getElementById("modify").onclick = function() {
-		modifyCheckedElement("1개의 코드");
-	}
-	
-	document.getElementById("uelete").onclick = function() {
-		ueleteCheckedElementsModal("코드를");
-	}
-	
-	document.getElementById("btnModalUelete").onclick = function () {
-		ueleteCheckedElements(goUrlXdmListUeleProc, goUrlXdmList);
+		modifyCheckedElement("1개의 코드 그룹");
 	}
 	
 	document.getElementById("delete").onclick = function() {
-		deleteCheckedElementsModal("코드를");
+		deleteCheckedElementsModal("코드 그룹을");
 	}
 
 	document.getElementById("btnModalDelete").onclick = function () {
 		deleteCheckedElements(goUrlXdmListDeleProc, goUrlXdmList);
 	}
 </script>
-     	
+
 </body>
 </html>

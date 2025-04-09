@@ -31,8 +31,7 @@ public class VenderController {
 	@RequestMapping(value = "VenderHOXdmList")
 	public String venderHOXdmList(Model model, @ModelAttribute("vo") VenderVo vo,
 			HttpSession httpSession) throws Exception {
-		System.out.println("!!!!!!!!!!!!!!");
-		
+
 		// addAttribute 하기 전에 미리 실행되야함
 		vo.setParamsPaging(service.selectOneCount(vo));
 		

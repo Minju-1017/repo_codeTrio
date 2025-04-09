@@ -1,3 +1,4 @@
+
 package com.codetrio.module.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,10 @@ public class ProductController {
 	public String productHOXdmForm(ProductDto productDto, Model model,HttpSession httpSession,MemberDto memberDto) {
 		memberDto.setuSeq(String.valueOf(httpSession.getAttribute("sessSeqHOXdm")));
 		if(productDto.getpSeq().equals("0")  || productDto.getpSeq().equals("")) {
-			
+			model.addAttribute("vList",productService.venderList(productDto));
 		}else {
 			model.addAttribute("item",productService.productOne(productDto));
+			model.addAttribute("vList",productService.venderList(productDto));
 		}
 		
 		return "hoxdm/product/productHOXdmForm";
@@ -44,12 +46,30 @@ public class ProductController {
 	@RequestMapping(value = "/productWHXdmForm")
 	public String productWHXdmForm(ProductDto productDto, Model model,HttpSession httpSession,MemberDto memberDto) {
 		memberDto.setuSeq(String.valueOf(httpSession.getAttribute("sessSeqWHXdm")));
-		if(productDto.getpSeq().equals("0")  || productDto.getpSeq().equals("")) {
-			
-		}else {
+		
 			model.addAttribute("item",productService.productOne(productDto));
-		}
+			model.addAttribute("vList",productService.venderList(productDto));
 		
 		return "whxdm/product/productWHXdmForm";
+	}
+	@RequestMapping(value = "/productHOXdmInst")
+	public String productHOXdmInst(ProductDto productDto) {
+		productService.productInsert(productDto);
+		return "redirect:/productHOXdmList";
+	}
+	@RequestMapping(value = "/productHOXdmUpdt")
+	public String productHOXdmUpdt(ProductDto productDto) {
+		productService.productUpdate(productDto);
+		return "redirect:/productHOXdmList";
+	}
+	@RequestMapping(value = "/productHOXdmUele")
+	public String productHOXdmUele(ProductDto productDto) {
+		productService.productUelete(productDto);
+		return "redirect:/productHOXdmList";
+	}
+	@RequestMapping(value = "/productWHXdmUpdt")
+	public String productWHXdmUpdt(ProductDto productDto) {
+		productService.productUpdate(productDto);
+		return "redirect:/productWHXdmList";
 	}
 }

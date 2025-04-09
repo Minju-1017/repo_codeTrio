@@ -29,14 +29,7 @@
 							</div>
 						</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/hoxdm/vender/VenderHOXdmList">
-							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
-								<span class="nav-link-text">거래처관리</span>
-							</div>
-						</a>
-					</li>
+					
 					<li class="nav-item">
 						<a
 							class="nav-link collapsed "
@@ -121,14 +114,7 @@
 							</div>
 						</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/hoxdm/vender/VenderHOXdmList">
-							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
-								<span class="nav-link-text">거래처관리</span>
-							</div>
-						</a>
-					</li>
+					
 					<li class="nav-item">
 						<a
 							class="nav-link collapsed"
@@ -290,6 +276,10 @@
 									method="post" id="form" name="form">
 									
 									<input type="hidden" name="pSeq" th:value="${item?.pSeq}">
+									<input type="hidden" name="pName" th:value="${item?.pName}">
+									<input type="hidden" name="pPrice" th:value="${item?.pPrice}">
+									<input type="hidden" name="pOption" th:value="${item?.pOption}">
+									<input type="hidden" name="vender_vSeq" th:value="${item?.vender_vSeq}">
 									
 									<div class="col-lg-4 col-12">
 										<label for="pSeq" class="form-label">
@@ -300,20 +290,42 @@
 											th:value="${item?.pSeq}" placeholder="자동생성" disabled />
 									</div>
 									<div class="col-lg-4 col-12">
+										<label for="vName" class="form-label">
+											거래처
+											<span class="text-danger">*</span>
+										</label>
+										<select id="vName" name="vender_vSeq" th:value="${item?.vender_vSeq}" class="form-select" disabled>
+										<option value="">항목을 선택해주세요</option>
+										<option th:each="list:${vList}" th:text="${list.vName}" th:value="${list.vSeq}"
+										th:selected="${list?.vSeq == item?.vender_vSeq}" ></option>
+										
+										</select>
+										</div>
+									<div class="col-lg-4 col-12">
 										<label for="pName" class="form-label">
 											상품 이름
 											<span class="text-danger">*</span>
 										</label>
 										<input type="text" class="form-control" name="pName" id="pName"
 											th:value="${item?.pName}" autocomplete="off" 
-											 required />
+											 required disabled/>
 										<div class="invalid-feedback"> 코드그룹 이름을 입력해 주세요. 한글/영문/숫자만 허용</div>
 									</div>
-									<div class="col-lg-4 col-12"></div>
+									<div class="col-lg-4 col-12">
+									<label for="pPrice" class="form-label">
+											상품 가격
+											<span class="text-danger">*</span>
+										</label>
+										<input type="text" class="form-control" name="pPrice" id="pPrice"
+											th:value="${item?.pPrice}" autocomplete="off" 
+											 required disabled/>
+										<div class="invalid-feedback"> 코드그룹 이름을 입력해 주세요. 한글/영문/숫자만 허용</div>
+									
+									</div>
 									<div class="col-lg-4 col-12">
 										<label for="pOption" class="form-label">상품 옵션</label>
 										<input type="text" class="form-control" 
-											th:value="${item?.pOption}" id="pOption" name="pOption" autocomplete="off"   required/>
+											th:value="${item?.pOption}" id="pOption" name="pOption" autocomplete="off" disabled  required/>
 									</div>
 									<div class="col-lg-4 col-12">
 										<label for="pStock" class="form-label">상품 재고</label>
@@ -327,6 +339,7 @@
 										</div>
 									</div>
 									<div class="col-lg-6 col-12" style="text-align: right;">
+										
 										
 										<button class="btn btn-primary" type="button" id="btnSave">
 											<i class="bi bi-database-add"></i>
@@ -353,8 +366,8 @@
 	let fom = document.querySelector("form[name=form]");
 	let goUrlXdmInst = "/productWHXdmInst";
 	let goUrlXdmUpdt = "/productWHXdmUpdt";
-	let goUrlXdmUele = "/productWHXdmUele";
-	let goUrlXdmDele = "/productWHXdmDele";
+// 	let goUrlXdmUele = "/productWHXdmUele";
+// 	let goUrlXdmDele = "/productWHXdmDele";
 
 	// Input
 	let cgName = document.getElementById("pName");

@@ -19,7 +19,16 @@ public class ProductService {
 		public ProductDto productOne(ProductDto productDto) {
 			return productDao.productOne(productDto);
 		}
-		public List<ProductDto> venderList(){
-			return productDao.venderList();
+		public List<ProductDto> venderList(ProductDto productDto){
+			return productDao.venderList(productDto);
+		}
+		public int productUpdate(ProductDto productDto) {
+			return productDao.productUpdate(productDto);
+		}
+		public int productInsert(ProductDto productDto) {
+			return productDao.productInsert(productDto);
+		}
+		public int productUelete(ProductDto productDto) {
+			return productDao.productUelete(productDto);
 		}
 }

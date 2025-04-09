@@ -189,7 +189,7 @@
 
 	<main class="main-content-wrapper">
 		<form name="formList" id="formList" method="post" autocomplete="off">
-		
+			<input type="hidden" name="seqList" >
 			<input type="hidden" name="thisPage" th:value="${vo.thisPage}" /> <input
 				type="hidden" id="rowNumToShow" name="rowNumToShow"
 				th:value="${vo.rowNumToShow}" />
@@ -268,6 +268,7 @@
 												</th>
 												<th>#</th>
 												<th>seq</th>
+												<th>거래처</th>
 												<th>상품 이름</th>
 												<th>상품 옵션</th>
 												<th>상품 재고</th>
@@ -277,18 +278,19 @@
 										</thead>
 										<tbody>
 											<tr th:if="${#lists.isEmpty(list)}">
-												<td class="text-center" colspan="8">
+												<td class="text-center" colspan="9">
 													데이터가 없습니다.
 												</td>
 											</tr> 
 											<tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
 												<td>
 													<div class="form-check">
-														<input class="form-check-input" type="checkbox" name="check" th:value="${list?.pSeq}">
+														<input class="form-check-input" th:attr="data-seq=${list.pSeq}" type="checkbox" name="check" th:value="${list?.pSeq}">
 													</div>
 												</td>
 												<td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
 												<td th:text="${list?.pSeq}"></td>
+												<td th:text="${list?.vName}"></td>
 												<td>			
 													<a href="javascript:void(0);" th:text="${list?.pName}"
 														th:attr="onclick=|goForm('${list.pSeq}')|"></a>
@@ -331,11 +333,8 @@
 							<div class="d-md-flex justify-content-between align-items-center px-6 py-6">
 								<div class="d-flex flex-column flex-md-row gap-2">
 									<a href="#" class="btn btn-danger" id="uelete"><i class="bi bi-trash3"></i></a>
-									<a href="#" class="btn btn-danger" id="delete"><i class="bi bi-x-lg"></i></a>
 								</div>
 								<div class="d-flex flex-column flex-md-row gap-2">
-									<a href="#" class="btn btn-primary" id="excel"><i class="bi bi-table"></i></a>
-									<a href="#" class="btn btn-info" id="modify">U</a>
 									<button type="button" id="btnForm" class="btn btn-info"><i class="bi bi-plus-lg"></i></button>
 								</div>
 							</div>
@@ -343,6 +342,31 @@
 					</div>
 				</div>
 			</div>
+<div class="modal fade" id="modalConfirm" data-bs-backdrop="static"
+		data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalConfirmTitle">title</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body" id="modalConfirmBody">body</div>
+				<div class="modal-footer">
+					<button type="button"
+						class="btn btn-outline-secondary btn-sm btn_custom"
+						data-bs-dismiss="modal">취소</button>
+					<button type="button" class="btn btn-danger btn-sm btn_custom"
+						name="" id="btnModalDelete">
+						<i class="fa-solid fa-x fa-lg"></i>
+					</button>
+					<button type="button" class="btn btn-danger btn-sm btn_custom"
+						name="" id="btnModalUelete">삭제</button>
+				</div>
+			</div>
+		</div>
+	</div>
 		</form>
 	</main>
 </div>
@@ -382,6 +406,43 @@
 	    fom.action="/productHOXdmForm";
 	    fom.submit();
 	}
+</script>
+<script type="text/javascript">
+if(document.getElementById("uelete")){
+	document.getElementById("uelete").onclick = function () {
+		let checkboxes = document.getElementsByName("check");
+		for(var i = 0; i < checkboxes.length ; i++){
+			if(checkboxes[i].checked){
+				document.querySelector("#modalConfirmTitle").textContent = "확 인";
+				document.querySelector("#modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
+				document.querySelector("#btnModalUelete").style.display = '';
+				document.querySelector("#btnModalDelete").style.display = 'none';
+				$("#modalConfirm").modal("show");  
+			}
+		}
+		  	
+	}
+}
+
+
+document.getElementById("btnModalUelete").onclick = function () {
+	let checkboxes = document.getElementsByName("check");
+	let seqq = new Array();
+	let seqList = document.querySelector("input[name=seqList]");
+	let j = 0;
+	for(var i = 0; i < checkboxes.length ; i++){
+		if(checkboxes[i].checked){
+			var seq = checkboxes[i].getAttribute("data-seq");
+			seqq[j] = seq;
+			j++;
+		}
+	}
+	console.log(seqq);
+	seqList.value = seqq;
+	console.log(seqList.value);
+	fom.action = "/productHOXdmUele";
+	fom.submit();
+}
 </script>
 
 <!-- Search / Paging -->

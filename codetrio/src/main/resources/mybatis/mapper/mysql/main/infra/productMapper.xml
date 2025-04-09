@@ -38,10 +38,12 @@
 		<include refid="selectCommon"></include>
 	</select>
 	<select id="venderList" resultMap="resultMapObj">
-		select
+		select 
+		a.vSeq,
 		a.vName
 		from vender as a
 		where 1=1 
+		order by a.vSeq asc
 	</select>
 	
 	<select id="productList" resultMap="resultMapObj">
@@ -78,6 +80,25 @@
 		where 1=1 and
 		a.pSeq = #{pSeq}
 	</select>
+	<insert id="productInsert">
+	insert into product
+	(
+	pName,
+	pPrice,
+	pOption,
+	pStock,
+	pRegDate,
+	vender_vSeq
+	)values
+	(
+	#{pName},
+	#{pPrice},
+	#{pOption},
+	#{pStock},
+	now(),
+	#{vender_vSeq}
+	)
+	</insert>
 	<update id="productUpdate" >
 		update product
 		set
@@ -86,8 +107,17 @@
 		pOption = #{pOption},
 		pStock = #{pStock},
 		pMofDate = now(),
-		vander_vSeq = #{vender_vSeq}
+		vender_vSeq = #{vender_vSeq}
 		where 1=1 
 		and pSeq = #{pSeq}
+	</update>
+	<update id="productUelete" parameterType="list">
+		update product
+		set
+		pDelNy = 1
+		where pSeq in
+		<foreach collection="seqList" item="pSeq" open="(" separator="," close=")">
+		#{pSeq}
+		</foreach>
 	</update>
 </mapper>

@@ -1,7 +1,10 @@
 package com.codetrio.module.product;
 
+import java.util.List;
+
 public class ProductDto {
 		private String pSeq;
+		private String vSeq;
 		private int pCateCd;
 		private String pName;
 		private String pPrice;
@@ -12,9 +15,22 @@ public class ProductDto {
 		private String Vender_vSeq;
 		private String vName;
 		private int pDelNy;
+		private List<String> seqList;
 		
 		
 		
+		public List<String> getSeqList() {
+			return seqList;
+		}
+		public void setSeqList(List<String> seqList) {
+			this.seqList = seqList;
+		}
+		public String getvSeq() {
+			return vSeq;
+		}
+		public void setvSeq(String vSeq) {
+			this.vSeq = vSeq;
+		}
 		public String getvName() {
 			return vName;
 		}

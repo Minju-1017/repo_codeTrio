@@ -64,8 +64,10 @@ public class OrderController {
 			if (successCnt > 0) {
 				if (opSeqList.size() > 0 && opStateCdList.size() > 0) {
 					int opSuccessCnt = 0;
+					
 					for (int i = 0; i < opSeqList.size(); i++) {
 						OrderDto dto = new OrderDto();
+						
 						dto.setOpSeq(opSeqList.get(i));
 						dto.setOpStateCd(opStateCdList.get(i));
 						

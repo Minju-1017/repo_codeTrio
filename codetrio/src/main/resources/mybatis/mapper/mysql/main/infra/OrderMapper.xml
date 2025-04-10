@@ -68,10 +68,12 @@
 					AND a.oDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
 				</when>	
 			</choose>	
+			<if test="shStateOption != null and !shStateOption.equals('')">AND a.oStateCd = #{shStateOption}</if>
 	        <choose>
 	            <when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
 	            <when test="shOption == 2">AND a.oReceiver LIKE CONCAT('%',#{shValue},'%')</when>
 	        </choose>
+	        
 		ORDER BY a.oSeq DESC
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
@@ -130,6 +132,7 @@
 	 	SELECT
 	 		<include refid="selectCommonColumn"/>
 	 		<include refid="selectCommon"/>
+	 		<if test="shStateOption != null and !shStateOption.equals('')">AND b.opStateCd = #{shStateOption}</if>
 	 		AND (b.opStateCd = 7 or b.opStateCd = 8)
 	 		ORDER BY a.oSeq DESC
 	 	
@@ -139,6 +142,7 @@
 	 	SELECT
 	 		<include refid="selectCommonColumn"/>
 	 		<include refid="selectCommon"/>
+	 		<if test="shStateOption != null and !shStateOption.equals('')">AND b.opStateCd = #{shStateOption}</if>
 	 		AND oStateCd = 2
 	 		ORDER BY a.oSeq DESC
 	 	

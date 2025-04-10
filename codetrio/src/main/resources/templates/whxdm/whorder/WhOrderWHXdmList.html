@@ -201,7 +201,7 @@
 												</td>
 												<td th:text="${vo.totalRows - ((vo.currPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
 												<td th:text="${list?.oSeq}"></td>
-												<td	th:text="${@codeService.selectOneCachedCode(list?.oStateCd)}"></td>
+												<td	th:text="${@codeService.selectOneCachedCode(list?.opStateCd)}"></td>
 												<td th:text="${list?.oDate}"></td>
 												<td th:text="${list?.oReceiver}"></td>
 												<td th:text="${list?.oReceiverTel}"></td>

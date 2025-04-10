@@ -235,11 +235,11 @@
 										
 										
 										<div class="col-lg-2 col-12">
-										<select class="form-select" name="oStateCd" id="oStateCd">
-											<option value="" th:selected="${vo.oStateCd == null}">주문상태</option>
+										<select class="form-select" name="shStateOption" id="shStateOption">
+											<option value="" th:selected="${vo.shStateOption == null}">주문상태</option>
 											<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERS_CODE_GROUP_SEQ_ORDER_STATE)}"
 												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
-												th:selected="${#strings.equals(codeList.cSeq, vo.oStateCd)}"></option>
+												th:selected="${#strings.equals(codeList.cSeq, vo.shStateOption)}"></option>
 										</select>
 										</div>
 										<div class="col-lg-2 col-12">
@@ -257,7 +257,7 @@
 										<div class="col-lg-6 col-12">
 											<div class="d-flex flex-column flex-md-row gap-2">
 												<button type="submit" id="btnSearch" class="btn btn-primary"><i class="bi bi-search"></i></button>
-												<a href="/hoxdm/order/OrderHOXdmList" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i></a>
+												<a href="/hoxdm/order/UserOrderHOXdmList" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i></a>
 											</div>
 										</div>
 									</div>
@@ -410,6 +410,7 @@
 	}
 	
 	document.getElementById("btnSearch").onclick = function () {
+		alert(document.getElementById("shStateOption").value);
      	submit(goUrlXdmList);
 	};
 </script>

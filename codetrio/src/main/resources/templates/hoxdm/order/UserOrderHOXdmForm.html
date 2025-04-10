@@ -227,7 +227,7 @@
 										<select class="form-select" name="oStateCd" id="oStateCd">
 											<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERS_CODE_GROUP_SEQ_ORDER_STATE)}"
 												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
-												th:selected="${#strings.equals(codeList.cSeq, vo.oStateCd)}"></option>
+												th:selected="${#strings.equals(codeList.cSeq, orderItem?.oStateCd)}"></option>
 										</select>
 									</div>
 									<div class="col-lg-6 col-12"></div>

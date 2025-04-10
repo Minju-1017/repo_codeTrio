@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.codetrio.common.CodeTrioUtil;
+
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -36,8 +38,6 @@ public class CodeGroupController {
 		
 		if (vo.getTotalRows() > 0) {
 			model.addAttribute("codeGroupList", service.selectList(vo));
-			// model.addAttribute("vo", vo); 	// 함수 파라메터로 정의된 아래 구문과 동일한 표현이라 주석처리 
-												// @ModelAttribute("vo") CodeGroupVo vo
 		}
 		
 		return path + "CodeGroupHOXdmList";

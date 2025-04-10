@@ -1,13 +1,16 @@
 package com.codetrio.module.order;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class OrderController {
@@ -46,12 +49,43 @@ public class OrderController {
 		return path + "UserOrderHOXdmForm";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/hoxdm/order/UserOrderHOXdmUpdt")
-	public String UserOrderHOXdmUpdt(OrderDto orderDto) {
+	public Map<String, Object> UserOrderHOXdmUpdt(OrderDto orderDto, 
+			@RequestParam(value="opSeqList") List<String> opSeqList,
+			@RequestParam(value="opStateCdList") List<String> opStateCdList) {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
-		service.update(orderDto);	
+		if (orderDto == null || opSeqList == null || opStateCdList == null) {
+			returnMap.put("rt", "fail");
+		} else {
+			int successCnt = service.update(orderDto);
+			
+			if (successCnt > 0) {
+				if (opSeqList.size() > 0 && opStateCdList.size() > 0) {
+					int opSuccessCnt = 0;
+					for (int i = 0; i < opSeqList.size(); i++) {
+						OrderDto dto = new OrderDto();
+						dto.setOpSeq(opSeqList.get(i));
+						dto.setOpStateCd(opStateCdList.get(i));
+						
+						opSuccessCnt = opSuccessCnt + service.updateOPList(dto);
+					}
+					
+					if (opSuccessCnt > 0) {
+						returnMap.put("rt", "success");	
+					} else {
+						returnMap.put("rt", "fail");
+					}
+				} else {
+					returnMap.put("rt", "success");	// 수정할 데이터 없으므로 바로 성공
+				}
+			} else {
+				returnMap.put("rt", "fail");
+			}
+		}
 
-		return "redirect:UserOrderHOXdmList";
+		return returnMap;
 	}
 	
 	//거래처

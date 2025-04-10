@@ -210,6 +210,9 @@
 									method="post" id="form" name="form">
 									<input type="hidden" name="oSeq" th:value="${vo.oSeq}">
 									<input type="hidden" name="listsize" id="listsize" th:value="${#lists.size(orderList)}">
+									<input  th:if="${!#lists.isEmpty(orderList)}" th:each="list,listindex : ${orderList}"
+										type="hidden" th:name="|opSeq${listindex.index}|" th:id="|opSeq${listindex.index}|" 
+										th:value="${list?.opSeq}">
 									
 									<div class="col-lg-3 col-12">
 										<label for="oSeq" class="form-label">
@@ -220,7 +223,7 @@
 											th:value="${orderItem?.oSeq}" placeholder="자동생성" disabled />
 									</div>
 									<div class="col-lg-3 col-12">
-										<label for="oReceiver" class="form-label">주문상태</label>
+										<label for="oStateCd" class="form-label">주문상태</label>
 										<select class="form-select" name="oStateCd" id="oStateCd">
 											<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERS_CODE_GROUP_SEQ_ORDER_STATE)}"
 												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
@@ -270,16 +273,15 @@
 											</td>
 										</tr> 
 										<tr th:if="${!#lists.isEmpty(orderList)}" th:each="list,listindex : ${orderList}">
-											
-											<td th:text="${list?.pSeq}"></td>
+											<td th:text="${list?.opSeq}"></td>
 											<td	th:text="${list?.pName}"></td>
 											<td th:text="${list?.pOption}"></td>
 											<td th:text="${list?.pPrice}"></td>
 											<td th:text="${list?.bpAmount}"></td>
 											<td th:text="${list?.vName}"></td>
-											<td th:text="${list?.vName}"></td>
+											<td th:text="${list?.pStock}"></td>
 											<td>
-											<select class="form-select "  th:name="|opStateCd${listindex.index}|" th:id="|opStateCd${listindex.index}|" required>
+											<select class="form-select"  th:name="|opStateCd${listindex.index}|" th:id="|opStateCd${listindex.index}|" required>
 												<option value="" >선택</option>
 												<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE)}"
 												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
@@ -293,7 +295,7 @@
 						   	</div>
 									<div class="col-lg-6 col-12">
 										<div class="d-flex flex-column flex-md-row gap-2">
-											<a href="/hoxdm/order/OrderHOXdmList" class="btn btn-outline-secondary"><i class="bi bi-list-ul"></i></a>
+											<a href="/hoxdm/order/UserOrderHOXdmList" class="btn btn-outline-secondary"><i class="bi bi-list-ul"></i></a>
 										</div>
 									</div>
 									<div class="col-lg-6 col-12" style="text-align: right;">
@@ -311,28 +313,20 @@
 	</main>
 </div>
     	
-    	<div th:replace="~{/hoxdm/include/footer :: footer}"></div> <!-- 중복되는 footer 처리 -->
+<div th:replace="~{/hoxdm/include/footer :: footer}"></div> <!-- 중복되는 footer 처리 -->
 
 <!-- 변수 정의 / 공통 함수 -->
 <script type="text/javascript">
-	// Seq
-	let seq = document.querySelector("input[name=cgSeq]");
-	
+	let seq = document.querySelector("input[name=oSeq]");
+
 	// URL
 	let fom = document.querySelector("form[name=form]");
-	let goUrlXdmUpdt = "/hoxdm/order/UserOrderHOXdmUpdt";
-	
-	// Validation 필요한 셀렉트박스 사이즈
+
 	let listsize = document.getElementById("listsize").value;
-	let arrProductList = new Array();
+	let arrProductList = new Array(); // Validation 필요한 셀렉트박스 사이즈
 	
 	for(let i = 0 ; i < listsize; i++) {
 		arrProductList[i] = document.getElementById("opStateCd" + i);
-	}
-	
-	function submit(goUrl) {
-		fom.action = goUrl;
-		fom.submit();
 	}
 </script>
 
@@ -364,7 +358,7 @@
 		// Focus 줘야 하는 Input(Validation에 처음으로 걸린 Input)이 있는지 확인
 		if (focus) return false;
 
-		submit(goUrlXdmUpdt);
+		submit();
 	}
 	
 	// opStateCd list Input 시 체크
@@ -380,6 +374,41 @@
 				opStateCd.classList.add("is-valid");
 			}		
 		});
+	}
+	
+	function submit() {
+		var opSeqArr = new Array;
+		var opStateCdArr = new Array;
+		
+		for(let i = 0 ; i < listsize; i++) {
+			opSeqArr[i] = document.getElementById("opSeq" + i).value;
+			opStateCdArr[i] = arrProductList[i].value;
+		}
+		  
+		$.ajax({
+			async: true 
+			,cache: false
+			,type : "post"
+			,url : "/hoxdm/order/UserOrderHOXdmUpdt"
+			,traditional: true
+			,data : { 
+				"oSeq" : $("#oSeq").val(), 
+				"oStateCd" : $("#oStateCd").val(), 
+				opSeqList : opSeqArr,
+				opStateCdList : opStateCdArr
+			}
+			,success: function(response) {
+				if(response.rt == "success") {
+					fom.action = "/hoxdm/order/UserOrderHOXdmForm";
+					fom.submit();
+				} else {
+					// by Pass
+				}
+			}
+			,error : function(jqXHR, textStatus, errorThrown){
+				alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+			}
+		});	
 	}
 </script>
 

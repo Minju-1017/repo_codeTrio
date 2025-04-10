@@ -1,6 +1,7 @@
 package com.codetrio.module.order;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,10 @@ public class OrderService {
 	
 	public int update(OrderDto orderDto) {
 		return dao.update(orderDto);
+	}
+	
+	public int updateOPList(OrderDto orderDto) {
+		return dao.updateOPList(orderDto);
 	}
 	
 	public int insert(OrderDto orderDto) {

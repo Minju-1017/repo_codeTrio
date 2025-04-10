@@ -42,6 +42,7 @@
 	    c.pName,
 	    c.pPrice,
 	    c.pOption,
+	    c.pStock,
 	    c.vender_vSeq,
 	    d.vName
 	    
@@ -102,6 +103,15 @@
 			oStateCd=#{oStateCd}
 		WHERE
 			oSeq=#{oSeq}
+	</update>
+	
+	<update id="updateOPList">
+		UPDATE ordersProduct
+		SET
+			opStateCd=#{opStateCd}
+	
+		WHERE
+	        opSeq=#{opSeq}
 	</update>
 
 	<select id="selectOne" resultMap="resultMapObj">

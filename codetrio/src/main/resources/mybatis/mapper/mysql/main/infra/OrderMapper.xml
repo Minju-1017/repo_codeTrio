@@ -130,7 +130,7 @@
 	 	SELECT
 	 		<include refid="selectCommonColumn"/>
 	 		<include refid="selectCommon"/>
-	 		AND (oStateCd = 2 or oStateCd = 3)
+	 		AND (b.opStateCd = 7 or b.opStateCd = 8)
 	 		ORDER BY a.oSeq DESC
 	 	
 	</select>
@@ -139,7 +139,7 @@
 	 	SELECT
 	 		<include refid="selectCommonColumn"/>
 	 		<include refid="selectCommon"/>
-	 		AND (oStateCd >= 2 and 5 >= oStateCd )
+	 		AND oStateCd = 2
 	 		ORDER BY a.oSeq DESC
 	 	
 	</select>

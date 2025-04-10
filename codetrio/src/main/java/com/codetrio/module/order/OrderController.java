@@ -134,4 +134,40 @@ public class OrderController {
 		
 		return "whxdm/whorder/WhOrderWHXdmList"; 
 		}
+	
+	@RequestMapping(value = "/whxdm/whorder/OutOrderWHXdmList")
+	public String OutOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
+		
+		vo.setParamsPaging(service.selectOneCount(vo));
+		
+		if (vo.getTotalRows() > 0) {
+			model.addAttribute("orderList", service.selectThree(vo));
+		}
+		
+		return "whxdm/whorder/OutOrderWHXdmList"; 
+		}
+	
+	@RequestMapping(value = "/whxdm/whorder/DeliveryOrderWHXdmList")
+	public String DeliveryOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
+		
+		vo.setParamsPaging(service.selectOneCount(vo));
+		
+		if (vo.getTotalRows() > 0) {
+			model.addAttribute("orderList", service.selectThree(vo));
+		}
+		
+		return "whxdm/whorder/DeliveryOrderWHXdmList"; 
+		}
+	
+	@RequestMapping(value = "/hoxdm/order/DeliOrderHOXdmList")
+	public String DeliOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
+		
+		vo.setParamsPaging(service.selectOneCount(vo));
+		
+		if (vo.getTotalRows() > 0) {
+			model.addAttribute("orderList", service.selectThree(vo));
+		}
+		
+		return "hoxdm/order/DeliOrderHOXdmList"; 
+		}
 }

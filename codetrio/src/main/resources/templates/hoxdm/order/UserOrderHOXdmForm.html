@@ -279,14 +279,14 @@
 											<td th:text="${list?.vName}"></td>
 											<td th:text="${list?.vName}"></td>
 											<td>
-												<select class="form-select "  th:name="|opStatCd${listindex.index}|" th:id="|opStatCd${listindex.index}|" required>
-													<option value = "" >선택</option>
-													<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE)}"
-													th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
-													th:selected="${#strings.equals(codeList.cSeq, list.opStateCd)}"></option>
-												</select>
-												<div class="invalid-feedback">상품상태를 선택해주세요</div>
-												</td>
+											<select class="form-select "  th:name="|opStatCd${listindex.index}|" th:id="|opStatCd${listindex.index}|" required>
+												<option value = "" >선택</option>
+												<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE)}"
+												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
+												th:selected="${#strings.equals(codeList.cSeq, list.opStateCd)}"></option>
+											</select>
+											<div class="invalid-feedback">상품상태를 선택해주세요</div>
+											</td>
 										</tr>
 									</tbody>
 								</table>

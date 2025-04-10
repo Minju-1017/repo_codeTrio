@@ -18,9 +18,23 @@ public class ProductDto {
 		private String cSeq;
 		private int pDelNy;
 		private List<String> seqList;
+		private int totalPrice;
+		private int totalOrder;
 		
 		
 		
+		public int getTotalOrder() {
+			return totalOrder;
+		}
+		public void setTotalOrder(int totalOrder) {
+			this.totalOrder = totalOrder;
+		}
+		public int getTotalPrice() {
+			return totalPrice;
+		}
+		public void setTotalPrice(int totalPrice) {
+			this.totalPrice = totalPrice;
+		}
 		public String getcName() {
 			return cName;
 		}

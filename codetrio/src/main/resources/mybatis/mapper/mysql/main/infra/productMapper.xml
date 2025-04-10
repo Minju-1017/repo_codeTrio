@@ -47,6 +47,19 @@
 		where 1=1 
 		order by a.vSeq asc
 	</select>
+	<select id="totalPrice" resultType="integer">
+	select
+	sum(pPrice * bpAmount) as totalPrice
+	from ordersproduct as a
+	left join product as b on b.pSeq = a.product_pSeq
+	where 1=1
+	</select>
+	<select id="totalOrder" resultType="integer">
+	select
+	count(*) as totalOrder
+	from ordersproduct as a
+	where 1=1
+	</select>
 	
 	<select id="productList" resultMap="resultMapObj">
 		select

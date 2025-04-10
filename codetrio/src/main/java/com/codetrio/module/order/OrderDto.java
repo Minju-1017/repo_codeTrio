@@ -17,7 +17,7 @@ public class OrderDto {
 	
 	private String pSeq;
 	private String pName;
-	private double pPrice;
+	private String pPrice;
 	private String pOption;
 	private String vender_vSeq;
 	
@@ -41,10 +41,10 @@ public class OrderDto {
 	public void setpName(String pName) {
 		this.pName = pName;
 	}
-	public double getpPrice() {
+	public String getpPrice() {
 		return pPrice;
 	}
-	public void setpPrice(double pPrice) {
+	public void setpPrice(String pPrice) {
 		this.pPrice = pPrice;
 	}
 	public String getpOption() {

@@ -246,7 +246,7 @@
 											<select class="form-select" id="shOption" name="shOption">
 												<option value="" th:selected="${vo.shOption == null}">검색구분</option>
 												<option value="1" th:selected="${vo.shOption == 1}">주문번호</option>
-												<option value="2" th:selected="${vo.shOption == 2}">수취인</option>
+												<option value="2" th:selected="${vo.shOption == 2}">거래처이름</option>
 											</select>
 										</div>
 										<div class="col-lg-2 col-12">
@@ -345,8 +345,8 @@
 
 	// URL
 	let fom = document.querySelector("form[name=formList]");
-	let goUrlXdmList = "/hoxdm/order/UserOrderHOXdmList";
-	let goUrlXdmForm = "/hoxdm/order/UserOrderHOXdmForm";
+	let goUrlXdmList = "/hoxdm/order/WarehouseOrderHOXdmList";
+// 	let goUrlXdmForm = "/hoxdm/order/UserOrderHOXdmForm";
 // 	let goUrlXdmListUeleProc = "/hoxdm/codegroup/CodeGroupListHOXdmUeleProc";
 // 	let goUrlXdmListDeleProc = "/hoxdm/codegroup/CodeGroupListHOXdmDeleProc";
 	

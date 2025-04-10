@@ -197,7 +197,7 @@
 			<div class="row mb-8">
 				<div class="col-md-12">
 					<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4">
-						<h2>유저</h2>
+						<h2>유저 주문관리</h2>
 					</div>
 				</div>
 			</div>
@@ -208,48 +208,89 @@
 							<div class="d-flex flex-column gap-4">
 								<form class="row g-5 needs-validation" novalidate 
 									method="post" id="form" name="form">
-									
 									<input type="hidden" name="oSeq" th:value="${vo.oSeq}">
+									<input type="hidden" name="listsize" id="listsize" th:value="${#lists.size(orderList)}">
 									
-									<div class="col-lg-4 col-12">
+									<div class="col-lg-3 col-12">
 										<label for="oSeq" class="form-label">
-											order seq
+											주문번호
 											<span class="text-danger">*</span>
 										</label>
 										<input type="text" class="form-control" name="oSeq" id="oSeq" 
 											th:value="${orderItem?.oSeq}" placeholder="자동생성" disabled />
 									</div>
-									<div class="col-lg-8 col-12"></div>
-									<div class="col-lg-4 col-12">
+									<div class="col-lg-3 col-12">
+										<label for="oReceiver" class="form-label">주문상태</label>
 										<select class="form-select" name="oStateCd" id="oStateCd">
 											<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERS_CODE_GROUP_SEQ_ORDER_STATE)}"
 												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
 												th:selected="${#strings.equals(codeList.cSeq, vo.oStateCd)}"></option>
 										</select>
 									</div>
-									<div class="col-lg-8 col-12"></div>
+									<div class="col-lg-6 col-12"></div>
 									
-									<div class="col-lg-4 col-12">
+									<div class="col-lg-3 col-12">
 										<label for="oReceiver" class="form-label">수취인</label>
 										<input type="text" class="form-control" 
 											th:value="${orderItem?.oReceiver}" id="oReceiver" disabled />
 									</div>
-									<div class="col-lg-4 col-12">
+									<div class="col-lg-3 col-12">
 										<label for="oReceiverTel" class="form-label">수취인번호</label>
 										<input type="text" class="form-control" 
 											th:value="${orderItem?.oReceiverTel}" id="oReceiverTel" disabled />
 									</div>
-									<div class="col-lg-4 col-12">
+									<div class="col-lg-3 col-12">
 										<label for="oReceiverAddr" class="form-label">수취인주소</label>
 										<input type="text" class="form-control" 
 											th:value="${orderItem?.oReceiverAddr}" id="oReceiverAddr" disabled />
 									</div>
-									<div class="col-lg-4 col-12">
+									<div class="col-lg-3 col-12">
 										<label for="oDate" class="form-label">등록일</label>
 										<input type="text" class="form-control" 
 											th:value="${orderItem?.oDate}" id="oDate" disabled />
 									</div>
-									<div class="col-lg-8 col-12"></div>
+									<div class="table-responsive">
+								<table class="table table-centered table-hover text-nowrap table-borderless mb-0 table-with-checkbox">
+									<thead class="bg-light">
+										<tr>
+											<th>상품번호</th>
+											<th>상품명</th>
+											<th>상품옵션</th>
+											<th>상품가격</th>
+											<th>수량</th>
+											<th>회사</th>
+											<th>재고</th>
+											<th>주문상태</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${#lists.isEmpty(orderList)}">
+											<td class="text-center" colspan="8">
+												데이터가 없습니다.
+											</td>
+										</tr> 
+										<tr th:if="${!#lists.isEmpty(orderList)}" th:each="list,listindex : ${orderList}">
+											
+											<td th:text="${list?.pSeq}"></td>
+											<td	th:text="${list?.pName}"></td>
+											<td th:text="${list?.pOption}"></td>
+											<td th:text="${list?.pPrice}"></td>
+											<td th:text="${list?.bpAmount}"></td>
+											<td th:text="${list?.vName}"></td>
+											<td th:text="${list?.vName}"></td>
+											<td>
+												<select class="form-select "  th:name="|opStatCd${listindex.index}|" th:id="|opStatCd${listindex.index}|" required>
+													<option value = "" >선택</option>
+													<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE)}"
+													th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
+													th:selected="${#strings.equals(codeList.cSeq, list.opStateCd)}"></option>
+												</select>
+												<div class="invalid-feedback">상품상태를 선택해주세요</div>
+												</td>
+										</tr>
+									</tbody>
+								</table>
+						   	</div>
 									<div class="col-lg-6 col-12">
 										<div class="d-flex flex-column flex-md-row gap-2">
 											<a href="/hoxdm/order/OrderHOXdmList" class="btn btn-outline-secondary"><i class="bi bi-list-ul"></i></a>
@@ -281,35 +322,7 @@
 						<!-- card body -->
 						<div class="card-body p-0">
 							<!-- table -->
-							<div class="table-responsive">
-								<table class="table table-centered table-hover text-nowrap table-borderless mb-0 table-with-checkbox">
-									<thead class="bg-light">
-										<tr>
-											<th>상품번호</th>
-											<th>상품명</th>
-											<th>상품옵션</th>
-											<th>상품가격</th>
-											<th>수량</th>
-											<th>회사</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:if="${#lists.isEmpty(orderList)}">
-											<td class="text-center" colspan="8">
-												데이터가 없습니다.
-											</td>
-										</tr> 
-										<tr th:if="${!#lists.isEmpty(orderList)}" th:each="list : ${orderList}">
-											<td th:text="${list?.pSeq}"></td>
-											<td	th:text="${list?.pName}"></td>
-											<td th:text="${list?.pOption}"></td>
-											<td th:text="${list?.pPrice}"></td>
-											<td th:text="${list?.bpAmount}"></td>
-											<td th:text="${list?.vName}"></td>
-										</tr>
-									</tbody>
-								</table>
-						   	</div>
+							
 						</div>
 					</div>
 				</div>
@@ -333,7 +346,6 @@
 // 	let goUrlXdmDele = "/hoxdm/codegroup/CodeGroupHOXdmDele";
 
 	// Input
-	let cgName = document.getElementById("cgName");
 	
 	function submit(goUrl) {
 		fom.action = goUrl;
@@ -345,25 +357,31 @@
 <script type="text/javascript">
 	// btnSave 클릭시
 	document.getElementById("btnSave").onclick = function() {
-		var focus = false; // Validation 후 Focus 줘야 하는 Input
+		var invalid = false; // Validation 후 Focus 줘야 하는 Input
+		var listsize = document.getElementById("listsize").value;
 		
-		// cgName 체크
-// 		resetValidation(cgName);
-		
-// 		if (!strKorEngNumberValidation(cgName)) {
-// 			cgName.classList.add("is-invalid");
+		for(let i = 0 ; i < listsize; i++){
+			var opStateCd = document.getElementById("opStateCd0");
 			
-// 			if (!focus) {
-// 				cgName.focus();
-// 				focus = true;
-// 			}
-// 		} else {
-// 			cgName.classList.add("is-valid");
-// 		}
+			resetValidation(opStateCd);
+			alert("Adsf");
+			if (!strValidation(opStateCd)) {
+				opStateCd.classList.add("is-invalid");
+				if (!invalid) {
+// 					opStateCd.focus();
+					invalid = true;
+				}
+				
+			} else {
+				opStateCd.classList.add("is-valid");
+			}
+			
+		}
+		// cgName 체크
 		
 		// Alert/Modal과 달리 모든  Input창을 한번에 확인해야 하므로 return false 시
 		// Focus 줘야 하는 Input(Validation에 처음으로 걸린 Input)이 있는지 확인
-// 		if (focus) return false;
+		if (invalid) return false;
 		
 // 		cgName.value = cgName.value.trim();
 		

@@ -14,6 +14,7 @@ public class OrderDto {
 	private String opSeq;
 	private String product_pSeq;
 	private int bpAmount ;
+	private String opStateCd;
 	
 	private String pSeq;
 	private String pName;
@@ -23,6 +24,12 @@ public class OrderDto {
 	
 	private String vName;
 	
+	public String getOpStateCd() {
+		return opStateCd;
+	}
+	public void setOpStateCd(String opStateCd) {
+		this.opStateCd = opStateCd;
+	}
 	public String getpSeq() {
 		return pSeq;
 	}

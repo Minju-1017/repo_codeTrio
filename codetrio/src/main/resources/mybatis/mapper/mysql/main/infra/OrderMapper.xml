@@ -37,6 +37,7 @@
 	    b.opSeq,
 	    b.product_pSeq,
 	    b.bpAmount,
+	    b.opStateCd,
 	    c.pSeq,
 	    c.pName,
 	    c.pPrice,

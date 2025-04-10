@@ -24,28 +24,11 @@ public class OrderController {
 		vo.setParamsPaging(service.selectOneCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			List<OrderDto> dtoList = service.selectList(vo);
-			List<OrderDto> oneList = new ArrayList <OrderDto>();
-			
-			for(OrderDto dto : dtoList) {
-				int count = 0;
-				
-				for(OrderDto dto2 : oneList) {
-					if(dto.getoSeq().equals(dto2.getoSeq())) {
-						count++;
-						break;
-					}
-				}
-				
-				if (count == 0) {
-					oneList.add(dto);
-				}
-			}
-			model.addAttribute("orderList", oneList);
+			model.addAttribute("orderList", service.selectList(vo));
 		}
 		
 		return path + "UserOrderHOXdmList"; 
-		}
+	}
 	
 	@RequestMapping(value = "/hoxdm/order/UserOrderHOXdmForm")
 	public String UserOrderHOXdmForm(@ModelAttribute("vo") OrderVo vo,

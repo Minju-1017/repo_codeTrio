@@ -48,8 +48,28 @@
 	
 	<select id="selectList" resultMap="resultMapObj">
 		SELECT
-			<include refid="selectCommonColumn"/>
-		<include refid="selectCommon"/>
+			a.oSeq,
+		    a.oStateCd,
+		    a.oDate,
+		    a.oReceiver,
+		    a.oReceiverTel,
+		    a.oReceiverAddr,
+		    a.user_uSeq
+		FROM 
+			orders a
+		WHERE 1=1		
+			<choose>
+				<when test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 1
+					and shDateStart != null and !shDateStart.equals('')
+					and shDateEnd != null and !shDateEnd.equals('')">
+					AND a.oDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+				</when>	
+			</choose>	
+	        <choose>
+	            <when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 2">AND a.oReceiver LIKE CONCAT('%',#{shValue},'%')</when>
+	        </choose>
 		ORDER BY a.oSeq DESC
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
@@ -57,7 +77,21 @@
 	
 	<select id="selectOneCount" resultType="Integer">
 		SELECT COUNT(*)
-		<include refid="selectCommon"/>
+		FROM 
+			orders a
+		WHERE 1=1		
+			<choose>
+				<when test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 1
+					and shDateStart != null and !shDateStart.equals('')
+					and shDateEnd != null and !shDateEnd.equals('')">
+					AND a.oDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+				</when>	
+			</choose>	
+	        <choose>
+	            <when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 2">AND a.oReceiver LIKE CONCAT('%',#{shValue},'%')</when>
+	        </choose>
 		ORDER BY a.oSeq DESC
 	</select>
 	

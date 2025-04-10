@@ -128,6 +128,30 @@
 		AND a.oSeq=#{oSeq}
 	</select>
 	
+	<select id="selectTwoCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM 
+			orders a
+			left join ordersProduct b on a.oSeq = b.orders_oSeq
+			left join product c on 		 b.product_pSeq = c.pSeq
+			left join vender d on		 c.vender_vSeq = d.vSeq
+		WHERE 1=1	
+			AND (b.opStateCd = 7 or b.opStateCd = 8)
+			<choose>
+				<when test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 1
+					and shDateStart != null and !shDateStart.equals('')
+					and shDateEnd != null and !shDateEnd.equals('')">
+					AND a.oDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+				</when>	
+			</choose>	
+	        <choose>
+	            <when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 2">AND a.oReceiver LIKE CONCAT('%',#{shValue},'%')</when>
+	        </choose>
+		ORDER BY a.oSeq DESC
+	</select>
+	
 	<select id="selectTwo" resultMap="resultMapObj">
 	 	SELECT
 	 		<include refid="selectCommonColumn"/>
@@ -135,7 +159,31 @@
 	 		<if test="shStateOption != null and !shStateOption.equals('')">AND b.opStateCd = #{shStateOption}</if>
 	 		AND (b.opStateCd = 7 or b.opStateCd = 8)
 	 		ORDER BY a.oSeq DESC
-	 	
+	 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
+	</select>
+	
+	<select id="selectThreeCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM 
+			orders a
+			left join ordersProduct b on a.oSeq = b.orders_oSeq
+			left join product c on 		 b.product_pSeq = c.pSeq
+			left join vender d on		 c.vender_vSeq = d.vSeq
+		WHERE 1=1	
+			AND (b.opStateCd = 6 or b.opStateCd = 7 or b.opStateCd = 8)
+			<choose>
+				<when test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 1
+					and shDateStart != null and !shDateStart.equals('')
+					and shDateEnd != null and !shDateEnd.equals('')">
+					AND a.oDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+				</when>	
+			</choose>	
+	        <choose>
+	            <when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 2">AND a.oReceiver LIKE CONCAT('%',#{shValue},'%')</when>
+	        </choose>
+		ORDER BY a.oSeq DESC
 	</select>
 	
 	<select id="selectThree" resultMap="resultMapObj">
@@ -143,9 +191,9 @@
 	 		<include refid="selectCommonColumn"/>
 	 		<include refid="selectCommon"/>
 	 		<if test="shStateOption != null and !shStateOption.equals('')">AND b.opStateCd = #{shStateOption}</if>
-	 		AND oStateCd = 2
+	 		AND (b.opStateCd = 6 or b.opStateCd = 7 or b.opStateCd = 8)
 	 		ORDER BY a.oSeq DESC
-	 	
+	 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
 	
 </mapper>

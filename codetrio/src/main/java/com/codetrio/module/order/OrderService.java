@@ -20,6 +20,17 @@ public class OrderService {
 		return dao.selectOneCount(vo);
 		
 	}
+	
+	public int selectTwoCount(OrderVo vo) {
+		return dao.selectTwoCount(vo);
+		
+	}
+	
+	public int selectThreeCount(OrderVo vo) {
+		return dao.selectThreeCount(vo);
+		
+	}
+	
 	public List<OrderDto> selectOne(OrderDto orderDto) {
 		return dao.selectOne(orderDto);
 	}

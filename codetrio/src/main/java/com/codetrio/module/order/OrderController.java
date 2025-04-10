@@ -94,7 +94,7 @@ public class OrderController {
 	@RequestMapping(value = "/hoxdm/order/ClientOrderHOXdmList")
 	public String ClientOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectOneCount(vo));
+		vo.setParamsPaging(service.selectTwoCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
 			model.addAttribute("orderList", service.selectTwo(vo));
@@ -114,7 +114,7 @@ public class OrderController {
 	@RequestMapping(value = "/hoxdm/order/WarehouseOrderHOXdmList")
 	public String WraehouseOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectOneCount(vo));
+		vo.setParamsPaging(service.selectThreeCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
 			model.addAttribute("orderList", service.selectThree(vo));
@@ -126,7 +126,7 @@ public class OrderController {
 	@RequestMapping(value = "/whxdm/whorder/WhOrderWHXdmList")
 	public String WhOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectOneCount(vo));
+		vo.setParamsPaging(service.selectThreeCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
 			model.addAttribute("orderList", service.selectThree(vo));
@@ -138,7 +138,7 @@ public class OrderController {
 	@RequestMapping(value = "/whxdm/whorder/OutOrderWHXdmList")
 	public String OutOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectOneCount(vo));
+		vo.setParamsPaging(service.selectThreeCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
 			model.addAttribute("orderList", service.selectThree(vo));
@@ -150,7 +150,7 @@ public class OrderController {
 	@RequestMapping(value = "/whxdm/whorder/DeliveryOrderWHXdmList")
 	public String DeliveryOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectOneCount(vo));
+		vo.setParamsPaging(service.selectThreeCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
 			model.addAttribute("orderList", service.selectThree(vo));
@@ -162,7 +162,7 @@ public class OrderController {
 	@RequestMapping(value = "/hoxdm/order/DeliOrderHOXdmList")
 	public String DeliOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectOneCount(vo));
+		vo.setParamsPaging(service.selectThreeCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
 			model.addAttribute("orderList", service.selectThree(vo));

@@ -137,6 +137,8 @@ public class BaseVo {
 		System.out.println("startPage:" + startPage);
 		System.out.println("endPage:" + endPage);
 		System.out.println("startRnumForMysql: " + startRnumForMysql);
+		
+		
 	}
 
 	public Integer getShDelNy() {

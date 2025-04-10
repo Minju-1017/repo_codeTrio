@@ -10,6 +10,8 @@ public interface OrderDao {
 	
 	public List<OrderDto> selectList(OrderVo vo);
 	public int selectOneCount(OrderVo vo);
+	public int selectTwoCount(OrderVo vo);
+	public int selectThreeCount(OrderVo vo);
 	public List<OrderDto> selectOne(OrderDto orderDto);
 	public List<OrderDto> selectTwo(OrderVo vo);
 	public List<OrderDto> selectThree(OrderVo vo);

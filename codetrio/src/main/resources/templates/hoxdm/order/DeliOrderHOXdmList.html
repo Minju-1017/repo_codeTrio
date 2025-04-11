@@ -300,8 +300,11 @@
 											<tr>
 												<th>#</th>
 												<th>주문번호</th>
-												<th>거래처이름</th>
+												<th>택배사</th>
+												<th>송장번호</th>
 												<th>주문상태</th>
+												<th>수취인</th>
+												<th>수취인번호</th>
 												<th>등록일</th>
 											</tr>
 										</thead>
@@ -314,9 +317,11 @@
 											<tr th:if="${!#lists.isEmpty(orderList)}" th:each="list : ${orderList}">
 												<td th:text="${vo.totalRows - ((vo.currPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
 												<td th:text="${list?.oSeq}"></td>
-<!-- 											거래처에 캐싱 해야함 -->
-												<td th:text="${list?.vName}"></td>
-												<td th:text="${@codeService.selectOneCachedCode(list?.opStateCd)}"></td>
+												<td th:text="${@codeService.selectOneCachedCode(list?.oDeliveryCompCd)}"></td>
+												<td th:text="${list?.oDeliveryNo}"></td>
+												<td th:text="${@codeService.selectOneCachedCode(list?.oStateCd)}"></td>
+												<td th:text="${list?.oReceiver}"></td>
+												<td th:text="${list?.oReceiverTel}"></td>
 												<td th:text="${list?.oDate}"></td>
 											</tr>
 										</tbody>

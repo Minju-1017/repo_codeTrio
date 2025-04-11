@@ -9,6 +9,8 @@ public class OrderDto {
 	private String oReceiver;
 	private String oReceiverTel;
 	private String oReceiverAddr;
+	private String oDeliveryCompCd;
+	private String oDeliveryNo;
 	private String user_uSeq;
 	
 	private String opSeq;
@@ -25,6 +27,22 @@ public class OrderDto {
 	
 	private String vName;
 	
+	public String getoDeliveryCompCd() {
+		return oDeliveryCompCd;
+	}
+
+	public void setoDeliveryCompCd(String oDeliveryCompCd) {
+		this.oDeliveryCompCd = oDeliveryCompCd;
+	}
+
+	public String getoDeliveryNo() {
+		return oDeliveryNo;
+	}
+
+	public void setoDeliveryNo(String oDeliveryNo) {
+		this.oDeliveryNo = oDeliveryNo;
+	}
+
 	public String getOpStateCd() {
 		return opStateCd;
 	}

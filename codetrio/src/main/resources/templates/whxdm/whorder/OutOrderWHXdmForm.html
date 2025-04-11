@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="~{/hoxdm/include/head :: head}"></div> <!-- 중복되는 head 처리 -->
+<div th:replace="~{/whxdm/include/head :: head}"></div> <!-- 중복되는 head 처리 -->
 
 <div class="main-wrapper">
 	<!-- navbar vertical -->
@@ -9,51 +9,39 @@
 	<nav class="navbar-vertical-nav d-none d-xl-block">
 		<div class="navbar-vertical">
 			<div class="px-4 py-5">
-				<a href="/hoxdm/index" class="navbar-brand">
+				<a href="/whxdm/index" class="navbar-brand">
 					<img src="/assets/xdm/template/FreshCart-1.4.0/images/logo/logo.png" alt="" />
 				</a>
 			</div>
 			<div class="navbar-vertical-content flex-grow-1" data-simplebar="">
 				<ul class="navbar-nav flex-column" id="sideNavbar">
 					<li class="nav-item">
-						<a class="nav-link " href="/hoxdm/index">
+						<a class="nav-link " href="/whxdm/index">
 							<div class="d-flex align-items-center">
 								<span class="nav-link-icon"><i class="bi bi-house"></i></span>
 								<span class="nav-link-text">Home</span>
 							</div>
 						</a>
 					</li>
+					
 					<li class="nav-item">
-						<a class="nav-link active" href="/hoxdm/order/UserOrderHOXdmList">
+						<a class="nav-link " href="/whxdm/whorder/InOrderWHXdmList">
 							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-person"></i></span>
-								<span class="nav-link-text">유저 주문관리</span>
+								<span class="nav-link-icon"><i class="bi bi-building-fill-add"></i></span>
+								<span class="nav-link-text">입고관리</span>
 							</div>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link " href="/hoxdm/order/ClientOrderHOXdmList">
+						<a class="nav-link active" href="/whxdm/whorder/OutOrderWHXdmList">
 							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-cart"></i></span>
-								<span class="nav-link-text">거래처 주문현황</span>
+								<span class="nav-link-icon"><i class="bi bi-building-fill-dash"></i></span>
+								<span class="nav-link-text">출고관리</span>
 							</div>
 						</a>
 					</li>
-					
-					
-					
-					
 					<li class="nav-item">
-						<a class="nav-link" href="/hoxdm/order/WarehouseOrderHOXdmList">
-							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-houses"></i></span>
-								<span class="nav-link-text">창고 주문현황</span>
-							</div>
-						</a>
-					</li>
-					
-					<li class="nav-item">
-						<a class="nav-link" href="/hoxdm/order/DeliOrderHOXdmList">
+						<a class="nav-link " href="/whxdm/whorder/DeliveryOrderWHXdmList">
 							<div class="d-flex align-items-center">
 								<span class="nav-link-icon"><i class="bi bi-truck"></i></span>
 								<span class="nav-link-text">배송관리</span>
@@ -61,46 +49,12 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/hoxdm/vender/VenderHOXdmList">
-							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-building"></i></span>
-								<span class="nav-link-text">거래처관리</span>
-							</div>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/productHOXdmList">
+						<a class="nav-link " href="/productWHXdmList">
 							<div class="d-flex align-items-center">
 								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
 								<span class="nav-link-text">상품관리</span>
 							</div>
 						</a>
-					</li>
-					<li class="nav-item">
-						<a
-							class="nav-link collapsed "
-							href="#"
-							data-bs-toggle="collapse"
-							data-bs-target="#navCategoriesOrders"
-							aria-expanded="false"
-							aria-controls="navCategoriesOrders"
-						>
-							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-laptop"></i></span>
-								<span class="nav-link-text">시스템관리</span>
-							</div>
-						</a>
-						<div id="navCategoriesOrders" class="collapse " data-bs-parent="#sideNavbar">
-							<ul class="nav flex-column">
-								<li class="nav-item">
-									<a class="nav-link" href="/hoxdm/code/CodeHOXdmList">코드관리</a>
-								</li>
-								<!-- Nav item -->
-								<li class="nav-item">
-									<a class="nav-link " href="/hoxdm/codegroup/CodeGroupHOXdmList">코드그룹관리</a>
-								</li>
-							</ul>
-						</div>
 					</li>
 				</ul>
 			</div>
@@ -118,44 +72,32 @@
 			<div class="navbar-vertical-content flex-grow-1" data-simplebar="">
 				<ul class="navbar-nav flex-column">
 					<li class="nav-item">
-						<a class="nav-link " href="/hoxdm/index">
+						<a class="nav-link " href="/whxdm/index">
 							<div class="d-flex align-items-center">
 								<span class="nav-link-icon"><i class="bi bi-house"></i></span>
 								<span class="nav-link-text">Home</span>
 							</div>
 						</a>
 					</li>
+					
 					<li class="nav-item">
-						<a class="nav-link active" href="/hoxdm/order/UserOrderHOXdmList">
+						<a class="nav-link " href="/whxdm/whorder/WhOrderWHXdmList">
 							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-person"></i></span>
-								<span class="nav-link-text">유저 주문관리</span>
+								<span class="nav-link-icon"><i class="bi bi-building-fill-add"></i></span>
+								<span class="nav-link-text">입고관리</span>
 							</div>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link " href="/hoxdm/order/ClientOrderHOXdmList">
+						<a class="nav-link active" href="/whxdm/whorder/OutOrderWHXdmList">
 							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-cart"></i></span>
-								<span class="nav-link-text">거래처 주문현황</span>
+								<span class="nav-link-icon"><i class="bi bi-building-fill-dash"></i></span>
+								<span class="nav-link-text">출고관리</span>
 							</div>
 						</a>
 					</li>
-					
-					
-					
-					
 					<li class="nav-item">
-						<a class="nav-link" href="/hoxdm/order/WarehouseOrderHOXdmList">
-							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-houses"></i></span>
-								<span class="nav-link-text">창고 주문현황</span>
-							</div>
-						</a>
-					</li>
-					
-					<li class="nav-item">
-						<a class="nav-link" href="/hoxdm/order/DeliOrderHOXdmList">
+						<a class="nav-link " href="/whxdm/whorder/DeliveryOrderWHXdmList">
 							<div class="d-flex align-items-center">
 								<span class="nav-link-icon"><i class="bi bi-truck"></i></span>
 								<span class="nav-link-text">배송관리</span>
@@ -163,46 +105,12 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/hoxdm/vender/VenderHOXdmList">
-							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-building"></i></span>
-								<span class="nav-link-text">거래처관리</span>
-							</div>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/productHOXdmList">
+						<a class="nav-link " href="/productWHXdmList">
 							<div class="d-flex align-items-center">
 								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
 								<span class="nav-link-text">상품관리</span>
 							</div>
 						</a>
-					</li>
-					<li class="nav-item">
-						<a
-							class="nav-link collapsed "
-							href="#"
-							data-bs-toggle="collapse"
-							data-bs-target="#navCategoriesOrders"
-							aria-expanded="false"
-							aria-controls="navCategoriesOrders"
-						>
-							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-laptop"></i></span>
-								<span class="nav-link-text">시스템관리</span>
-							</div>
-						</a>
-						<div id="navCategoriesOrders" class="collapse " data-bs-parent="#sideNavbar">
-							<ul class="nav flex-column">
-								<li class="nav-item">
-									<a class="nav-link" href="/hoxdm/code/CodeHOXdmList">코드관리</a>
-								</li>
-								<!-- Nav item -->
-								<li class="nav-item">
-									<a class="nav-link " href="/hoxdm/codegroup/CodeGroupHOXdmList">코드그룹관리</a>
-								</li>
-							</ul>
-						</div>
 					</li>
 				</ul>
 			</div>
@@ -326,7 +234,7 @@
 						   	</div>
 									<div class="col-lg-6 col-12">
 										<div class="d-flex flex-column flex-md-row gap-2">
-											<a href="/hoxdm/order/UserOrderHOXdmList" class="btn btn-outline-secondary"><i class="bi bi-list-ul"></i></a>
+											<a href="/whxdm/whorder/OutOrderWHXdmList" class="btn btn-outline-secondary"><i class="bi bi-list-ul"></i></a>
 										</div>
 									</div>
 									<div class="col-lg-6 col-12" style="text-align: right;">
@@ -344,7 +252,7 @@
 	</main>
 </div>
     	
-<div th:replace="~{/hoxdm/include/footer :: footer}"></div> <!-- 중복되는 footer 처리 -->
+<div th:replace="~{/whxdm/include/footer :: footer}"></div> <!-- 중복되는 footer 처리 -->
 
 <!-- 변수 정의 / 공통 함수 -->
 <script type="text/javascript">
@@ -420,7 +328,7 @@
 			async: true 
 			,cache: false
 			,type : "post"
-			,url : "/hoxdm/order/UserOrderHOXdmUpdt"
+			,url : "/whxdm/whorder/OutOrderWHXdmUpdt"
 			,traditional: true
 			,data : { 
 				"oSeq" : $("#oSeq").val(), 
@@ -430,7 +338,7 @@
 			}
 			,success: function(response) {
 				if(response.rt == "success") {
-					fom.action = "/hoxdm/order/UserOrderHOXdmForm";
+					fom.action = "/whxdm/whorder/OutOrderWHXdmForm";
 					fom.submit();
 				} else {
 					// by Pass

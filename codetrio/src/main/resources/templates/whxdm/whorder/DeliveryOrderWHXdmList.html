@@ -23,7 +23,7 @@
 					</li>
 					
 					<li class="nav-item">
-						<a class="nav-link " href="/whxdm/whorder/WhOrderWHXdmList">
+						<a class="nav-link " href="/whxdm/whorder/InOrderWHXdmList">
 							<div class="d-flex align-items-center">
 								<span class="nav-link-icon"><i class="bi bi-building-fill-add"></i></span>
 								<span class="nav-link-text">입고관리</span>
@@ -79,7 +79,7 @@
 					</li>
 					
 					<li class="nav-item">
-						<a class="nav-link " href="/whxdm/whorder/WhOrderWHXdmList">
+						<a class="nav-link " href="/whxdm/whorder/InOrderWHXdmList">
 							<div class="d-flex align-items-center">
 								<span class="nav-link-icon"><i class="bi bi-building-fill-add"></i></span>
 								<span class="nav-link-text">입고관리</span>
@@ -207,18 +207,14 @@
 									<table class="table table-centered table-hover text-nowrap table-borderless mb-0 table-with-checkbox">
 										<thead class="bg-light">
 											<tr>
-												<th>
-													<div class="form-check">
-														<input class="form-check-input" type="checkbox" id="checkAll" name="checkAll">
-													</div>
-												</th>
 												<th>#</th>
 												<th>주문번호</th>
+												<th>택배사</th>
+												<th>송장번호</th>
 												<th>주문상태</th>
-												<th>등록일</th>
 												<th>수취인</th>
-												<th>수취인 번호</th>
-												<th>수취인 주소</th>
+												<th>수취인번호</th>
+												<th>등록일</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -228,18 +224,14 @@
 												</td>
 											</tr> 
 											<tr th:if="${!#lists.isEmpty(orderList)}" th:each="list : ${orderList}">
-												<td>
-													<div class="form-check">
-														<input class="form-check-input" type="checkbox" name="check" th:value="${list?.oSeq}">
-													</div>
-												</td>
 												<td th:text="${vo.totalRows - ((vo.currPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
 												<td th:text="${list?.oSeq}"></td>
-												<td	th:text="${@codeService.selectOneCachedCode(list?.opStateCd)}"></td>
-												<td th:text="${list?.oDate}"></td>
+												<td th:text="${@codeService.selectOneCachedCode(list?.oDeliveryCompCd)}"></td>
+												<td th:text="${list?.oDeliveryNo}"></td>
+												<td th:text="${@codeService.selectOneCachedCode(list?.oStateCd)}"></td>
 												<td th:text="${list?.oReceiver}"></td>
 												<td th:text="${list?.oReceiverTel}"></td>
-												<td th:text="${list?.oReceiverAddr}"></td>
+												<td th:text="${list?.oDate}"></td>
 											</tr>
 										</tbody>
 									</table>

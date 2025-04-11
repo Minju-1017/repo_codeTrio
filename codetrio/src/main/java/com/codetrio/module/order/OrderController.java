@@ -122,38 +122,152 @@ public class OrderController {
 		
 		return path + "WarehouseOrderHOXdmList"; 
 		}
-	
-	@RequestMapping(value = "/whxdm/whorder/WhOrderWHXdmList")
-	public String WhOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
+	//입고관리
+	@RequestMapping(value = "/whxdm/whorder/InOrderWHXdmList")
+	public String InOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectThreeCount(vo));
+		vo.setParamsPaging(service.selectOneCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectThree(vo));
+			model.addAttribute("orderList", service.selectList(vo));
 		}
 		
-		return "whxdm/whorder/WhOrderWHXdmList"; 
+		return "whxdm/whorder/InOrderWHXdmList"; 
 		}
-	
+	//입고관리 폼
+	@RequestMapping(value = "/whxdm/whorder/InOrderWHXdmForm")
+	public String InOrderWHXdmForm(@ModelAttribute("vo") OrderVo vo,
+			Model model, OrderDto orderDto) throws Exception {
+		
+		if (vo.getoSeq().equals("0") || vo.getoSeq().equals("")) {
+			// insert mode
+		} else {
+			List<OrderDto> dtoList = service.selectOne(orderDto); // 주문한 상품이 여러개일 수 있으므로, List로 읽는다
+			OrderDto dto = new OrderDto();
+			dto = dtoList.get(0);
+			model.addAttribute("orderItem", dto);
+			model.addAttribute("orderList", dtoList);
+		}
+		return "whxdm/whorder/InOrderWHXdmForm";
+	}
+	//입고업데이트
+	@ResponseBody
+	@RequestMapping(value = "/whxdm/whorder/InOrderWHXdmUpdt")
+	public Map<String, Object> InOrderWHXdmUpdt(OrderDto orderDto, 
+			@RequestParam(value="opSeqList") List<String> opSeqList,
+			@RequestParam(value="opStateCdList") List<String> opStateCdList) {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		if (orderDto == null || opSeqList == null || opStateCdList == null) {
+			returnMap.put("rt", "fail");
+		} else {
+			int successCnt = service.update(orderDto);
+			
+			if (successCnt > 0) {
+				if (opSeqList.size() > 0 && opStateCdList.size() > 0) {
+					int opSuccessCnt = 0;
+					
+					for (int i = 0; i < opSeqList.size(); i++) {
+						OrderDto dto = new OrderDto();
+						
+						dto.setOpSeq(opSeqList.get(i));
+						dto.setOpStateCd(opStateCdList.get(i));
+						
+						opSuccessCnt = opSuccessCnt + service.updateOPList(dto);
+					}
+					
+					if (opSuccessCnt > 0) {
+						returnMap.put("rt", "success");	
+					} else {
+						returnMap.put("rt", "fail");
+					}
+				} else {
+					returnMap.put("rt", "success");	// 수정할 데이터 없으므로 바로 성공
+				}
+			} else {
+				returnMap.put("rt", "fail");
+			}
+		}
+
+		return returnMap;
+	}
+	//출고
 	@RequestMapping(value = "/whxdm/whorder/OutOrderWHXdmList")
 	public String OutOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectThreeCount(vo));
+		vo.setParamsPaging(service.selectOneCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectThree(vo));
+			model.addAttribute("orderList", service.selectList(vo));
 		}
 		
 		return "whxdm/whorder/OutOrderWHXdmList"; 
 		}
+	//출고 폼
+	@RequestMapping(value = "/whxdm/whorder/OutOrderWHXdmForm")
+	public String OutOrderWHXdmForm(@ModelAttribute("vo") OrderVo vo,
+			Model model, OrderDto orderDto) throws Exception {
+		
+		if (vo.getoSeq().equals("0") || vo.getoSeq().equals("")) {
+			// insert mode
+		} else {
+			List<OrderDto> dtoList = service.selectOne(orderDto); // 주문한 상품이 여러개일 수 있으므로, List로 읽는다
+			OrderDto dto = new OrderDto();
+			dto = dtoList.get(0);
+			model.addAttribute("orderItem", dto);
+			model.addAttribute("orderList", dtoList);
+		}
+		return "whxdm/whorder/OutOrderWHXdmForm";
+	}
+	//출고 업데이트
+	@ResponseBody
+	@RequestMapping(value = "/whxdm/whorder/OutOrderWHXdmUpdt")
+	public Map<String, Object> OutOrderWHXdmUpdt(OrderDto orderDto, 
+			@RequestParam(value="opSeqList") List<String> opSeqList,
+			@RequestParam(value="opStateCdList") List<String> opStateCdList) {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		if (orderDto == null || opSeqList == null || opStateCdList == null) {
+			returnMap.put("rt", "fail");
+		} else {
+			int successCnt = service.update(orderDto);
+			
+			if (successCnt > 0) {
+				if (opSeqList.size() > 0 && opStateCdList.size() > 0) {
+					int opSuccessCnt = 0;
+					
+					for (int i = 0; i < opSeqList.size(); i++) {
+						OrderDto dto = new OrderDto();
+						
+						dto.setOpSeq(opSeqList.get(i));
+						dto.setOpStateCd(opStateCdList.get(i));
+						
+						opSuccessCnt = opSuccessCnt + service.updateOPList(dto);
+					}
+					
+					if (opSuccessCnt > 0) {
+						returnMap.put("rt", "success");	
+					} else {
+						returnMap.put("rt", "fail");
+					}
+				} else {
+					returnMap.put("rt", "success");	// 수정할 데이터 없으므로 바로 성공
+				}
+			} else {
+				returnMap.put("rt", "fail");
+			}
+		}
+
+		return returnMap;
+	}
 	
 	@RequestMapping(value = "/whxdm/whorder/DeliveryOrderWHXdmList")
 	public String DeliveryOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectThreeCount(vo));
+		vo.setParamsPaging(service.selectOneCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectThree(vo));
+			model.addAttribute("orderList", service.selectList(vo));
 		}
 		
 		return "whxdm/whorder/DeliveryOrderWHXdmList"; 
@@ -162,10 +276,10 @@ public class OrderController {
 	@RequestMapping(value = "/hoxdm/order/DeliOrderHOXdmList")
 	public String DeliOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectThreeCount(vo));
+		vo.setParamsPaging(service.selectOneCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectThree(vo));
+			model.addAttribute("orderList", service.selectList(vo));
 		}
 		
 		return "hoxdm/order/DeliOrderHOXdmList"; 

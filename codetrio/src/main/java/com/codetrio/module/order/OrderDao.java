@@ -18,5 +18,7 @@ public interface OrderDao {
 	public int update(OrderDto orderDto);
 	public int updateOPList(OrderDto orderDto);
 	public int insert(OrderDto orderDto);
-
+	public List<OrderDto> productList();
+	public int ordersInsert(OrderDto orderDto);
+	public int ordersProductInsert(OrderDto orderDto);
 }

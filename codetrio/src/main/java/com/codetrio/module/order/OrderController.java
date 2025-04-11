@@ -48,7 +48,17 @@ public class OrderController {
 		}
 		return path + "UserOrderHOXdmForm";
 	}
-	
+	@RequestMapping(value = "/hoxdm/order/UserOrderProductHOXdmForm")
+	public String UserOrderProductHOXdmForm(Model model) {
+		model.addAttribute("productList",service.productList());
+		return "hoxdm/order/UserOrderProductHOXdmForm";
+	}
+	@RequestMapping(value = "/hoxdm/order/UserOrderProductHOXdmInst")
+	public String UserOrderProductHOXdmInst(OrderDto orderDto) {
+		service.ordersInsert(orderDto);
+		service.ordersProductInsert(orderDto);
+		return "redirect:/hoxdm/order/UserOrderHOXdmList";
+	}
 	@ResponseBody
 	@RequestMapping(value = "/hoxdm/order/UserOrderHOXdmUpdt")
 	public Map<String, Object> UserOrderHOXdmUpdt(OrderDto orderDto, 

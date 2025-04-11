@@ -1,5 +1,6 @@
 package com.codetrio.module.order;
 
+import java.util.List;
 
 public class OrderDto {
 	
@@ -12,6 +13,7 @@ public class OrderDto {
 	private String oDeliveryCompCd;
 	private String oDeliveryNo;
 	private String user_uSeq;
+	private String orderKey;
 	
 	private String opSeq;
 	private String product_pSeq;
@@ -27,6 +29,23 @@ public class OrderDto {
 	
 	private String vName;
 	
+	private List<OrderDto> items;
+	
+	
+	
+	public List<OrderDto> getItems() {
+		return items;
+	}
+	public void setItems(List<OrderDto> items) {
+		this.items = items;
+	}
+	public String getOrderKey() {
+		return orderKey;
+	}
+	public void setOrderKey(String orderKey) {
+		this.orderKey = orderKey;
+	}
+
 	public String getoDeliveryCompCd() {
 		return oDeliveryCompCd;
 	}

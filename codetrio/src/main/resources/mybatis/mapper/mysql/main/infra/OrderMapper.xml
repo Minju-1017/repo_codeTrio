@@ -98,6 +98,47 @@
 	        </choose>
 		ORDER BY a.oSeq DESC
 	</select>
+	<select id="productList" resultMap="resultMapObj">
+		select 
+		pSeq,
+		pName
+		from
+		product
+		where 1=1
+		order by pSeq asc
+	</select>
+	<insert id="ordersInsert" useGeneratedKeys="true"  keyProperty="orderKey">
+	insert into orders
+	(
+	oDate,
+	oReceiver,
+	oStateCd,
+	oReceiverTel,
+	oReceiverAddr,
+	user_uSeq
+	)values
+	(
+	now(),
+	#{oReceiver},
+	1,
+	#{oReceiverTel},
+	#{oReceiverAddr},
+	#{user_uSeq}
+	)	
+	</insert>
+	<insert id="ordersProductInsert">
+	insert into ordersproduct
+	(
+	product_pSeq,
+	bpAmount,
+	orders_oSeq
+	)values
+	<foreach collection="items" item="item" separator=",">
+	(
+	#{item.product_pSeq},#{item.bpAmount},#{orderKey}
+	)
+	</foreach>
+	</insert>
 	
 	<update id="update">
 		UPDATE orders

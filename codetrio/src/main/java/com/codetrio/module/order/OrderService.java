@@ -55,5 +55,14 @@ public class OrderService {
 	public int insert(OrderDto orderDto) {
 		return dao.insert(orderDto);
 	}
+	public List<OrderDto> productList(){
+		return dao.productList();
+	}
+	public int ordersInsert(OrderDto orderDto) {
+		return dao.ordersInsert(orderDto);
+	}
+	public int ordersProductInsert(OrderDto orderDto) {
+		return dao.ordersProductInsert(orderDto);
+	}
 	
 }

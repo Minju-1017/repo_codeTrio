@@ -430,8 +430,9 @@
 		
 					resetValidation(opStateCd);
 					opStateCd.classList.add("is-invalid");
-					
-					if (!focus && !opStateCdFocus && opStateCd.value == 6) {
+
+					if (!focus && !opStateCdFocus && 
+							(opStateCd.value == 6 || opStateCd.value == '' || opStateCd.value == null)) {
 	 					opStateCd.focus();
 	 					opStateCdFocus = true;
 	 					focus = true;

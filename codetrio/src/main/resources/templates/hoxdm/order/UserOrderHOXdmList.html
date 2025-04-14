@@ -231,7 +231,7 @@
 											<select class="form-select" id="shOptionDate"
 												name="shOptionDate">
 												<option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
-												<option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
+												<option value="1" th:selected="${vo.shOptionDate == 1}">주문일</option>
 											</select>
 										</div>
 										<div class="col-lg-2 col-12">
@@ -422,7 +422,6 @@
 	}
 	
 	document.getElementById("btnSearch").onclick = function () {
-		alert(document.getElementById("shStateOption").value);
      	submit(goUrlXdmList);
 	};
 </script>

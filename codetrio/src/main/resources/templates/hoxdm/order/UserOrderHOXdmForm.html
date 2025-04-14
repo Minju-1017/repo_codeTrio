@@ -242,11 +242,19 @@
 									</div>
 									<div class="col-lg-3 col-12">
 										<label for="oStateCd" class="form-label">주문상태</label>
-										<select class="form-select" name="oStateCd" id="oStateCd">
+										<select th:if="${#strings.equals(orderItem?.oStateCd, @constants.ORDERS_CODE_SEQ_ORDER_STATE_NEW)}" 
+											class="form-select" name="oStateCd" id="oStateCd">
 											<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERS_CODE_GROUP_SEQ_ORDER_STATE)}"
 												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
 												th:selected="${#strings.equals(codeList.cSeq, orderItem?.oStateCd)}"></option>
 										</select>
+										<select th:unless="${#strings.equals(orderItem?.oStateCd, @constants.ORDERS_CODE_SEQ_ORDER_STATE_NEW)}"
+											class="form-select" name="oStateCd" id="oStateCd" disabled>
+											<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERS_CODE_GROUP_SEQ_ORDER_STATE)}"
+												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
+												th:selected="${#strings.equals(codeList.cSeq, orderItem?.oStateCd)}"></option>
+										</select>
+										<div class="invalid-feedback">배송준비중 상태로만 변경할 수 있습니다.</div>
 									</div>
 									
 									<div class="col-lg-3 col-12">
@@ -312,13 +320,13 @@
 											<td th:text="${list?.vName}"></td>
 											<td th:text="${list?.pStock}"></td>
 											<td>
-											<select class="form-select"  th:name="|opStateCd${listindex.index}|" th:id="|opStateCd${listindex.index}|" required>
+											<select class="form-select"  th:name="|opStateCd${listindex.index}|" th:id="|opStateCd${listindex.index}|" disabled required>
 												<option value="" >선택</option>
 												<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE)}"
 												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
 												th:selected="${#strings.equals(codeList.cSeq, list.opStateCd)}"></option>
 											</select>
-											<div class="invalid-feedback">상품상태를 선택해주세요</div>
+											<div class="invalid-feedback">상품상태를 선택해주세요.</div>
 											</td>
 										</tr>
 									</tbody>
@@ -359,6 +367,8 @@
 	for(let i = 0 ; i < listsize; i++) {
 		arrProductList[i] = document.getElementById("opStateCd" + i);
 	}
+	
+	let oStateCd = document.getElementById("oStateCd");
 </script>
 
 <!-- Validation: Bootstrap -->
@@ -367,23 +377,40 @@
 	document.getElementById("btnSave").onclick = function() {
 		var focus = false; // Validation 후 Focus 줘야 하는 Input
 		
-		for(let i = 0 ; i < arrProductList.length; i++) {
-			var opStateCd = arrProductList[i];
-
-			resetValidation(opStateCd);
+		// oStateCd(주문상태) 체크
+		var oStateCdValue = oStateCd.value;
+		
+		resetValidation(oStateCd);
+		
+		if (oStateCdValue != 2) { // 배송준비중 상태로만 수정 가능
+			oStateCd.classList.add("is-invalid");
 			
-			if (!strValidation(opStateCd)) {
-				opStateCd.classList.add("is-invalid");
-				
-				if (!focus) {
- 					opStateCd.focus();
- 					focus = true;
-				}
-				
-			} else {
-				opStateCd.classList.add("is-valid");
+			if (!focus) {
+				oStateCd.focus();
+				focus = true;
 			}
-			
+		} else {
+			oStateCd.classList.add("is-valid");
+		}
+		
+		// opStateCd(상품상태) 체크 
+		if (oStateCdValue == 2) {
+			for(let i = 0 ; i < arrProductList.length; i++) {
+				var opStateCd = arrProductList[i];
+	
+				resetValidation(opStateCd);
+				
+				if (!strValidation(opStateCd)) {
+					opStateCd.classList.add("is-invalid");
+					
+					if (!focus) {
+	 					opStateCd.focus();
+	 					focus = true;
+					}
+				} else {
+					opStateCd.classList.add("is-valid");
+				}
+			}
 		}
 		
 		// Focus 줘야 하는 Input(Validation에 처음으로 걸린 Input)이 있는지 확인
@@ -391,6 +418,30 @@
 
 		submit();
 	}
+	
+	// oStateCd Input 시 체크
+	oStateCd.addEventListener("input", function() {
+		resetValidation(oStateCd);
+		
+		if (oStateCd.value == 2) { // 배송준비중 상태로만 수정 가능
+			oStateCd.classList.add("is-valid");
+		
+			for(let i = 0 ; i < arrProductList.length; i++) {
+				var opStateCd = arrProductList[i];
+				opStateCd.disabled = false;
+			}
+		} else {
+			oStateCd.classList.add("is-invalid");
+			
+			for(let i = 0 ; i < arrProductList.length; i++) {
+				var opStateCd = arrProductList[i];
+				
+				resetValidation(opStateCd);
+				opStateCd.disabled = true;
+				opStateCd.value = "";
+			}
+		}
+	});
 	
 	// opStateCd list Input 시 체크
 	for(let i = 0 ; i < arrProductList.length; i++) {
@@ -403,7 +454,7 @@
 				opStateCd.classList.add("is-invalid");
 			} else {
 				opStateCd.classList.add("is-valid");
-			}		
+			}	
 		});
 	}
 	

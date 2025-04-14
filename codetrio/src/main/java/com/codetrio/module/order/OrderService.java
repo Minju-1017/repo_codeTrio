@@ -36,6 +36,10 @@ public class OrderService {
 		return dao.selectFiveCount(vo);
 	}
 	
+	public int selectSixCount(OrderVo vo) {
+		return dao.selectSixCount(vo);
+	}
+	
 	public List<OrderDto> selectOne(OrderDto orderDto) {
 		return dao.selectOne(orderDto);
 	}
@@ -54,6 +58,10 @@ public class OrderService {
 	
 	public List<OrderDto> selectFive(OrderVo vo) {
 		return dao.selectFive(vo);
+	}
+	
+	public List<OrderDto> selectSix(OrderVo vo) {
+		return dao.selectSix(vo);
 	}
 	
 	public int update(OrderDto orderDto) {

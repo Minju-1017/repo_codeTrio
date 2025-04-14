@@ -292,10 +292,10 @@ public class OrderController {
 	@RequestMapping(value = "/hoxdm/order/DeliOrderHOXdmList")
 	public String DeliOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectOneCount(vo));
+		vo.setParamsPaging(service.selectSixCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectList(vo));
+			model.addAttribute("orderList", service.selectSix(vo));
 		}
 		
 		return "hoxdm/order/DeliOrderHOXdmList"; 

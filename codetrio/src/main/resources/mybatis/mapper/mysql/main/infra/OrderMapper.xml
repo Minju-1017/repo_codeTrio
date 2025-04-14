@@ -23,7 +23,6 @@
 	            <when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
 	            <when test="shOption == 2">AND a.oReceiver LIKE CONCAT('%',#{shValue},'%')</when>
 	        </choose>
-		
 	</sql>
 	
 	<sql id="selectCommonColumn">
@@ -91,6 +90,7 @@
 					AND a.oDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
 				</when>	
 			</choose>	
+			<if test="shStateOption != null and !shStateOption.equals('')">AND a.oStateCd = #{shStateOption}</if>
 	        <choose>
 	            <when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
 	            <when test="shOption == 2">AND a.oReceiver LIKE CONCAT('%',#{shValue},'%')</when>
@@ -107,37 +107,38 @@
 		where 1=1
 		order by pSeq asc
 	</select>
+	
 	<insert id="ordersInsert" useGeneratedKeys="true"  keyProperty="orderKey">
-	insert into orders
-	(
-	oDate,
-	oReceiver,
-	oStateCd,
-	oReceiverTel,
-	oReceiverAddr,
-	user_uSeq
-	)values
-	(
-	now(),
-	#{oReceiver},
-	1,
-	#{oReceiverTel},
-	#{oReceiverAddr},
-	#{user_uSeq}
-	)	
+		insert into orders
+		(
+			oDate,
+			oReceiver,
+			oStateCd,
+			oReceiverTel,
+			oReceiverAddr,
+			user_uSeq
+			)values
+			(
+			now(),
+			#{oReceiver},
+			1,
+			#{oReceiverTel},
+			#{oReceiverAddr},
+			#{user_uSeq}
+		)	
 	</insert>
 	<insert id="ordersProductInsert">
-	insert into ordersproduct
-	(
-	product_pSeq,
-	bpAmount,
-	orders_oSeq
-	)values
-	<foreach collection="items" item="item" separator=",">
-	(
-	#{item.product_pSeq},#{item.bpAmount},#{orderKey}
-	)
-	</foreach>
+		insert into ordersproduct
+		(
+			product_pSeq,
+			bpAmount,
+			orders_oSeq
+		)values
+		<foreach collection="items" item="item" separator=",">
+		(
+			#{item.product_pSeq},#{item.bpAmount},#{orderKey}
+		)
+		</foreach>
 	</insert>
 	
 	<update id="update">
@@ -185,10 +186,12 @@
 					and shDateEnd != null and !shDateEnd.equals('')">
 					AND a.oDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
 				</when>	
-			</choose>	
+			</choose>
+			<if test="shStateOption != null and !shStateOption.equals('')">AND b.opStateCd = #{shStateOption}</if>	
 	        <choose>
-	            <when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
-	            <when test="shOption == 2">AND a.oReceiver LIKE CONCAT('%',#{shValue},'%')</when>
+	        	<when test="shOption == 1">AND d.vName LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 2">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 3">AND c.pName LIKE CONCAT('%',#{shValue},'%')</when>
 	        </choose>
 		ORDER BY a.oSeq DESC
 	</select>
@@ -196,9 +199,26 @@
 	<select id="selectTwo" resultMap="resultMapObj">
 	 	SELECT
 	 		<include refid="selectCommonColumn"/>
-	 		<include refid="selectCommon"/>
-	 		<if test="shStateOption != null and !shStateOption.equals('')">AND b.opStateCd = #{shStateOption}</if>
-	 		AND (b.opStateCd = 7 or b.opStateCd = 8)
+		 		FROM orders a
+				left join ordersProduct b on a.oSeq = b.orders_oSeq
+				left join product c on 		 b.product_pSeq = c.pSeq
+				left join vender d on		 c.vender_vSeq = d.vSeq
+			WHERE 1=1	
+				AND (b.opStateCd = 7 or b.opStateCd = 8)	
+				<choose>
+					<when test="shOptionDate != null and !shOptionDate.equals('')
+						and shOptionDate == 1
+						and shDateStart != null and !shDateStart.equals('')
+						and shDateEnd != null and !shDateEnd.equals('')">
+						AND a.oDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+					</when>	
+				</choose>	
+				<if test="shStateOption != null and !shStateOption.equals('')">AND b.opStateCd = #{shStateOption}</if>
+		        <choose>
+		        	<when test="shOption == 1">AND d.vName LIKE CONCAT('%',#{shValue},'%')</when>
+		            <when test="shOption == 2">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
+		            <when test="shOption == 3">AND c.pName LIKE CONCAT('%',#{shValue},'%')</when>
+		        </choose>
 	 		ORDER BY a.oSeq DESC
 	 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
@@ -219,10 +239,11 @@
 					and shDateEnd != null and !shDateEnd.equals('')">
 					AND a.oDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
 				</when>	
-			</choose>	
+			</choose>
+			<if test="shStateOption != null and !shStateOption.equals('')">AND b.opStateCd = #{shStateOption}</if>	
 	        <choose>
-	            <when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
-	            <when test="shOption == 2">AND a.oReceiver LIKE CONCAT('%',#{shValue},'%')</when>
+	        	<when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
+	        	<when test="shOption == 2">AND d.vName LIKE CONCAT('%',#{shValue},'%')</when>
 	        </choose>
 		ORDER BY a.oSeq DESC
 	</select>
@@ -230,9 +251,25 @@
 	<select id="selectThree" resultMap="resultMapObj">
 	 	SELECT
 	 		<include refid="selectCommonColumn"/>
-	 		<include refid="selectCommon"/>
-	 		<if test="shStateOption != null and !shStateOption.equals('')">AND b.opStateCd = #{shStateOption}</if>
-	 		AND a.oStateCd = 2
+	 		FROM orders a
+				left join ordersProduct b on a.oSeq = b.orders_oSeq
+				left join product c on 		 b.product_pSeq = c.pSeq
+				left join vender d on		 c.vender_vSeq = d.vSeq
+			WHERE 1=1	
+				AND a.oStateCd = 2
+				<choose>
+					<when test="shOptionDate != null and !shOptionDate.equals('')
+						and shOptionDate == 1
+						and shDateStart != null and !shDateStart.equals('')
+						and shDateEnd != null and !shDateEnd.equals('')">
+						AND a.oDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+					</when>	
+				</choose>
+				<if test="shStateOption != null and !shStateOption.equals('')">AND b.opStateCd = #{shStateOption}</if>	
+		        <choose>
+		        	<when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
+		        	<when test="shOption == 2">AND d.vName LIKE CONCAT('%',#{shValue},'%')</when>
+		        </choose>
 	 		ORDER BY a.oSeq DESC
 	 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
@@ -335,6 +372,61 @@
 	        <choose>
 	            <when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
 	            <when test="shOption == 2">AND a.oReceiver LIKE CONCAT('%',#{shValue},'%')</when>
+	        </choose>
+	        
+		ORDER BY a.oSeq DESC
+		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
+	</select>
+	
+	<select id="selectSixCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM 
+			orders a
+		WHERE 1=1		
+			AND (a.oStateCd = 3 or a.oStateCd = 4 or a.oStateCd = 5)
+			<choose>
+				<when test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 1
+					and shDateStart != null and !shDateStart.equals('')
+					and shDateEnd != null and !shDateEnd.equals('')">
+					AND a.oDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+				</when>	
+			</choose>	
+			<if test="shStateOption != null and !shStateOption.equals('')">AND a.oStateCd = #{shStateOption}</if>
+	        <choose>
+	            <when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 2">AND a.oDeliveryNo LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 3">AND a.oReceiver LIKE CONCAT('%',#{shValue},'%')</when>
+	        </choose>
+		ORDER BY a.oSeq DESC
+	</select>
+	
+	<select id="selectSix" resultMap="resultMapObj">
+		SELECT
+			a.oSeq,
+		    a.oStateCd,
+		    a.oDate,
+		    a.oReceiver,
+		    a.oReceiverTel,
+		    a.oReceiverAddr,
+		    a.user_uSeq
+		FROM 
+			orders a
+		WHERE 1=1	
+			AND (a.oStateCd = 3 or a.oStateCd = 4 or a.oStateCd = 5)	
+			<choose>
+				<when test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 1
+					and shDateStart != null and !shDateStart.equals('')
+					and shDateEnd != null and !shDateEnd.equals('')">
+					AND a.oDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+				</when>	
+			</choose>	
+			<if test="shStateOption != null and !shStateOption.equals('')">AND a.oStateCd = #{shStateOption}</if>
+	        <choose>
+	            <when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 2">AND a.oDeliveryNo LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 3">AND a.oReceiver LIKE CONCAT('%',#{shValue},'%')</when>
 	        </choose>
 	        
 		ORDER BY a.oSeq DESC

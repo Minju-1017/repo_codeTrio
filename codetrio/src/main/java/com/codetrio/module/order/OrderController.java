@@ -280,10 +280,10 @@ public class OrderController {
 	@RequestMapping(value = "/whxdm/whorder/DeliveryOrderWHXdmList")
 	public String DeliveryOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectFiveCount(vo));
+		vo.setParamsPaging(service.selectSixCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectFive(vo));
+			model.addAttribute("orderList", service.selectSix(vo));
 		}
 		
 		return "whxdm/whorder/DeliveryOrderWHXdmList"; 

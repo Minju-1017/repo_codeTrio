@@ -22,6 +22,17 @@ public class Constants {
 	
 	// Order에서 사용하는 코드 그룹
 	public final static int ORDERS_CODE_GROUP_SEQ_ORDER_STATE = 1; // oStateCd
-	public final static int ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE = 7;
-	public final static int ORDERSDELIVERY_CODE_GROUP_SEQ_COMPANY = 8;
-	}
+	public final static int ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE = 7; // opStateCd
+	public final static int ORDERSDELIVERY_CODE_GROUP_SEQ_COMPANY = 8; // oDeliveryCompCd
+	
+	// oStateCd
+	public final static int ORDERS_CODE_SEQ_ORDER_STATE_NEW = 1;
+	public final static int ORDERS_CODE_SEQ_ORDER_STATE_READY = 2;
+	public final static int ORDERS_CODE_SEQ_ORDER_STATE_DELI = 3;
+	
+	// opStateCd
+	public final static int ORDERS_CODE_SEQ_ORDER_PRODUCT_STATE_REQ_DELI = 6;
+	public final static int ORDERS_CODE_SEQ_ORDER_PRODUCT_STATE_V_ORDER = 7;
+	public final static int ORDERS_CODE_SEQ_ORDER_PRODUCT_STATE_IN = 8;
+	
+}

@@ -48,17 +48,20 @@ public class OrderController {
 		}
 		return path + "UserOrderHOXdmForm";
 	}
+	
 	@RequestMapping(value = "/hoxdm/order/UserOrderProductHOXdmForm")
 	public String UserOrderProductHOXdmForm(Model model) {
 		model.addAttribute("productList",service.productList());
 		return "hoxdm/order/UserOrderProductHOXdmForm";
 	}
+	
 	@RequestMapping(value = "/hoxdm/order/UserOrderProductHOXdmInst")
 	public String UserOrderProductHOXdmInst(OrderDto orderDto) {
 		service.ordersInsert(orderDto);
 		service.ordersProductInsert(orderDto);
 		return "redirect:/hoxdm/order/UserOrderHOXdmList";
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/hoxdm/order/UserOrderHOXdmUpdt")
 	public Map<String, Object> UserOrderHOXdmUpdt(OrderDto orderDto, 
@@ -220,10 +223,10 @@ public class OrderController {
 	@RequestMapping(value = "/whxdm/whorder/OutOrderWHXdmList")
 	public String OutOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectFourCount(vo));
+		vo.setParamsPaging(service.selectFiveCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectFour(vo));
+			model.addAttribute("orderList", service.selectFive(vo));
 		}
 		
 		return "whxdm/whorder/OutOrderWHXdmList"; 
@@ -294,10 +297,10 @@ public class OrderController {
 	@RequestMapping(value = "/whxdm/whorder/DeliveryOrderWHXdmList")
 	public String DeliveryOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectFiveCount(vo));
+		vo.setParamsPaging(service.selectSixCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectFive(vo));
+			model.addAttribute("orderList", service.selectSix(vo));
 		}
 		
 		return "whxdm/whorder/DeliveryOrderWHXdmList"; 
@@ -306,10 +309,10 @@ public class OrderController {
 	@RequestMapping(value = "/hoxdm/order/DeliOrderHOXdmList")
 	public String DeliOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectOneCount(vo));
+		vo.setParamsPaging(service.selectSixCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectList(vo));
+			model.addAttribute("orderList", service.selectSix(vo));
 		}
 		
 		return "hoxdm/order/DeliOrderHOXdmList"; 

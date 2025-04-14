@@ -131,19 +131,21 @@ public class OrderController {
 		}
 		
 		return path + "WarehouseOrderHOXdmList"; 
-		}
+	}
+	
 	//입고관리
 	@RequestMapping(value = "/whxdm/whorder/InOrderWHXdmList")
 	public String InOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectOneCount(vo));
+		vo.setParamsPaging(service.selectFourCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectList(vo));
+			model.addAttribute("orderList", service.selectFour(vo));
 		}
 		
 		return "whxdm/whorder/InOrderWHXdmList"; 
-		}
+	}
+	
 	//입고관리 폼
 	@RequestMapping(value = "/whxdm/whorder/InOrderWHXdmForm")
 	public String InOrderWHXdmForm(@ModelAttribute("vo") OrderVo vo,
@@ -160,6 +162,7 @@ public class OrderController {
 		}
 		return "whxdm/whorder/InOrderWHXdmForm";
 	}
+	
 	//입고업데이트
 	@ResponseBody
 	@RequestMapping(value = "/whxdm/whorder/InOrderWHXdmUpdt")
@@ -201,18 +204,20 @@ public class OrderController {
 
 		return returnMap;
 	}
+	
 	//출고
 	@RequestMapping(value = "/whxdm/whorder/OutOrderWHXdmList")
 	public String OutOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectOneCount(vo));
+		vo.setParamsPaging(service.selectFourCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectList(vo));
+			model.addAttribute("orderList", service.selectFour(vo));
 		}
 		
 		return "whxdm/whorder/OutOrderWHXdmList"; 
-		}
+	}
+	
 	//출고 폼
 	@RequestMapping(value = "/whxdm/whorder/OutOrderWHXdmForm")
 	public String OutOrderWHXdmForm(@ModelAttribute("vo") OrderVo vo,
@@ -229,6 +234,7 @@ public class OrderController {
 		}
 		return "whxdm/whorder/OutOrderWHXdmForm";
 	}
+	
 	//출고 업데이트
 	@ResponseBody
 	@RequestMapping(value = "/whxdm/whorder/OutOrderWHXdmUpdt")
@@ -274,14 +280,14 @@ public class OrderController {
 	@RequestMapping(value = "/whxdm/whorder/DeliveryOrderWHXdmList")
 	public String DeliveryOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectOneCount(vo));
+		vo.setParamsPaging(service.selectFiveCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectList(vo));
+			model.addAttribute("orderList", service.selectFive(vo));
 		}
 		
 		return "whxdm/whorder/DeliveryOrderWHXdmList"; 
-		}
+	}
 	
 	@RequestMapping(value = "/hoxdm/order/DeliOrderHOXdmList")
 	public String DeliOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
@@ -293,5 +299,5 @@ public class OrderController {
 		}
 		
 		return "hoxdm/order/DeliOrderHOXdmList"; 
-		}
+	}
 }

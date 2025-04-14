@@ -18,17 +18,22 @@ public class OrderService {
 
 	public int selectOneCount(OrderVo vo) {
 		return dao.selectOneCount(vo);
-		
 	}
 	
 	public int selectTwoCount(OrderVo vo) {
 		return dao.selectTwoCount(vo);
-		
 	}
 	
 	public int selectThreeCount(OrderVo vo) {
 		return dao.selectThreeCount(vo);
-		
+	}
+	
+	public int selectFourCount(OrderVo vo) {
+		return dao.selectFourCount(vo);
+	}
+	
+	public int selectFiveCount(OrderVo vo) {
+		return dao.selectFiveCount(vo);
 	}
 	
 	public List<OrderDto> selectOne(OrderDto orderDto) {
@@ -43,6 +48,13 @@ public class OrderService {
 		return dao.selectThree(vo);
 	}
 	
+	public List<OrderDto> selectFour(OrderVo vo) {
+		return dao.selectFour(vo);
+	}
+	
+	public List<OrderDto> selectFive(OrderVo vo) {
+		return dao.selectFive(vo);
+	}
 	
 	public int update(OrderDto orderDto) {
 		return dao.update(orderDto);

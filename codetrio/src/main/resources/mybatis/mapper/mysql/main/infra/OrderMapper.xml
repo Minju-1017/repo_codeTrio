@@ -157,6 +157,14 @@
 		WHERE
 	        opSeq=#{opSeq}
 	</update>
+	<update id="updateStock">
+		update product
+		set
+			pStock = #{pStock}
+		
+		where 
+			pSeq = #{pSeq}
+	</update>
 
 	<select id="selectOne" resultMap="resultMapObj">
 		SELECT

@@ -168,7 +168,10 @@ public class OrderController {
 	@RequestMapping(value = "/whxdm/whorder/InOrderWHXdmUpdt")
 	public Map<String, Object> InOrderWHXdmUpdt(OrderDto orderDto, 
 			@RequestParam(value="opSeqList") List<String> opSeqList,
-			@RequestParam(value="opStateCdList") List<String> opStateCdList) {
+			@RequestParam(value="opStateCdList") List<String> opStateCdList,
+			@RequestParam(value="pSeqList") List<String> pSeqList,
+			@RequestParam(value="stockList") List<String> stockList
+			) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
 		if (orderDto == null || opSeqList == null || opStateCdList == null) {
@@ -187,6 +190,14 @@ public class OrderController {
 						dto.setOpStateCd(opStateCdList.get(i));
 						
 						opSuccessCnt = opSuccessCnt + service.updateOPList(dto);
+					}
+					for(int i=0; i< pSeqList.size(); i++) {
+						OrderDto dto = new OrderDto();
+						
+						dto.setpSeq(pSeqList.get(i));
+						dto.setpStock(stockList.get(i));
+						
+						service.updateStock(dto);
 					}
 					
 					if (opSuccessCnt > 0) {
@@ -209,10 +220,10 @@ public class OrderController {
 	@RequestMapping(value = "/whxdm/whorder/OutOrderWHXdmList")
 	public String OutOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectFiveCount(vo));
+		vo.setParamsPaging(service.selectFourCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectFive(vo));
+			model.addAttribute("orderList", service.selectFour(vo));
 		}
 		
 		return "whxdm/whorder/OutOrderWHXdmList"; 
@@ -240,7 +251,9 @@ public class OrderController {
 	@RequestMapping(value = "/whxdm/whorder/OutOrderWHXdmUpdt")
 	public Map<String, Object> OutOrderWHXdmUpdt(OrderDto orderDto, 
 			@RequestParam(value="opSeqList") List<String> opSeqList,
-			@RequestParam(value="opStateCdList") List<String> opStateCdList) {
+			@RequestParam(value="opStateCdList") List<String> opStateCdList
+			
+			) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
 		if (orderDto == null || opSeqList == null || opStateCdList == null) {
@@ -261,6 +274,7 @@ public class OrderController {
 						opSuccessCnt = opSuccessCnt + service.updateOPList(dto);
 					}
 					
+					
 					if (opSuccessCnt > 0) {
 						returnMap.put("rt", "success");	
 					} else {
@@ -280,10 +294,10 @@ public class OrderController {
 	@RequestMapping(value = "/whxdm/whorder/DeliveryOrderWHXdmList")
 	public String DeliveryOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectSixCount(vo));
+		vo.setParamsPaging(service.selectFiveCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectSix(vo));
+			model.addAttribute("orderList", service.selectFive(vo));
 		}
 		
 		return "whxdm/whorder/DeliveryOrderWHXdmList"; 
@@ -292,10 +306,10 @@ public class OrderController {
 	@RequestMapping(value = "/hoxdm/order/DeliOrderHOXdmList")
 	public String DeliOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
-		vo.setParamsPaging(service.selectSixCount(vo));
+		vo.setParamsPaging(service.selectOneCount(vo));
 		
 		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectSix(vo));
+			model.addAttribute("orderList", service.selectList(vo));
 		}
 		
 		return "hoxdm/order/DeliOrderHOXdmList"; 

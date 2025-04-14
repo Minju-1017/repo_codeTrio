@@ -318,11 +318,12 @@
 													</div>
 												</td>
 												<td th:text="${vo.totalRows - ((vo.currPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-												<td th:text="${list?.oSeq}"></td>
+
 												<td>			
-													<a href="javascript:void(0);" th:text="${@codeService.selectOneCachedCode(list?.oStateCd)}"
+													<a href="javascript:void(0);" th:text="${list?.oSeq}"
 														th:attr="onclick=|goForm('${list.oSeq}')|"></a>
 												</td>
+												<td th:text="${@codeService.selectOneCachedCode(list?.oStateCd)}"></td>
 												<td th:text="${list?.oDate}"></td>
 												<td th:text="${list?.oReceiver}"></td>
 												<td th:text="${list?.oReceiverTel}"></td>
@@ -433,11 +434,11 @@
 	}
 	
 	document.getElementById("modify").onclick = function() {
-		modifyCheckedElement("1개의 코드 그룹");
+		modifyCheckedElement("1개의 주문");
 	}
 	
 	document.getElementById("uelete").onclick = function() {
-		ueleteCheckedElementsModal("코드 그룹을");
+		ueleteCheckedElementsModal("주문을");
 	}
 	
 	document.getElementById("btnModalUelete").onclick = function () {
@@ -445,7 +446,7 @@
 	}
 	
 	document.getElementById("delete").onclick = function() {
-		deleteCheckedElementsModal("코드 그룹을");
+		deleteCheckedElementsModal("주문을");
 	}
 
 	document.getElementById("btnModalDelete").onclick = function () {

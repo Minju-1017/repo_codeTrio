@@ -320,9 +320,8 @@
 											<span class="text-danger">*</span>
 										</label>
 										<input type="text" class="form-control" name="cName" id="cName"
-											autocomplete="off" th:value="${codeItem?.cName}" 
-											placeholder="한글, 영대소문자, 숫자" required />
-										<div class="invalid-feedback"> 코드 이름을 입력해 주세요. 한글/영문/숫자만 허용</div>
+											autocomplete="off" th:value="${codeItem?.cName}" required />
+										<div class="invalid-feedback"> 코드 이름을 입력해 주세요. </div>
 									</div>
 									<div class="col-lg-8 col-12"></div>
 									<div class="col-lg-6 col-12">
@@ -399,7 +398,7 @@
 		// cName 체크
 		resetValidation(cName);
 		
-		if (!strKorEngNumberValidation(cName)) {
+		if (!strValidation(cName)) {
 			cName.classList.add("is-invalid");
 			
 			if (!focus) {
@@ -438,7 +437,7 @@
 	cName.addEventListener("input", function() {
 		resetValidation(cName);
 		
-		if (!strKorEngNumberValidation(cName)) {
+		if (!strValidation(cName)) {
 			cName.classList.add("is-invalid");
 		} else {
 			cName.classList.add("is-valid");

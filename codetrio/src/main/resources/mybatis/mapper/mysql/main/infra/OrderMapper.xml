@@ -231,7 +231,7 @@
 			left join product c on 		 b.product_pSeq = c.pSeq
 			left join vender d on		 c.vender_vSeq = d.vSeq
 		WHERE 1=1	
-			AND a.oStateCd = 2
+			AND (a.oStateCd = 2 or a.oStateCd = 3)
 			<choose>
 				<when test="shOptionDate != null and !shOptionDate.equals('')
 					and shOptionDate == 1
@@ -256,7 +256,7 @@
 				left join product c on 		 b.product_pSeq = c.pSeq
 				left join vender d on		 c.vender_vSeq = d.vSeq
 			WHERE 1=1	
-				AND a.oStateCd = 2
+				AND (a.oStateCd = 2 or a.oStateCd = 3)
 				<choose>
 					<when test="shOptionDate != null and !shOptionDate.equals('')
 						and shOptionDate == 1
@@ -383,7 +383,7 @@
 		FROM 
 			orders a
 		WHERE 1=1		
-			AND (a.oStateCd = 3 or a.oStateCd = 4 or a.oStateCd = 5)
+			AND (a.oStateCd = 4 or a.oStateCd = 5 or a.oStateCd = 6)
 			<choose>
 				<when test="shOptionDate != null and !shOptionDate.equals('')
 					and shOptionDate == 1
@@ -413,7 +413,7 @@
 		FROM 
 			orders a
 		WHERE 1=1	
-			AND (a.oStateCd = 3 or a.oStateCd = 4 or a.oStateCd = 5)	
+			AND (a.oStateCd = 4 or a.oStateCd = 5 or a.oStateCd = 6)	
 			<choose>
 				<when test="shOptionDate != null and !shOptionDate.equals('')
 					and shOptionDate == 1

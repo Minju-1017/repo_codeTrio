@@ -27,10 +27,11 @@ public class Constants {
 	
 	// oStateCd
 	public final static int ORDERS_CODE_SEQ_ORDER_STATE_NEW = 1;
-	public final static int ORDERS_CODE_SEQ_ORDER_STATE_READY = 2;
-	public final static int ORDERS_CODE_SEQ_ORDER_STATE_DELI = 3;
-	public final static int ORDERS_CODE_SEQ_ORDER_STATE_DELI_COMPLATE = 4;
-	public final static int ORDERS_CODE_SEQ_ORDER_STATE_END = 5;
+	public final static int ORDERS_CODE_SEQ_ORDER_STATE_READY_IN = 2;
+	public final static int ORDERS_CODE_SEQ_ORDER_STATE_READY_OUT = 3;
+	public final static int ORDERS_CODE_SEQ_ORDER_STATE_DELI = 4;
+	public final static int ORDERS_CODE_SEQ_ORDER_STATE_DELI_COMPLATE = 5;
+	public final static int ORDERS_CODE_SEQ_ORDER_STATE_END = 21;
 	
 	// opStateCd
 	public final static int ORDERS_CODE_SEQ_ORDER_PRODUCT_STATE_REQ_DELI = 6;

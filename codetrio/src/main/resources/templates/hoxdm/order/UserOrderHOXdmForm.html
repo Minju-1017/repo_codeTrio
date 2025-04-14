@@ -322,11 +322,12 @@
 											<td>
 											<select class="form-select"  th:name="|opStateCd${listindex.index}|" th:id="|opStateCd${listindex.index}|" disabled required>
 												<option value="" >선택</option>
-												<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE)}"
-												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
-												th:selected="${#strings.equals(codeList.cSeq, list.opStateCd)}"></option>
+												<option th:unless="${#strings.equals(codeList.cSeq, @constants.ORDERS_CODE_SEQ_ORDER_PRODUCT_STATE_IN)}"
+													th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE)}"
+													th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
+													th:selected="${#strings.equals(codeList.cSeq, list.opStateCd)}"></option>
 											</select>
-											<div class="invalid-feedback">상품상태를 선택해주세요.</div>
+											<div class="invalid-feedback">입고대기일 때, 거래처발주 1개 이상 포함<br>출고대기일 때, 출고요청만 가능</div>
 											</td>
 										</tr>
 									</tbody>
@@ -382,25 +383,68 @@
 		
 		resetValidation(oStateCd);
 		
-		if (oStateCdValue != 2) { // 배송준비중 상태로만 수정 가능
+		if (oStateCdValue == 2 || oStateCdValue == 3) { // 배송준비중 상태로만 수정 가능
+			oStateCd.classList.add("is-valid");
+		} else {
 			oStateCd.classList.add("is-invalid");
 			
 			if (!focus) {
 				oStateCd.focus();
 				focus = true;
 			}
-		} else {
-			oStateCd.classList.add("is-valid");
 		}
 		
 		// opStateCd(상품상태) 체크 
 		if (oStateCdValue == 2) {
+			var isVenderOrder = false;
+			
+			for(let i = 0 ; i < arrProductList.length; i++) {
+				if (arrProductList[i].value == 7) {
+					isVenderOrder = true;
+					break;
+				}
+			}
+			
+			if (isVenderOrder) {
+				for(let i = 0 ; i < arrProductList.length; i++) {
+					var opStateCd = arrProductList[i];
+		
+					resetValidation(opStateCd);
+					
+					if (!strValidation(opStateCd)) {
+						opStateCd.classList.add("is-invalid");
+						
+						if (!focus) {
+		 					opStateCd.focus();
+		 					focus = true;
+						}
+					} else {
+						opStateCd.classList.add("is-valid");
+					}
+				}
+			} else {
+				var opStateCdFocus = false;
+				
+				for(let i = 0 ; i < arrProductList.length; i++) {
+					var opStateCd = arrProductList[i];
+		
+					resetValidation(opStateCd);
+					opStateCd.classList.add("is-invalid");
+					
+					if (!focus && !opStateCdFocus && opStateCd.value == 6) {
+	 					opStateCd.focus();
+	 					opStateCdFocus = true;
+	 					focus = true;
+					}
+				}
+			}
+		} else if (oStateCdValue == 3) {
 			for(let i = 0 ; i < arrProductList.length; i++) {
 				var opStateCd = arrProductList[i];
-	
+
 				resetValidation(opStateCd);
 				
-				if (!strValidation(opStateCd)) {
+				if (!strValidation(opStateCd) || opStateCd.value != 6) {
 					opStateCd.classList.add("is-invalid");
 					
 					if (!focus) {
@@ -423,12 +467,15 @@
 	oStateCd.addEventListener("input", function() {
 		resetValidation(oStateCd);
 		
-		if (oStateCd.value == 2) { // 배송준비중 상태로만 수정 가능
+		if (oStateCd.value == 2 || oStateCd.value == 3) { // 배송준비중 상태로만 수정 가능
 			oStateCd.classList.add("is-valid");
 		
 			for(let i = 0 ; i < arrProductList.length; i++) {
 				var opStateCd = arrProductList[i];
+				
+				resetValidation(opStateCd);
 				opStateCd.disabled = false;
+				opStateCd.value = "";
 			}
 		} else {
 			oStateCd.classList.add("is-invalid");
@@ -448,13 +495,41 @@
 		arrProductList[i].addEventListener("input", function() {
 			var opStateCd = arrProductList[i];
 			
-			resetValidation(opStateCd);
-			
-			if (!strValidation(opStateCd)) {
-				opStateCd.classList.add("is-invalid");
+			if (oStateCd.value == 2) {
+				var isVenderOrder = false;
+				
+				for(let j = 0 ; j < arrProductList.length; j++) {
+					if (arrProductList[j].value == 7) {
+						isVenderOrder = true;
+						break;
+					}
+				}
+				
+				for(let j = 0 ; j < arrProductList.length; j++) {
+					var opStateCd2 = arrProductList[j];
+					
+					resetValidation(opStateCd2);
+					
+					if (isVenderOrder) {
+						if (!strValidation(opStateCd2)) {
+							opStateCd2.classList.add("is-invalid");
+						} else {
+							opStateCd2.classList.add("is-valid");
+						}
+					} else {
+						opStateCd2.classList.add("is-invalid");
+					}	
+				}
 			} else {
-				opStateCd.classList.add("is-valid");
-			}	
+				resetValidation(opStateCd);
+				
+				if (!strValidation(opStateCd) || opStateCd.value != 6) {
+					opStateCd.classList.add("is-invalid");
+				} else {
+					opStateCd.classList.add("is-valid");
+				}	
+			}
+			
 		});
 	}
 	

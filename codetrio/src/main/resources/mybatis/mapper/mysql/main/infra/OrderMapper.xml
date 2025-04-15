@@ -33,6 +33,8 @@
 	    a.oReceiverTel,
 	    a.oReceiverAddr,
 	    a.user_uSeq,
+	    a.oDeliveryCompCd,
+		a.oDeliveryNo,
 	    b.opSeq,
 	    b.product_pSeq,
 	    b.bpAmount,
@@ -55,7 +57,9 @@
 		    a.oReceiver,
 		    a.oReceiverTel,
 		    a.oReceiverAddr,
-		    a.user_uSeq
+		    a.user_uSeq,
+		    a.oDeliveryCompCd,
+			a.oDeliveryNo
 		FROM 
 			orders a
 		WHERE 1=1		
@@ -321,7 +325,9 @@
 		    a.oReceiver,
 		    a.oReceiverTel,
 		    a.oReceiverAddr,
-		    a.user_uSeq
+		    a.user_uSeq,
+		    a.oDeliveryCompCd,
+			a.oDeliveryNo
 		FROM 
 			orders a
 		WHERE 1=1		
@@ -371,7 +377,9 @@
 		    a.oReceiver,
 		    a.oReceiverTel,
 		    a.oReceiverAddr,
-		    a.user_uSeq
+		    a.user_uSeq,
+		    a.oDeliveryCompCd,
+			a.oDeliveryNo
 		FROM 
 			orders a
 		WHERE 1=1		

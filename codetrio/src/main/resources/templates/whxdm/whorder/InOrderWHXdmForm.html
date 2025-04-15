@@ -233,7 +233,7 @@
 													<td><select class="form-select stockSelect"
 														th:name="|opStateCd${listindex.index}|"
 														th:id="|opStateCd${listindex.index}|"
-														th:onchange="stockChange(this)" required th:disabled="${list.opStateCd == '6'}">
+														th:onchange="stockChange(this)" required th:disabled="${list.opStateCd == '6' or list.opStateCd == '8'}">
 															<option value="">선택</option>
 															<option
 																th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE)}"
@@ -324,11 +324,9 @@
 				select[i].classList.add("is-invalid");
 				select[0].focus();
 				flag = false;
-			}else {
-				select[0].focus();
-				flag = false;
 			}
 		}
+		
 // 		for (let i = 0; i < arrProductList.length; i++) {
 // 			var opStateCd = arrProductList[i];
 
@@ -348,10 +346,10 @@
 
 // 		}
 
-		// 		Focus 줘야 하는 Input(Validation에 처음으로 걸린 Input)이 있는지 확인
+		// Focus 줘야 하는 Input(Validation에 처음으로 걸린 Input)이 있는지 확인
 		if (flag){
 			submit();
-		}else{
+		} else{
 			return false;
 		}
 			

@@ -247,7 +247,7 @@
 													<div id="selectInvalid" class="invalid-feedback"></div>
 													</td>
 													<td style="width: 200px"><input
-														class="form-control item ss" id="bpAmount"
+														class="form-control item ss dd" id="bpAmount"
 														name="items[0].bpAmount" oninput="validate(this)" autocomplete="off" required/></td>
 													<td><a type="button" class="btn btn-outline-secondary"
 														onclick="minus(this)">X</a></td>
@@ -393,10 +393,10 @@
 		let item = document.querySelectorAll(".item");
 		let ss = document.querySelectorAll(".ss");
 		let invalid = document.getElementsByClassName("is-invalid");
-		
+		let amount = document.querySelectorAll(".dd");
 		let flag = true;
 		for (let i = 0; i < item.length; i++) {
-			if (item[i].value == null || item[i].value == "") {
+			if (item[i].value == null || item[i].value == "" ) {
 				item[i].classList.remove("is-valid");
 				item[i].classList.add("is-invalid");
 				flag = false;
@@ -431,6 +431,18 @@
 				
 			}
 		}
+		for(let i = 0 ; i< amount.length; i++){
+			if(!positiveNumberValidation(amount[i])){
+				amount[i].classList.remove("is-valid");
+				amount[i].classList.add("is-invalid");
+				
+				flag = false;
+			}else{
+				amount[i].classList.remove("is-invalid");
+				amount[i].classList.add("is-valid");
+			}
+		}
+		
 		if(flag){
 		fom.action = "/hoxdm/order/UserOrderProductHOXdmInst"
 		fom.submit();

@@ -207,17 +207,17 @@
 									<div class="col-lg-3 col-12">
 										<label for="oReceiver" class="form-label">수취인</label> <input
 											type="text" class="form-control ss" id="oReceiver"
-											name="oReceiver" autocomplete="off" required/>
+											name="oReceiver" autocomplete="off" oninput="validations(this)" required/>
 									</div>
 									<div class="col-lg-3 col-12">
 										<label for="oReceiverTel" class="form-label">수취인 연락처</label> <input
 											type="text" class="form-control ss" id="oReceiverTel"
-											name="oReceiverTel" autocomplete="off" required/>
+											name="oReceiverTel" autocomplete="off" oninput="validations(this)" required/>
 									</div>
 									<div class="col-lg-3 col-12">
 										<label for="oReceiverAddr" class="form-label">수취인 주소</label> <input
 											type="text" class="form-control ss" id="oReceiverAddr"
-											name="oReceiverAddr" autocomplete="off" required/>
+											name="oReceiverAddr" autocomplete="off" oninput="validations(this)" required/>
 									</div>
 
 									<div class="table-responsive mt-4" style="padding-top: 30px;">
@@ -248,7 +248,7 @@
 													</td>
 													<td style="width: 200px"><input
 														class="form-control item ss" id="bpAmount"
-														name="items[0].bpAmount" autocomplete="off" required/></td>
+														name="items[0].bpAmount" oninput="validate(this)" autocomplete="off" required/></td>
 													<td><a type="button" class="btn btn-outline-secondary"
 														onclick="minus(this)">X</a></td>
 													<td></td>
@@ -378,6 +378,7 @@
 	}
 	
 	
+	
 	function minus(button) {
 		let tbody = document.querySelector("table tbody");
 		let row = button.closest("tr");
@@ -435,6 +436,24 @@
 		fom.submit();
 		}else{
 			invalid[0].focus();
+		}
+	}
+	function validate(value){
+		if(positiveNumberValidation(value)){
+			value.classList.remove("is-invalid");
+			value.classList.add("is-valid");
+		}else{
+			value.classList.remove("is-valid");
+			value.classList.add("is-invalid");
+		}
+	}
+	function validations(value){
+		if(strValidation(value)){
+			value.classList.remove("is-invalid");
+			value.classList.add("is-valid");
+		}else{
+			value.classList.remove("is-valid");
+			value.classList.add("is-invalid");
 		}
 	}
 </script>

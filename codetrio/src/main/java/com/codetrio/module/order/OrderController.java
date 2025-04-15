@@ -262,32 +262,38 @@ public class OrderController {
 		if (orderDto == null || opSeqList == null || opStateCdList == null) {
 			returnMap.put("rt", "fail");
 		} else {
-			int successCnt = service.update(orderDto);
+			int deliveryNoCnt = service.updateCheckDeliveryNo(orderDto);
 			
-			if (successCnt > 0) {
-				if (opSeqList.size() > 0 && opStateCdList.size() > 0) {
-					int opSuccessCnt = 0;
-					
-					for (int i = 0; i < opSeqList.size(); i++) {
-						OrderDto dto = new OrderDto();
+			if (deliveryNoCnt > 0) {
+				returnMap.put("rt", "fail_deliveryNo");
+			} else {
+				int successCnt = service.update(orderDto);
+				
+				if (successCnt > 0) {
+					if (opSeqList.size() > 0 && opStateCdList.size() > 0) {
+						int opSuccessCnt = 0;
 						
-						dto.setOpSeq(opSeqList.get(i));
-						dto.setOpStateCd(opStateCdList.get(i));
+						for (int i = 0; i < opSeqList.size(); i++) {
+							OrderDto dto = new OrderDto();
+							
+							dto.setOpSeq(opSeqList.get(i));
+							dto.setOpStateCd(opStateCdList.get(i));
+							
+							opSuccessCnt = opSuccessCnt + service.updateOPList(dto);
+						}
 						
-						opSuccessCnt = opSuccessCnt + service.updateOPList(dto);
-					}
-					
-					
-					if (opSuccessCnt > 0) {
-						returnMap.put("rt", "success");	
+						
+						if (opSuccessCnt > 0) {
+							returnMap.put("rt", "success");	
+						} else {
+							returnMap.put("rt", "fail");
+						}
 					} else {
-						returnMap.put("rt", "fail");
+						returnMap.put("rt", "success");	// 수정할 데이터 없으므로 바로 성공
 					}
 				} else {
-					returnMap.put("rt", "success");	// 수정할 데이터 없으므로 바로 성공
+					returnMap.put("rt", "fail");
 				}
-			} else {
-				returnMap.put("rt", "fail");
 			}
 		}
 

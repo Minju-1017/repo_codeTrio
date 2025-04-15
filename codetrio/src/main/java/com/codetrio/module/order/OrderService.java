@@ -68,6 +68,10 @@ public class OrderService {
 		return dao.update(orderDto);
 	}
 	
+	public int updateCheckDeliveryNo(OrderDto orderDto) {
+		return dao.updateCheckDeliveryNo(orderDto);
+	}
+	
 	public int updateOPList(OrderDto orderDto) {
 		return dao.updateOPList(orderDto);
 	}

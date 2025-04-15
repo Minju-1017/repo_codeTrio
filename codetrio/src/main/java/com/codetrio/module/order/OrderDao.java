@@ -22,6 +22,7 @@ public interface OrderDao {
 	public List<OrderDto> selectFive(OrderVo vo);
 	public List<OrderDto> selectSix(OrderVo vo);
 	public int update(OrderDto orderDto);
+	public int updateCheckDeliveryNo(OrderDto orderDto);
 	public int updateOPList(OrderDto orderDto);
 	public int insert(OrderDto orderDto);
 	public List<OrderDto> productList();

@@ -163,6 +163,15 @@
 			oSeq=#{oSeq}
 	</update>
 	
+	<select id="updateCheckDeliveryNo" resultType="Integer">
+		SELECT COUNT(*)
+		FROM 
+			orders
+		WHERE 1=1		
+			AND oDeliveryNo=#{oDeliveryNo}
+			AND oDeliveryCompCd=#{oDeliveryCompCd}
+	</select>
+	
 	<update id="updateOPList">
 		UPDATE ordersProduct
 		SET

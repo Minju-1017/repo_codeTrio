@@ -179,7 +179,7 @@
 										<label for="oDeliveryNo" class="form-label">송장번호</label>
 										<input type="text" class="form-control" 	 
 											th:value="${orderItem?.oDeliveryNo}" id="oDeliveryNo" name="oDeliveryNo" disabled />
-										<div class="invalid-feedback">송장 번호를 숫자로 입력해 주세요.</div>
+										<div class="invalid-feedback">송장 번호를 숫자로 입력해 주세요.<br>중복된 송장번호 입력 불가</div>
 									</div>
 									<div class="col-lg-3 col-12">
 										<label for="oReceiver" class="form-label">수취인</label>
@@ -412,6 +412,11 @@
 				if(response.rt == "success") {
 					fom.action = "/whxdm/whorder/OutOrderWHXdmForm";
 					fom.submit();
+				} else if (response.rt == "fail_deliveryNo") {
+					resetValidation(oDeliveryNo);
+					oDeliveryNo.classList.add("is-invalid");
+					oDeliveryNo.value = "";
+					oDeliveryNo.focus();
 				} else {
 					// by Pass
 				}

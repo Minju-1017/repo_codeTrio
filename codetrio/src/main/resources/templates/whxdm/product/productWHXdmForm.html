@@ -328,13 +328,16 @@
 									</div>
 									<div class="col-lg-4 col-12">
 										<label for="pOption" class="form-label">상품 옵션</label>
+										<span class="text-danger">*</span>
 										<input type="text" class="form-control" 
 											th:value="${item?.pOption}" id="pOption" name="pOption" autocomplete="off" disabled  required/>
 									</div>
 									<div class="col-lg-4 col-12">
 										<label for="pStock" class="form-label">상품 재고</label>
+										<span class="text-danger">*</span>
 										<input type="text" class="form-control" 
 											th:value="${item?.pStock}" id="pStock" name="pStock" autocomplete="off"   required/>
+											<div class="invalid-feedback"> 코드그룹 이름을 입력해 주세요. 한글/영문/숫자만 허용</div>
 									</div>
 									<div class="col-lg-8 col-12"></div>
 									<div class="col-lg-6 col-12">
@@ -375,7 +378,7 @@
 
 	// Input
 	let cgName = document.getElementById("pName");
-	
+	let pStock = document.getElementById("pStock"); 
 	function submit(goUrl) {
 		fom.action = goUrl;
 		fom.submit();
@@ -402,6 +405,19 @@
 			cgName.classList.add("is-valid");
 		}
 		
+		// pStock 체크
+		resetValidation(pStock);
+		
+		if (!strKorEngNumberValidation(pStock)) {
+			pStock.classList.add("is-invalid");
+			
+			if (!focus) {
+				pStock.focus();
+				focus = true;
+			}
+		} else {
+			pStock.classList.add("is-valid");
+		}
 		// Alert/Modal과 달리 모든  Input창을 한번에 확인해야 하므로 return false 시
 		// Focus 줘야 하는 Input(Validation에 처음으로 걸린 Input)이 있는지 확인
 		if (focus) return false;

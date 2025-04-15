@@ -241,9 +241,7 @@
 											<input type="text" class="form-control" id="shDateEnd" name="shDateEnd"
 												th:value="${vo.shDateEnd}" placeholder="종료일" autocomplete="off" readonly>
 										</div>
-										<div class="col-lg-4 col-12"></div>
-										<div class="col-lg-2 col-12"></div>
-										<div class="col-lg-2 col-12">
+											<div class="col-lg-2 col-12">
 											<select class="form-select" id="shOption" name="shOption">
 												<option value="" th:selected="${vo.shOption == null}">검색구분</option>
 												<option value="1" th:selected="${vo.shOption == 1}">상품 번호</option>
@@ -257,7 +255,7 @@
 												th:value="${vo.shValue}" onkeyup="enterkey()" placeholder="검색어">
 											<div class="invalid-feedback" id="shValueFeedback"></div>
 										</div>
-										<div class="col-lg-6 col-12">
+										<div class="col-lg-2 col-12">
 											<div class="d-flex flex-column flex-md-row gap-2">
 												<button type="submit" id="btnSearch" class="btn btn-secondary"><i class="bi bi-search"></i></button>
 												<a href="/productHOXdmList" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i></a>

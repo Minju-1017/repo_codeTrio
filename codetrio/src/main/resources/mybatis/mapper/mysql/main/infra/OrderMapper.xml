@@ -323,8 +323,7 @@
 					and shDateEnd != null and !shDateEnd.equals('')">
 					AND a.oDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
 				</when>	
-			</choose>	
-			<if test="shStateOption != null and !shStateOption.equals('')">AND a.oStateCd = #{shStateOption}</if>
+			</choose>
 	        <choose>
 	            <when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
 	            <when test="shOption == 2">AND a.oReceiver LIKE CONCAT('%',#{shValue},'%')</when>
@@ -375,7 +374,6 @@
 					AND a.oDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
 				</when>	
 			</choose>	
-			<if test="shStateOption != null and !shStateOption.equals('')">AND a.oStateCd = #{shStateOption}</if>
 	        <choose>
 	            <when test="shOption == 1">AND a.oSeq LIKE CONCAT('%',#{shValue},'%')</when>
 	            <when test="shOption == 2">AND a.oReceiver LIKE CONCAT('%',#{shValue},'%')</when>

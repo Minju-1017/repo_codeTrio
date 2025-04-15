@@ -320,10 +320,17 @@
 											<td th:text="${list?.vName}"></td>
 											<td th:text="${list?.pStock}"></td>
 											<td>
-											<select class="form-select"  th:name="|opStateCd${listindex.index}|" th:id="|opStateCd${listindex.index}|" disabled required>
+											<select th:if="${#strings.equals(orderItem.oStateCd, @constants.ORDERS_CODE_SEQ_ORDER_STATE_NEW)}" 
+												class="form-select"  th:name="|opStateCd${listindex.index}|" th:id="|opStateCd${listindex.index}|" disabled required>
 												<option value="" >선택</option>
 												<option th:unless="${#strings.equals(codeList.cSeq, @constants.ORDERS_CODE_SEQ_ORDER_PRODUCT_STATE_IN)}"
 													th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE)}"
+													th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
+													th:selected="${#strings.equals(codeList.cSeq, list.opStateCd)}"></option>
+											</select>
+											<select th:unless="${#strings.equals(orderItem.oStateCd, @constants.ORDERS_CODE_SEQ_ORDER_STATE_NEW)}" 
+												class="form-select"  th:name="|opStateCd${listindex.index}|" th:id="|opStateCd${listindex.index}|" disabled required>
+												<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE)}"
 													th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
 													th:selected="${#strings.equals(codeList.cSeq, list.opStateCd)}"></option>
 											</select>

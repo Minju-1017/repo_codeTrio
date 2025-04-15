@@ -206,18 +206,18 @@
 										th:value="${session.sessSeqHOXdm}">
 									<div class="col-lg-3 col-12">
 										<label for="oReceiver" class="form-label">수취인</label> <input
-											type="text" class="form-control" id="oReceiver"
-											name="oReceiver" />
+											type="text" class="form-control ss" id="oReceiver"
+											name="oReceiver" autocomplete="off" required/>
 									</div>
 									<div class="col-lg-3 col-12">
 										<label for="oReceiverTel" class="form-label">수취인 연락처</label> <input
-											type="text" class="form-control" id="oReceiverTel"
-											name="oReceiverTel" />
+											type="text" class="form-control ss" id="oReceiverTel"
+											name="oReceiverTel" autocomplete="off" required/>
 									</div>
 									<div class="col-lg-3 col-12">
 										<label for="oReceiverAddr" class="form-label">수취인 주소</label> <input
-											type="text" class="form-control" id="oReceiverAddr"
-											name="oReceiverAddr" />
+											type="text" class="form-control ss" id="oReceiverAddr"
+											name="oReceiverAddr" autocomplete="off" required/>
 									</div>
 
 									<div class="table-responsive mt-4" style="padding-top: 30px;">
@@ -239,14 +239,16 @@
 											<tbody>
 												<tr>
 													<td style="width: 300px;"><select
-														class="form-select item" name="items[0].product_pSeq">
+														class="form-select item" name="items[0].product_pSeq" onchange="distinct(this)">
 															<option value="">상품 선택</option>
 															<option th:each="List:${productList}"
 																th:text="${List.pName}" th:value="${List.pSeq}"></option>
-													</select></td>
+													</select>
+													<div id="selectInvalid" class="invalid-feedback"></div>
+													</td>
 													<td style="width: 200px"><input
-														class="form-control item" id="bpAmount"
-														name="items[0].bpAmount" /></td>
+														class="form-control item ss" id="bpAmount"
+														name="items[0].bpAmount" autocomplete="off" required/></td>
 													<td><a type="button" class="btn btn-outline-secondary"
 														onclick="minus(this)">X</a></td>
 													<td></td>
@@ -322,7 +324,24 @@
 		// tbody에 행 추가
 		tbody.appendChild(clone);
 	}
-
+	function distinct(me){
+		let select = document.querySelectorAll("select");
+		let thisSelect = me.value;
+		
+		for(let i = 0 ; i< select.length; i++){
+			if(select[i].value == thisSelect && select[i] != me){
+				me.classList.remove("is-valid");
+				me.classList.add("is-invalid");
+				return false;
+			}else{
+				me.classList.remove("is-invalid");
+				me.classList.add("is-valid");
+				continue;
+			}
+		}
+	}
+	
+	
 	function minus(button) {
 		let tbody = document.querySelector("table tbody");
 		let row = button.closest("tr");
@@ -335,14 +354,51 @@
 
 	document.querySelector("#btnSave").onclick = function() {
 		let item = document.querySelectorAll(".item");
+		let ss = document.querySelectorAll(".ss");
+		let invalid = document.getElementsByClassName("is-invalid");
+		let flag = true;
 		for (let i = 0; i < item.length; i++) {
 			if (item[i].value == null || item[i].value == "") {
-				item[i].removeAttribute("name");
+				item[i].classList.remove("is-valid");
+				item[i].classList.add("is-invalid");
+				flag = false;
+			}else{
+				item[i].classList.remove("is-invalid");
+				item[i].classList.add("is-valid");
 			}
 		}
-
+		for(let i = 0 ; i < item.length; i++){
+			let itemI = item[i].value;
+			for(let j = 0; j < item.length ; j++){
+				let itemJ = item[j].value;
+				if(i != j && itemI === itemJ){
+					item[i].classList.remove("is-valid");
+					item[i].classList.add("is-invalid");
+					item[j].classList.remove("is-valid");
+					item[j].classList.add("is-invalid");
+					document.querySelector("#selectInvalid").textContent ="중복되는 상품이 있습니다.";
+					flag = false;
+					continue;
+				}
+			}
+		}
+		for(let i = 0; i < ss.length; i++){
+			if(ss[i].value.trim() === null || ss[i].value.trim() === ""){
+				ss[i].classList.remove("is-valid");
+				ss[i].classList.add("is-invalid");
+				flag = false;
+			}else{
+				ss[i].classList.remove("is-invalid");
+				ss[i].classList.add("is-valid");
+				
+			}
+		}
+		if(flag){
 		fom.action = "/hoxdm/order/UserOrderProductHOXdmInst"
 		fom.submit();
+		}else{
+			invalid[0].focus();
+		}
 	}
 </script>
 

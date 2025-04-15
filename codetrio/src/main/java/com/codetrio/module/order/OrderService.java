@@ -87,5 +87,8 @@ public class OrderService {
 	public int updateStock(OrderDto orderDto) {
 		return dao.updateStock(orderDto);
 	}
+	public int updateState(OrderDto orderDto) {
+		return dao.updateState(orderDto);
+	}
 	
 }

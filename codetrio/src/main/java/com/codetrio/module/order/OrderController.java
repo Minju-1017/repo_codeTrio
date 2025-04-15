@@ -185,7 +185,7 @@ public class OrderController {
 			if (successCnt > 0) {
 				if (opSeqList.size() > 0 && opStateCdList.size() > 0) {
 					int opSuccessCnt = 0;
-					
+					service.updateState(orderDto);
 					for (int i = 0; i < opSeqList.size(); i++) {
 						OrderDto dto = new OrderDto();
 						
@@ -199,7 +199,6 @@ public class OrderController {
 						
 						dto.setpSeq(pSeqList.get(i));
 						dto.setpStock(stockList.get(i));
-						
 						service.updateStock(dto);
 					}
 					

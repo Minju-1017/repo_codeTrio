@@ -28,4 +28,5 @@ public interface OrderDao {
 	public int ordersInsert(OrderDto orderDto);
 	public int ordersProductInsert(OrderDto orderDto);
 	public int updateStock(OrderDto orderDto);
+	public int updateState(OrderDto orderDto);
 }

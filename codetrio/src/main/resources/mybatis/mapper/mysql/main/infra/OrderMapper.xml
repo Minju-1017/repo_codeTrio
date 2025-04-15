@@ -140,6 +140,14 @@
 		)
 		</foreach>
 	</insert>
+	<update id="updateState">
+		update orders
+		set
+			oStateCd = 3
+		where
+			oSeq = #{oSeq}
+	
+	</update>
 	
 	<update id="update">
 		UPDATE orders

@@ -233,14 +233,14 @@
 													<td><select class="form-select stockSelect"
 														th:name="|opStateCd${listindex.index}|"
 														th:id="|opStateCd${listindex.index}|"
-														th:onchange="stockChange(this)" required>
+														th:onchange="stockChange(this)" required th:disabled="${list.opStateCd == '6'}">
 															<option value="">선택</option>
 															<option
 																th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE)}"
 																th:value="${codeList.cSeq}" th:text="${codeList.cName}"
 																th:selected="${#strings.equals(codeList.cSeq, list.opStateCd)}"></option>
 													</select>
-														<div class="invalid-feedback">상품상태를 선택해주세요</div></td>
+														<div class="invalid-feedback">창고 입고를 등록해주세요</div></td>
 												</tr>
 											</tbody>
 										</table>
@@ -291,61 +291,87 @@
 	let stockArr = new Array;
 	function stockChange(line) {
 		let tr = line.closest("tr");
-		let stockSelect = tr.querySelector(".stockSelect").value;
+		let stockSelect = tr.querySelector(".stockSelect");
 		let pSeq = tr.querySelector("input[name=pSeq]").value;
 		let pStock = tr.querySelector("input[name=pStock]").value;
 		let bpAmount = tr.querySelector("input[name=bpAmount]").value;
-		if (stockSelect === "8") {
+		
+		if (stockSelect.value === "8") {
 			pStock = bpAmount;
+			stockSelect.classList.remove("is-invalid");
+			stockSelect.classList.add("is-valid");
+		}else {
+			stockSelect.classList.remove("is-valid");
+			stockSelect.classList.add("is-invalid");
+			stockSelect.focus();
 		}
 		pSeqArr.push(pSeq);
 		stockArr.push(pStock);
 	}
 	// btnSave 클릭시
 	document.getElementById("btnSave").onclick = function() {
-		var focus = false; // Validation 후 Focus 줘야 하는 Input
+		var flag = true; // Validation 후 Focus 줘야 하는 Input
+		let select = document.querySelectorAll(".stockSelect");
 		console.log(pSeqArr);
 		console.log(stockArr);
-		for (let i = 0; i < arrProductList.length; i++) {
-			var opStateCd = arrProductList[i];
-
-			resetValidation(opStateCd);
-
-			if (!strValidation(opStateCd)) {
-				opStateCd.classList.add("is-invalid");
-
-				if (!focus) {
-					opStateCd.focus();
-					focus = true;
-				}
-
-			} else {
-				opStateCd.classList.add("is-valid");
+		
+		for(let i = 0 ; i < select.length ; i++){
+			if (select[i].value === "8" ) {
+				select[i].classList.remove("is-invalid");
+				select[i].classList.add("is-valid");
+			}else if(select[i].value === "7"){
+				select[i].classList.remove("is-valid");
+				select[i].classList.add("is-invalid");
+				select[0].focus();
+				flag = false;
+			}else {
+				select[0].focus();
+				flag = false;
 			}
-
 		}
+// 		for (let i = 0; i < arrProductList.length; i++) {
+// 			var opStateCd = arrProductList[i];
+
+// 			resetValidation(opStateCd);
+
+// 			if (!strValidation(opStateCd)) {
+// 				opStateCd.classList.add("is-valid");
+
+// 				if (!focus) {
+// 					opStateCd.focus();
+// 					focus = true;
+// 				}
+
+// 			} else {
+// 				opStateCd.classList.add("is-invalid");
+// 			}
+
+// 		}
 
 		// 		Focus 줘야 하는 Input(Validation에 처음으로 걸린 Input)이 있는지 확인
-		if (focus)
+		if (flag){
+			submit();
+		}else{
 			return false;
-
-		submit();
+		}
+			
+			
 	}
 
 	// 	opStateCd list Input 시 체크
-	for (let i = 0; i < arrProductList.length; i++) {
-		arrProductList[i].addEventListener("input", function() {
-			var opStateCd = arrProductList[i];
+// 	for (let i = 0; i < arrProductList.length; i++) {
+// 		arrProductList[i].addEventListener("input", function() {
+// 			var opStateCd = arrProductList[i];
 
-			resetValidation(opStateCd);
+// 			resetValidation(opStateCd);
 
-			if (!strValidation(opStateCd)) {
-				opStateCd.classList.add("is-invalid");
-			} else {
-				opStateCd.classList.add("is-valid");
-			}
-		});
-	}
+// 			if (!strValidation(opStateCd)) {
+// 				opStateCd.classList.add("is-invalid");
+// 			} else {
+// 				opStateCd.classList.add("is-valid");
+// 			}
+// 		});
+// 	}
 
 	function submit() {
 		var opSeqArr = new Array;

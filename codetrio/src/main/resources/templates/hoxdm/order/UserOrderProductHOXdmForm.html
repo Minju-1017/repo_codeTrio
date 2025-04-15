@@ -329,7 +329,7 @@
 		tbody.appendChild(clone);
 	}
 	function distinct(me){
-		let select = document.querySelectorAll("select");
+		let select = document.querySelectorAll(".form-select");
 		let thisSelect = me.value;
 		
 		for(let i = 0 ; i< select.length; i++){
@@ -347,14 +347,30 @@
 			let itemI = select[i].value;
 			for(let j = 0; j < select.length ; j++){
 				let itemJ = select[j].value;
-				if(!i != j && itemI === itemJ && select[i].value == null
-					&&	select[j].value ==null && select[i].value == ""
-					&&  select[j].value == ""
+				if(i !== j && itemI !== itemJ && select[i].value !=null
+					&&	select[j].value !=null && select[i].value != ""
+					&&  select[j].value != ""
 				){
 					select[i].classList.remove("is-invalid");
 					select[i].classList.add("is-valid");
 					select[j].classList.remove("is-invalid");
 					select[j].classList.add("is-valid");
+					continue;
+				}
+			}
+		}
+		for(let i = 0 ; i < select.length; i++){
+			let itemI = select[i].value;
+			for(let j = 0; j < select.length ; j++){
+				let itemJ = select[j].value;
+				if(i !== j && itemI === itemJ && select[i].value !=null
+					&&	select[j].value !=null && select[i].value != ""
+					&&  select[j].value != ""
+				){
+					select[i].classList.remove("is-valid");
+					select[i].classList.add("is-invalid");
+					select[j].classList.remove("is-valid");
+					select[j].classList.add("is-invalid");
 					continue;
 				}
 			}
@@ -398,7 +414,6 @@
 					select[i].classList.add("is-invalid");
 					select[j].classList.remove("is-valid");
 					select[j].classList.add("is-invalid");
-					document.querySelector("#selectInvalid").textContent ="중복되는 상품이 있습니다.";
 					flag = false;
 					continue;
 				}

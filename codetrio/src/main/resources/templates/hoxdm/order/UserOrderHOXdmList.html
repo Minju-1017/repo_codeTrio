@@ -378,6 +378,7 @@
 	let fom = document.querySelector("form[name=formList]");
 	let goUrlXdmList = "/hoxdm/order/UserOrderHOXdmList";
 	let goUrlXdmForm = "/hoxdm/order/UserOrderHOXdmForm";
+	let goUrlXdmListDeleProc = "/hoxdm/order/UserOrderHOXdmDeleProc";
 	
 	function submit(goUrl) {
 		fom.action = goUrl;
@@ -389,7 +390,7 @@
 <script type="text/javascript">
 	// 데이터 추가
 	document.getElementById("btnForm").onclick = function () {
-	    goForm();
+	    goForm(0);
 	}
 	
 	// 데이터 추가/수정
@@ -416,22 +417,10 @@
 	};
 </script>
 
-<!-- Table Check Box 처리 (Uelete/Delete/Update)-->
+<!-- Table Check Box 처리 (Delete)-->
 <script type="text/javascript">
 	document.getElementById("checkAll").onclick = function() {
 		allCheck("check", this.checked);
-	}
-	
-	document.getElementById("modify").onclick = function() {
-		modifyCheckedElement("1개의 주문");
-	}
-	
-	document.getElementById("uelete").onclick = function() {
-		ueleteCheckedElementsModal("주문을");
-	}
-	
-	document.getElementById("btnModalUelete").onclick = function () {
-		ueleteCheckedElements(goUrlXdmListUeleProc, goUrlXdmList);
 	}
 	
 	document.getElementById("delete").onclick = function() {

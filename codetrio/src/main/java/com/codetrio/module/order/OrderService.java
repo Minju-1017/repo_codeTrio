@@ -91,4 +91,11 @@ public class OrderService {
 		return dao.updateState(orderDto);
 	}
 	
+	public int listDelete(List<String> seqList) {
+		return dao.listDelete(seqList);
+	}
+	
+	public int listProductDelete(List<OrderDto> seqList) {
+		return dao.listProductDelete(seqList);
+	}
 }

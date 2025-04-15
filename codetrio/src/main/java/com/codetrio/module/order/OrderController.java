@@ -1,5 +1,6 @@
 package com.codetrio.module.order;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -315,5 +316,62 @@ public class OrderController {
 		}
 		
 		return "hoxdm/order/DeliOrderHOXdmList"; 
+	}
+	
+	/**
+	 * Ajax를 통한 여러건 데이터 삭제
+	 * @param seqList
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody			
+	@RequestMapping(value = "/hoxdm/order/UserOrderHOXdmDeleProc")
+	public Map<String, Object> userOrderHOXdmDeleProc(
+			@RequestParam(value="chbox") List<String> seqList) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		if (seqList == null || (seqList != null && seqList.size() == 0)) {
+			returnMap.put("rt", "fail");
+		} else {
+			List<Boolean> successProductDelete = new ArrayList<Boolean>();
+			
+			for (String seq : seqList) {
+				// 주문한 상품이 여러개일 수 있으므로, List로 읽는다
+				OrderDto dto = new OrderDto();
+				dto.setoSeq(seq);
+				List<OrderDto> dtoList = service.selectOne(dto);
+				
+				// 상품 리스트 전부 삭제했는지 체크
+				int successProductListCnt = service.listProductDelete(dtoList);
+				
+				if (dtoList.size() == successProductListCnt) {
+					successProductDelete.add(true);
+				} else {
+					successProductDelete.add(false);
+				}
+			}
+			
+			// 삭제하려는 주문의 상품들이 모두 삭제 되었는지 체크
+			int successProductCnt = 0;
+			
+			for (Boolean success : successProductDelete) {
+				if (success) successProductCnt++;
+			}
+
+			// 상품 리스트 전부 삭제 했으면, 주문 리스트 삭제
+			if (successProductCnt == seqList.size()) {
+				int successCnt = service.listDelete(seqList);
+				
+				if (successCnt > 0) {
+					returnMap.put("rt", "success");
+				} else {
+					returnMap.put("rt", "fail");
+				}
+			} else {
+				returnMap.put("rt", "fail");
+			}
+		}
+
+		return returnMap;
 	}
 }

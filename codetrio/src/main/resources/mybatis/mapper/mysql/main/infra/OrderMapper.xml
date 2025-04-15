@@ -446,4 +446,21 @@
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
 	
+	<delete id="listDelete" parameterType="java.util.List">
+		DELETE FROM orders
+		<where>
+			<foreach collection="list" item="item" separator="or" open="" close="">
+				(oSeq=#{item})
+			</foreach>
+		</where>
+	</delete>
+	
+	<delete id="listProductDelete" parameterType="java.util.List">
+		DELETE FROM ordersProduct
+		<where>
+			<foreach collection="list" item="item" separator="or" open="" close="">
+				(opSeq=#{item.opSeq})
+			</foreach>
+		</where>
+	</delete>
 </mapper>

@@ -29,4 +29,6 @@ public interface OrderDao {
 	public int ordersProductInsert(OrderDto orderDto);
 	public int updateStock(OrderDto orderDto);
 	public int updateState(OrderDto orderDto);
+	public int listDelete(List<String> seqList);
+	public int listProductDelete(List<OrderDto> seqList);
 }

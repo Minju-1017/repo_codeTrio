@@ -241,6 +241,8 @@ function deleteCheckedElements(goUrl, successUrl) {
 	$('input:checkbox[name=check]:checked').each(function () {
 		checkArr.push($(this).val());
     })
+	
+	alert(goUrl);
 	  
 	$.ajax({
 		async: true 

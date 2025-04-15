@@ -152,6 +152,8 @@
 	<update id="update">
 		UPDATE orders
 		SET
+			oDeliveryCompCd=#{oDeliveryCompCd},
+			oDeliveryNo=#{oDeliveryNo},
 			oStateCd=#{oStateCd}
 		WHERE
 			oSeq=#{oSeq}
@@ -420,6 +422,8 @@
 		    a.oStateCd,
 		    a.oDate,
 		    a.oReceiver,
+		    a.oDeliveryNo,
+		    a.oDeliveryCompCd,
 		    a.oReceiverTel,
 		    a.oReceiverAddr,
 		    a.user_uSeq

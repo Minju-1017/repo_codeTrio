@@ -220,11 +220,11 @@
 											<td th:text="${list?.vName}"></td>
 											<td th:text="${list?.pStock}"></td>
 											<td>
-											<select class="form-select"  th:name="|opStateCd${listindex.index}|" th:id="|opStateCd${listindex.index}|" required>
-												<option value="" >선택</option>
+											<select class="form-select"  th:name="|opStateCd${listindex.index}|" th:id="|opStateCd${listindex.index}|" required disabled>
+												<option value=""  >선택</option>
 												<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE)}"
 												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
-												th:selected="${#strings.equals(codeList.cSeq, list.opStateCd)}"></option>
+												th:selected="${#strings.equals(codeList.cSeq, list.opStateCd)}" ></option>
 											</select>
 											<div class="invalid-feedback">상품상태를 선택해주세요</div>
 											</td>
@@ -263,6 +263,9 @@
 
 	let listsize = document.getElementById("listsize").value;
 	let arrProductList = new Array(); // Validation 필요한 셀렉트박스 사이즈
+	let oStateCd = document.getElementById("oStateCd");
+	let oDeliveryCompCd = document.getElementById("oDeliveryCompCd");
+	let oDeliveryNo = document.getElementById("oDeliveryNo");
 	
 	for(let i = 0 ; i < listsize; i++) {
 		arrProductList[i] = document.getElementById("opStateCd" + i);
@@ -271,10 +274,34 @@
 
 <!-- Validation: Bootstrap -->
 <script type="text/javascript">
+//input 체크
+	oStateCd.addEventListener("input", function() {
+		resetValidation(oStateCd);
+		
+		if (oStateCd.value == 4) { // 배송준비중 상태로만 수정 가능
+			oStateCd.classList.add("is-valid");
+				
+				resetValidation(oDeliveryCompCd);
+				oDeliveryCompCd.disabled = false;
+				oDeliveryCompCd.value = "";
+				
+				resetValidation(oDeliveryNo);
+				oDeliveryNo.disabled = false;
+				oDeliveryNo.value = "";
+		} else {
+			oStateCd.classList.add("is-invalid");
+				
+				resetValidation(oDeliveryCompCd);
+				oDeliveryCompCd.disabled = true;
+				oDeliveryCompCd.value = "";
+		}
+	});
+</script>
+
+<script type="text/javascript">
 	// btnSave 클릭시
 	document.getElementById("btnSave").onclick = function() {
 		var focus = false; // Validation 후 Focus 줘야 하는 Input
-		
 		for(let i = 0 ; i < arrProductList.length; i++) {
 			var opStateCd = arrProductList[i];
 
@@ -315,6 +342,7 @@
 		});
 	}
 	
+	
 	function submit() {
 		var opSeqArr = new Array;
 		var opStateCdArr = new Array;
@@ -333,6 +361,8 @@
 			,data : { 
 				"oSeq" : $("#oSeq").val(), 
 				"oStateCd" : $("#oStateCd").val(), 
+				"oDeliveryNo" : $("#oDeliveryNo").val(), 
+				"oDeliveryCompCd" : $("#oDeliveryCompCd").val(), 
 				opSeqList : opSeqArr,
 				opStateCdList : opStateCdArr
 			}

@@ -242,7 +242,6 @@ function deleteCheckedElements(goUrl, successUrl) {
 		checkArr.push($(this).val());
     })
 	
-	alert(goUrl);
 	  
 	$.ajax({
 		async: true 

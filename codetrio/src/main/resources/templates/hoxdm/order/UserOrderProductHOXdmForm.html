@@ -314,10 +314,14 @@
 		// 복제한 행의 입력값 초기화
 		clone.querySelector('select').selectedIndex = 0;
 		clone.querySelector('select').removeAttribute("name");
+		clone.querySelector('select').classList.remove("is-invalid");
+		clone.querySelector('select').classList.remove("is-valid");
 		clone.querySelector('select').setAttribute("name",
 				"items[" + tbody.rows.length + "].product_pSeq");
 		clone.querySelector('input').value = "";
 		clone.querySelector('input').removeAttribute("name");
+		clone.querySelector('input').classList.remove("is-invalid");
+		clone.querySelector('input').classList.remove("is-valid");
 		clone.querySelector('input').setAttribute("name",
 				"items[" + tbody.rows.length + "].bpAmount");
 
@@ -339,6 +343,22 @@
 				continue;
 			}
 		}
+		for(let i = 0 ; i < select.length; i++){
+			let itemI = select[i].value;
+			for(let j = 0; j < select.length ; j++){
+				let itemJ = select[j].value;
+				if(!i != j && itemI === itemJ && select[i].value == null
+					&&	select[j].value ==null && select[i].value == ""
+					&&  select[j].value == ""
+				){
+					select[i].classList.remove("is-invalid");
+					select[i].classList.add("is-valid");
+					select[j].classList.remove("is-invalid");
+					select[j].classList.add("is-valid");
+					continue;
+				}
+			}
+		}
 	}
 	
 	
@@ -356,6 +376,7 @@
 		let item = document.querySelectorAll(".item");
 		let ss = document.querySelectorAll(".ss");
 		let invalid = document.getElementsByClassName("is-invalid");
+		
 		let flag = true;
 		for (let i = 0; i < item.length; i++) {
 			if (item[i].value == null || item[i].value == "") {
@@ -367,15 +388,16 @@
 				item[i].classList.add("is-valid");
 			}
 		}
-		for(let i = 0 ; i < item.length; i++){
-			let itemI = item[i].value;
-			for(let j = 0; j < item.length ; j++){
-				let itemJ = item[j].value;
+		let select = document.querySelectorAll(".form-select");
+		for(let i = 0 ; i < select.length; i++){
+			let itemI = select[i].value;
+			for(let j = 0; j < select.length ; j++){
+				let itemJ = select[j].value;
 				if(i != j && itemI === itemJ){
-					item[i].classList.remove("is-valid");
-					item[i].classList.add("is-invalid");
-					item[j].classList.remove("is-valid");
-					item[j].classList.add("is-invalid");
+					select[i].classList.remove("is-valid");
+					select[i].classList.add("is-invalid");
+					select[j].classList.remove("is-valid");
+					select[j].classList.add("is-invalid");
 					document.querySelector("#selectInvalid").textContent ="중복되는 상품이 있습니다.";
 					flag = false;
 					continue;

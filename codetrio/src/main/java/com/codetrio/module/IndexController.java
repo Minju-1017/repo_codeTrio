@@ -18,8 +18,14 @@ public class IndexController {
 	
 	@RequestMapping(value = "/hoxdm/index")	
 	public String hoxdmIndex(Model model) {
-		model.addAttribute("totalPrice",productService.totalPrice());
-		model.addAttribute("totalOrder",productService.totalOrder());
+		Integer totalPrice = productService.totalPrice();
+		if (totalPrice == null) totalPrice = 0;
+		
+		Integer totalOrder = productService.totalOrder();
+		if (totalOrder == null) totalOrder = 0;
+		
+		model.addAttribute("totalPrice",totalPrice);
+		model.addAttribute("totalOrder",totalOrder);
 		return path_hoAdmin + "index";
 	}
 	

@@ -34,10 +34,10 @@ public class ProductService {
 		public List<ProductDto> codeList(ProductDto productDto){
 			return productDao.codeList(productDto);
 		}
-		public int totalPrice() {
+		public Integer totalPrice() {
 			return productDao.totalPrice();
 		}
-		public int totalOrder() {
+		public Integer totalOrder() {
 			return productDao.totalOrder();
 		}
 }

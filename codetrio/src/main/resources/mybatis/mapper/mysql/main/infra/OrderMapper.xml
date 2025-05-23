@@ -132,7 +132,7 @@
 		)	
 	</insert>
 	<insert id="ordersProductInsert">
-		insert into ordersproduct
+		insert into ordersProduct
 		(
 			product_pSeq,
 			bpAmount,

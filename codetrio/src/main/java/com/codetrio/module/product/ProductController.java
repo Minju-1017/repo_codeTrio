@@ -24,14 +24,14 @@ public class ProductController {
 		model.addAttribute("list",productService.productList(vo));
 		return "whxdm/product/productWHXdmList";
 	}
-	@RequestMapping(value = "/ProductHOXdmList")
+	@RequestMapping(value = "/productHOXdmList")
 	public String productHOXdmList(@ModelAttribute("vo")ProductVo vo, Model model,HttpSession httpSession,MemberDto memberDto) {
 		vo.setParamsPaging(productService.selectCount(vo));
 		memberDto.setuSeq(String.valueOf(httpSession.getAttribute("sessSeqHOXdm")));
 		model.addAttribute("list",productService.productList(vo));
-		return "hoxdm/product/ProductHOXdmList";
+		return "hoxdm/product/productHOXdmList";
 	}
-	@RequestMapping(value = "/ProductHOXdmForm")
+	@RequestMapping(value = "/productHOXdmForm")
 	public String productHOXdmForm(ProductDto productDto, Model model,HttpSession httpSession,MemberDto memberDto) {
 		memberDto.setuSeq(String.valueOf(httpSession.getAttribute("sessSeqHOXdm")));
 		if(productDto.getpSeq().equals("0")  || productDto.getpSeq().equals("")) {
@@ -43,7 +43,7 @@ public class ProductController {
 			model.addAttribute("vList",productService.venderList(productDto));
 		}
 		
-		return "hoxdm/product/ProductHOXdmForm";
+		return "hoxdm/product/productHOXdmForm";
 	}
 	@RequestMapping(value = "/productWHXdmForm")
 	public String productWHXdmForm(ProductDto productDto, Model model,HttpSession httpSession,MemberDto memberDto) {
@@ -58,17 +58,17 @@ public class ProductController {
 	@RequestMapping(value = "/productHOXdmInst")
 	public String productHOXdmInst(ProductDto productDto) {
 		productService.productInsert(productDto);
-		return "redirect:/ProductHOXdmList";
+		return "redirect:/productHOXdmList";
 	}
 	@RequestMapping(value = "/productHOXdmUpdt")
 	public String productHOXdmUpdt(ProductDto productDto) {
 		productService.productUpdate(productDto);
-		return "redirect:/ProductHOXdmList";
+		return "redirect:/productHOXdmList";
 	}
 	@RequestMapping(value = "/productHOXdmUele")
 	public String productHOXdmUele(ProductDto productDto) {
 		productService.productUelete(productDto);
-		return "redirect:/ProductHOXdmList";
+		return "redirect:/productHOXdmList";
 	}
 	@RequestMapping(value = "/productWHXdmUpdt")
 	public String productWHXdmUpdt(ProductDto productDto) {
